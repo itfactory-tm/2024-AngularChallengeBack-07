@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ./FritFest.API/FritFest.API  # Path to the Dockerfile
+      dockerfile: Dockerfile                    # Specify the Dockerfile name if it’s not the default
+    ports:
+      - "5000:80"  # Maps port 80 in the container to port 5000 on the host
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=mydb;User=seppe;Password=seppe;
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: festivaldb
+      MYSQL_USER: seppe
+      MYSQL_PASSWORD: seppe
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./FritFest.API/sql/init.sql:/docker-entrypoint-initdb.d/init.sql  # Copy the SQL script
+
+volumes:
+  dbdata:
