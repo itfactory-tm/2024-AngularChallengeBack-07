@@ -1,211 +1,224 @@
-Drop Table if exists DagList;
-Drop Table if exists Dag;
-Drop Table if exists Ticket;
-Drop Table if exists Tijdstip;
-Drop Table if exists Tickettype;
-Drop Table if exists Podium;
-Drop Table if exists Artiest;
-Drop Table if exists Genre;
+DROP TABLE IF EXISTS DagList;
+DROP TABLE IF EXISTS Foto;
+DROP TABLE IF EXISTS Nieuws;
+DROP TABLE IF EXISTS SponsorLijst;
+DROP TABLE IF EXISTS Sponsors;
+DROP TABLE IF EXISTS Menu;
+DROP TABLE IF EXISTS FoodTrucks;
+DROP TABLE IF EXISTS Locaties;
+DROP TABLE IF EXISTS Ticket;
+DROP TABLE IF EXISTS Tickettype;
+DROP TABLE IF EXISTS Tijdstip;
+DROP TABLE IF EXISTS Dag;
+DROP TABLE IF EXISTS Podium;
+DROP TABLE IF EXISTS Artiest;
+DROP TABLE IF EXISTS Genre;
+DROP TABLE IF EXISTS Editie;
 
 -- Step 1: Create the Database
 CREATE DATABASE IF NOT EXISTS FestivalDB;
 USE FestivalDB;
 
--- Step 2: Create the Genre Table
+-- Create tables
+-- Create Genre table
 CREATE TABLE Genre (
-    genreId Char(36) Not Null PRIMARY KEY,
-    naam VARCHAR(100) NOT NULL
+    genreId CHAR(36) PRIMARY KEY,
+    naam VARCHAR(255) NOT NULL
 );
 
--- Step 3: Create the Artiest (Artist) Table
+-- Create Artiest (Artist) table
 CREATE TABLE Artiest (
-    artiestId Char(36) Not Null PRIMARY KEY,
-    naam VARCHAR(100) NOT NULL,
-    email VARCHAR(100),
-    genreId Char(36),
-    FOREIGN KEY (genreId) REFERENCES Genre(genreId) ON DELETE SET NULL
+    artiestId CHAR(36) PRIMARY KEY,
+    naam VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    genreId CHAR(36),
+    FOREIGN KEY (genreId) REFERENCES Genre(genreId)
 );
 
--- Step 4: Create the Podium (Stage) Table
+-- Create Locatie (Location) table
+CREATE TABLE Locatie (
+    locatieId CHAR(36) PRIMARY KEY,
+    naam VARCHAR(255) NOT NULL,
+    coordinaten VARCHAR(255) NOT NULL
+);
+
+-- Create Podium (Stage) table
 CREATE TABLE Podium (
-    podiumId Char(36) Not Null PRIMARY KEY,
-    naam VARCHAR(100) NOT NULL,
-    coordinaten VARCHAR(100)
+    podiumId CHAR(36) PRIMARY KEY,
+    naam VARCHAR(255) NOT NULL,
+    locatieId CHAR(36),
+    FOREIGN KEY (locatieId) REFERENCES Locatie(locatieId)
 );
 
--- Step 5: Create the Tijdstip (Time Slot) Table
-CREATE TABLE Tijdstip (
-    tijdstipId Char(36) Not Null PRIMARY KEY,
-    tijdstip DATETIME NOT NULL,
-    artiestId Char(36),
-    podiumId Char(36),
-    FOREIGN KEY (artiestId) REFERENCES Artiest(artiestId) ON DELETE CASCADE,
-    FOREIGN KEY (podiumId) REFERENCES Podium(podiumId) ON DELETE CASCADE
-);
-
--- Step 6: Create the Dag (Day) Table
+-- Create Dag (Day) table
 CREATE TABLE Dag (
-    dagId Char(36) Not Null PRIMARY KEY,
+    dagId CHAR(36) PRIMARY KEY,
     date DATE NOT NULL
 );
 
--- Step 7: Create the Tickettype (Ticket Type) Table
+-- Create Tijdstip (Time Slot) table
+CREATE TABLE Tijdstip (
+    tijdstipId CHAR(36) PRIMARY KEY,
+    tijdstip TIMESTAMP NOT NULL,
+    artiestId CHAR(36),
+    podiumId CHAR(36),
+    FOREIGN KEY (artiestId) REFERENCES Artiest(artiestId),
+    FOREIGN KEY (podiumId) REFERENCES Podium(podiumId)
+);
+
+-- Create Tickettype (Ticket Type) table
 CREATE TABLE Tickettype (
-    typeId Char(36) Not Null PRIMARY KEY,
-    naam VARCHAR(100) NOT NULL
+    typeId CHAR(36) PRIMARY KEY,
+    naam VARCHAR(255) NOT NULL
 );
 
--- Step 8: Create the Ticket Table
+-- Create Ticket table
 CREATE TABLE Ticket (
-    ticketId Char(36) Not Null PRIMARY KEY,
-    prijs DECIMAL(10,2) NOT NULL,
-    typeId Char(36),
-    firstName VarChar(50),
-	lastName VarChar(50),
-	telephoneNumber VarChar(50),
-	email VarChar(50),
-    FOREIGN KEY (typeId) REFERENCES Tickettype(typeId) ON DELETE SET NULL
+    ticketId CHAR(36) PRIMARY KEY,
+    prijs DECIMAL(10, 2) NOT NULL,
+    typeId CHAR(36),
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    telephoneNumber VARCHAR(15) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    FOREIGN KEY (typeId) REFERENCES Tickettype(typeId)
 );
 
--- Step 9: Create the DagList (Day List) Table
+-- Create DagList (Day List) table
 CREATE TABLE DagList (
-    ticketListId Char(36) Not Null PRIMARY KEY,
-    ticketId Char(36),
-    dagId Char(36),
-    FOREIGN KEY (ticketId) REFERENCES Ticket(ticketId) ON DELETE CASCADE,
-    FOREIGN KEY (dagId) REFERENCES Dag(dagId) ON DELETE CASCADE
+    ticketId CHAR(36),
+    dagId CHAR(36),
+    PRIMARY KEY (ticketId, dagId),
+    FOREIGN KEY (ticketId) REFERENCES Ticket(ticketId),
+    FOREIGN KEY (dagId) REFERENCES Dag(dagId)
+);
+
+-- Create FoodTruck table
+CREATE TABLE FoodTruck (
+    foodTruckId CHAR(36) PRIMARY KEY,
+    naam VARCHAR(255) NOT NULL,
+    locatieId CHAR(36),
+    FOREIGN KEY (locatieId) REFERENCES Locatie(locatieId)
+);
+
+-- Create MenuItem table
+CREATE TABLE MenuItem (
+    menuItemId CHAR(36) PRIMARY KEY,
+    naam VARCHAR(255) NOT NULL,
+    prijs DECIMAL(10, 2) NOT NULL,
+    foodTruckId CHAR(36),
+    FOREIGN KEY (foodTruckId) REFERENCES FoodTruck(foodTruckId)
+);
+
+-- Create Sponsor table
+CREATE TABLE Sponsor (
+    sponsorId CHAR(36) PRIMARY KEY,
+    naam VARCHAR(255) NOT NULL,
+    logo VARCHAR(255) NOT NULL
+);
+
+-- Create NieuwsArtikel (News Article) table
+CREATE TABLE NieuwsArtikel (
+    artikelId CHAR(36) PRIMARY KEY,
+    titel VARCHAR(255) NOT NULL,
+    inhoud TEXT NOT NULL,
+    datum TIMESTAMP NOT NULL
+);
+
+-- Create Foto table
+CREATE TABLE Foto (
+    fotoId CHAR(36) PRIMARY KEY,
+    bestand VARCHAR(255) NOT NULL,
+    beschrijving TEXT
 );
 
 -- Insert Genres
-INSERT INTO Genre (naam) VALUES 
+INSERT INTO Genre (genreId, naam) VALUES 
 (UUID(), 'Rock'), 
 (UUID(), 'Jazz'), 
 (UUID(), 'Pop'), 
 (UUID(), 'Electronic'), 
 (UUID(), 'Hip-Hop');
 
--- Insert Artists
-INSERT INTO Artiest (naam, email, genreId) VALUES 
-(UUID(), 'The Rolling Stones', 'contact@rollingstones.com', 1), 
-(UUID(), 'Miles Davis', 'milesd@jazz.com', 2), 
-(UUID(), 'Taylor Swift', 'taylorswift@popstar.com', 3), 
-(UUID(), 'Daft Punk', 'info@daftpunk.com', 4), 
-(UUID(), 'Kanye West', 'kanye@hiphop.com', 5);
+-- Insert Locations
+INSERT INTO Locatie (locatieId, naam, coordinaten) VALUES 
+(UUID(), 'City Park', '50.8503° N, 4.3517° E'), 
+(UUID(), 'Downtown Arena', '50.8476° N, 4.3572° E'), 
+(UUID(), 'Riverside Amphitheater', '50.8457° N, 4.3500° E');
 
 -- Insert Stages
-INSERT INTO Podium (naam, coordinaten) VALUES 
-(UUID(), 'Main Stage', '50.8503° N, 4.3517° E'), 
-(UUID(), 'Side Stage', '50.8476° N, 4.3572° E'), 
-(UUID(), 'Electronic Arena', '50.8457° N, 4.3500° E');
+INSERT INTO Podium (podiumId, naam, locatieId) VALUES 
+(UUID(), 'Main Stage', (SELECT locatieId FROM Locatie WHERE naam = 'City Park')), 
+(UUID(), 'Side Stage', (SELECT locatieId FROM Locatie WHERE naam = 'Downtown Arena')), 
+(UUID(), 'Electronic Arena', (SELECT locatieId FROM Locatie WHERE naam = 'Riverside Amphitheater'));
 
 -- Insert Days
-INSERT INTO Dag (date) VALUES 
+INSERT INTO Dag (dagId, date) VALUES 
 (UUID(), '2024-10-18'), 
 (UUID(), '2024-10-19'), 
 (UUID(), '2024-10-20');
 
--- Insert Time Slots (Tijdstip)
-INSERT INTO Tijdstip (tijdstip, artiestId, podiumId) VALUES 
-(UUID(), '2024-10-18 14:00:00', 1, 1),  -- Rolling Stones on Main Stage
-(UUID(), '2024-10-18 18:00:00', 2, 2),  -- Miles Davis on Side Stage
-(UUID(), '2024-10-19 16:30:00', 3, 1),  -- Taylor Swift on Main Stage
-(UUID(), '2024-10-19 21:00:00', 4, 3),  -- Daft Punk in Electronic Arena
-(UUID(), '2024-10-20 20:00:00', 5, 1);  -- Kanye West on Main Stage
+-- Insert Artists
+INSERT INTO Artiest (artiestId, naam, email, genreId) VALUES 
+(UUID(), 'The Rolling Stones', 'contact@rollingstones.com', (SELECT genreId FROM Genre WHERE naam = 'Rock')), 
+(UUID(), 'Miles Davis', 'milesd@jazz.com', (SELECT genreId FROM Genre WHERE naam = 'Jazz')), 
+(UUID(), 'Taylor Swift', 'taylorswift@popstar.com', (SELECT genreId FROM Genre WHERE naam = 'Pop')), 
+(UUID(), 'Daft Punk', 'info@daftpunk.com', (SELECT genreId FROM Genre WHERE naam = 'Electronic')), 
+(UUID(), 'Kanye West', 'kanye@hiphop.com', (SELECT genreId FROM Genre WHERE naam = 'Hip-Hop'));
+
+-- Insert Time Slots
+INSERT INTO Tijdstip (tijdstipId, tijdstip, artiestId, podiumId) VALUES 
+(UUID(), '2024-10-18 14:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'The Rolling Stones'), (SELECT podiumId FROM Podium WHERE naam = 'Main Stage')),  
+(UUID(), '2024-10-18 18:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'Miles Davis'), (SELECT podiumId FROM Podium WHERE naam = 'Side Stage')),  
+(UUID(), '2024-10-19 16:30:00', (SELECT artiestId FROM Artiest WHERE naam = 'Taylor Swift'), (SELECT podiumId FROM Podium WHERE naam = 'Main Stage')),  
+(UUID(), '2024-10-19 21:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'Daft Punk'), (SELECT podiumId FROM Podium WHERE naam = 'Electronic Arena')),  
+(UUID(), '2024-10-20 20:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'Kanye West'), (SELECT podiumId FROM Podium WHERE naam = 'Main Stage'));
 
 -- Insert Ticket Types
-INSERT INTO Tickettype (naam) VALUES 
+INSERT INTO Tickettype (typeId, naam) VALUES 
 (UUID(), 'Day Pass'), 
 (UUID(), 'Weekend Pass'), 
 (UUID(), 'VIP Pass');
 
 -- Insert Tickets
-INSERT INTO Ticket (prijs, typeId, firstName, lastName, telephoneNumber, email) VALUES
-(UUID(), 50.00, 1, 'Arno', 'Van haecke', '1234567890', 'arno.vh@example.com'), -- Day Pass
-(UUID(), 90.00, 2, 'Steffy Sandra Monique', 'Meylaers', '9876543210', 'steffy.m@example.com'), -- Weekend Pass
-(UUID(), 150.00, 3, 'Wesley Johan A Flopper', 'Meylaers', '5551234567', 'wesley.m@example.com'), -- VIP Pass
-(UUID(), 50.00, 1, 'Chocoprins', 'Joris', '4445556666', 'choco.joris@example.com'), -- Day Pass
-(UUID(), 90.00, 2, 'Emiel', 'De Pedofiel', '1112223333', 'emiel.p@example.com'); -- Weekend Pass
-
-
--- Insert Ticket-Day Associations (DagList)
--- Day Pass valid only for 18th October
-INSERT INTO DagList (ticketId, dagId) VALUES 
-(UUID(), 1, 1);
-
--- Weekend Pass valid for both 18th and 19th October
-INSERT INTO DagList (ticketId, dagId) VALUES 
-(UUID(), 2, 1), 
-(UUID(), 2, 2);
-
--- VIP Pass valid for all 3 days
-INSERT INTO DagList (ticketId, dagId) VALUES 
-(UUID(), 3, 1), 
-(UUID(), 3, 2), 
-(UUID(), 3, 3);-- Insert Genres
-INSERT INTO Genre (genreId, naam) VALUES 
-('1e5a0336-5052-11ee-b86e-0242ac120002', 'Rock'), 
-('1e5a0378-5052-11ee-b86e-0242ac120002', 'Jazz'), 
-('1e5a03a4-5052-11ee-b86e-0242ac120002', 'Pop'), 
-('1e5a03cc-5052-11ee-b86e-0242ac120002', 'Electronic'), 
-('1e5a03e0-5052-11ee-b86e-0242ac120002', 'Hip-Hop');
-
--- Insert Artists
-INSERT INTO Artiest (artiestId, naam, email, genreId) VALUES 
-('1e5a0418-5052-11ee-b86e-0242ac120002', 'The Rolling Stones', 'contact@rollingstones.com', '1e5a0336-5052-11ee-b86e-0242ac120002'), 
-('1e5a0434-5052-11ee-b86e-0242ac120002', 'Miles Davis', 'milesd@jazz.com', '1e5a0378-5052-11ee-b86e-0242ac120002'), 
-('1e5a0450-5052-11ee-b86e-0242ac120002', 'Taylor Swift', 'taylorswift@popstar.com', '1e5a03a4-5052-11ee-b86e-0242ac120002'), 
-('1e5a0466-5052-11ee-b86e-0242ac120002', 'Daft Punk', 'info@daftpunk.com', '1e5a03cc-5052-11ee-b86e-0242ac120002'), 
-('1e5a047c-5052-11ee-b86e-0242ac120002', 'Kanye West', 'kanye@hiphop.com', '1e5a03e0-5052-11ee-b86e-0242ac120002');
-
--- Insert Stages
-INSERT INTO Podium (podiumId, naam, coordinaten) VALUES 
-('1e5a0490-5052-11ee-b86e-0242ac120002', 'Main Stage', '50.8503° N, 4.3517° E'), 
-('1e5a04a6-5052-11ee-b86e-0242ac120002', 'Side Stage', '50.8476° N, 4.3572° E'), 
-('1e5a04b8-5052-11ee-b86e-0242ac120002', 'Electronic Arena', '50.8457° N, 4.3500° E');
-
--- Insert Days
-INSERT INTO Dag (dagId, date) VALUES 
-('1e5a04cc-5052-11ee-b86e-0242ac120002', '2024-10-18'), 
-('1e5a04e0-5052-11ee-b86e-0242ac120002', '2024-10-19'), 
-('1e5a04f4-5052-11ee-b86e-0242ac120002', '2024-10-20');
-
--- Insert Time Slots (Tijdstip)
-INSERT INTO Tijdstip (tijdstipId, tijdstip, artiestId, podiumId) VALUES 
-('1e5a0506-5052-11ee-b86e-0242ac120002', '2024-10-18 14:00:00', '1e5a0418-5052-11ee-b86e-0242ac120002', '1e5a0490-5052-11ee-b86e-0242ac120002'),  -- Rolling Stones on Main Stage
-('1e5a0528-5052-11ee-b86e-0242ac120002', '2024-10-18 18:00:00', '1e5a0434-5052-11ee-b86e-0242ac120002', '1e5a04a6-5052-11ee-b86e-0242ac120002'),  -- Miles Davis on Side Stage
-('1e5a0540-5052-11ee-b86e-0242ac120002', '2024-10-19 16:30:00', '1e5a0450-5052-11ee-b86e-0242ac120002', '1e5a0490-5052-11ee-b86e-0242ac120002'),  -- Taylor Swift on Main Stage
-('1e5a0552-5052-11ee-b86e-0242ac120002', '2024-10-19 21:00:00', '1e5a0466-5052-11ee-b86e-0242ac120002', '1e5a04b8-5052-11ee-b86e-0242ac120002'),  -- Daft Punk in Electronic Arena
-('1e5a0568-5052-11ee-b86e-0242ac120002', '2024-10-20 20:00:00', '1e5a047c-5052-11ee-b86e-0242ac120002', '1e5a0490-5052-11ee-b86e-0242ac120002');  -- Kanye West on Main Stage
-
--- Insert Ticket Types
-INSERT INTO Tickettype (typeId, naam) VALUES 
-('1e5a0580-5052-11ee-b86e-0242ac120002', 'Day Pass'), 
-('1e5a0592-5052-11ee-b86e-0242ac120002', 'Weekend Pass'), 
-('1e5a05a8-5052-11ee-b86e-0242ac120002', 'VIP Pass');
-
--- Insert Tickets
 INSERT INTO Ticket (ticketId, prijs, typeId, firstName, lastName, telephoneNumber, email) VALUES
-('1e5a05bc-5052-11ee-b86e-0242ac120002', 50.00, '1e5a0580-5052-11ee-b86e-0242ac120002', 'Arno', 'Van haecke', '1234567890', 'arno.vh@example.com'), -- Day Pass
-('1e5a05ce-5052-11ee-b86e-0242ac120002', 90.00, '1e5a0592-5052-11ee-b86e-0242ac120002', 'Steffy Sandra Monique', 'Meylaers', '9876543210', 'steffy.m@example.com'), -- Weekend Pass
-('1e5a05e0-5052-11ee-b86e-0242ac120002', 150.00, '1e5a05a8-5052-11ee-b86e-0242ac120002', 'Wesley Johan A Flopper', 'Meylaers', '5551234567', 'wesley.m@example.com'), -- VIP Pass
-('1e5a05f4-5052-11ee-b86e-0242ac120002', 50.00, '1e5a0580-5052-11ee-b86e-0242ac120002', 'Chocoprins', 'Joris', '4445556666', 'choco.joris@example.com'), -- Day Pass
-('1e5a0606-5052-11ee-b86e-0242ac120002', 90.00, '1e5a0592-5052-11ee-b86e-0242ac120002', 'Emiel', 'De Pedofiel', '1112223333', 'emiel.p@example.com'); -- Weekend Pass
+(UUID(), 50.00, (SELECT typeId FROM Tickettype WHERE naam = 'Day Pass'), 'Arno', 'Van Haecke', '1234567890', 'arno.vh@example.com'), 
+(UUID(), 90.00, (SELECT typeId FROM Tickettype WHERE naam = 'Weekend Pass'), 'Steffy Sandra Monique', 'Meylaers', '9876543210', 'steffy.m@example.com'), 
+(UUID(), 150.00, (SELECT typeId FROM Tickettype WHERE naam = 'VIP Pass'), 'Wesley Johan A Flopper', 'Meylaers', '5551234567', 'wesley.m@example.com'), 
+(UUID(), 50.00, (SELECT typeId FROM Tickettype WHERE naam = 'Day Pass'), 'Chocoprins', 'Joris', '4445556666', 'choco.joris@example.com'), 
+(UUID(), 90.00, (SELECT typeId FROM Tickettype WHERE naam = 'Weekend Pass'), 'Emiel', 'De Pedofiel', '1112223333', 'emiel.p@example.com');
 
--- Insert Ticket-Day Associations (DagList)
+-- Insert Ticket-Day Associations
 -- Day Pass valid only for 18th October
 INSERT INTO DagList (ticketId, dagId) VALUES 
-('1e5a05bc-5052-11ee-b86e-0242ac120002', '1e5a04cc-5052-11ee-b86e-0242ac120002');  -- Ticket 1 for Day 1
+((SELECT ticketId FROM Ticket WHERE firstName = 'Arno' AND lastName = 'Van Haecke'), (SELECT dagId FROM Dag WHERE date = '2024-10-18'));
 
 -- Weekend Pass valid for both 18th and 19th October
 INSERT INTO DagList (ticketId, dagId) VALUES 
-('1e5a05ce-5052-11ee-b86e-0242ac120002', '1e5a04cc-5052-11ee-b86e-0242ac120002'), 
-('1e5a05ce-5052-11ee-b86e-0242ac120002', '1e5a04e0-5052-11ee-b86e-0242ac120002');  -- Ticket 2 for Day 1 and Day 2
+((SELECT ticketId FROM Ticket WHERE firstName = 'Steffy Sandra Monique' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-18')), 
+((SELECT ticketId FROM Ticket WHERE firstName = 'Steffy Sandra Monique' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-19'));
 
 -- VIP Pass valid for all 3 days
 INSERT INTO DagList (ticketId, dagId) VALUES 
-('1e5a05e0-5052-11ee-b86e-0242ac120002', '1e5a04cc-5052-11ee-b86e-0242ac120002'), 
-('1e5a05e0-5052-11ee-b86e-0242ac120002', '1e5a04e0-5052-11ee-b86e-0242ac120002'), 
-('1e5a05e0-5052-11ee-b86e-0242ac120002', '1e5a04f4-5052-11ee-b86e-0242ac120002');  -- Ticket 3 for Day 1, Day 2, and Day 3
+((SELECT ticketId FROM Ticket WHERE firstName = 'Wesley Johan A Flopper' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-18')), 
+((SELECT ticketId FROM Ticket WHERE firstName = 'Wesley Johan A Flopper' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-19')), 
+((SELECT ticketId FROM Ticket WHERE firstName = 'Wesley Johan A Flopper' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-20'));
+
+-- Insert Food Trucks
+INSERT INTO FoodTruck (foodTruckId, naam, locatieId) VALUES 
+(UUID(), 'Tasty Tacos', (SELECT locatieId FROM Locatie WHERE naam = 'City Park')), 
+(UUID(), 'Burgers Galore', (SELECT locatieId FROM Locatie WHERE naam = 'Downtown Arena')), 
+(UUID(), 'Sushi Station', (SELECT locatieId FROM Locatie WHERE naam = 'Riverside Amphitheater'));
+
+-- Insert Menu Items
+INSERT INTO MenuItem (menuItemId, naam, prijs, foodTruckId) VALUES 
+(UUID(), 'Chicken Taco', 5.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Tasty Tacos')), 
+(UUID(), 'Beef Taco', 6.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Tasty Tacos')), 
+(UUID(), 'Cheeseburger', 7.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Burgers Galore')), 
+(UUID(), 'Veggie Burger', 7.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Burgers Galore')), 
+(UUID(), 'California Roll', 8.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Sushi Station')), 
+(UUID(), 'Spicy Tuna Roll', 9.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Sushi Station'));
+
 
 
 -- Verify Data with Select Queries
