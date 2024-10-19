@@ -1,16 +1,17 @@
 DROP TABLE IF EXISTS DagList;
 DROP TABLE IF EXISTS Foto;
-DROP TABLE IF EXISTS Nieuws;
+DROP TABLE IF EXISTS NieuwsArtikel;
 DROP TABLE IF EXISTS SponsorLijst;
-DROP TABLE IF EXISTS Sponsors;
-DROP TABLE IF EXISTS Menu;
-DROP TABLE IF EXISTS FoodTrucks;
-DROP TABLE IF EXISTS Locaties;
+DROP TABLE IF EXISTS TruckList;
+DROP TABLE IF EXISTS Sponsor;
+DROP TABLE IF EXISTS MenuItem;
+DROP TABLE IF EXISTS FoodTruck;
 DROP TABLE IF EXISTS Ticket;
 DROP TABLE IF EXISTS Tickettype;
 DROP TABLE IF EXISTS Tijdstip;
 DROP TABLE IF EXISTS Dag;
 DROP TABLE IF EXISTS Podium;
+DROP TABLE IF EXISTS Locatie;
 DROP TABLE IF EXISTS Artiest;
 DROP TABLE IF EXISTS Genre;
 DROP TABLE IF EXISTS Editie;
@@ -20,6 +21,18 @@ CREATE DATABASE IF NOT EXISTS FestivalDB;
 USE FestivalDB;
 
 -- Create tables
+
+-- Create Editie table
+CREATE TABLE Editie(
+	editieId CHAR(36) PRIMARY KEY,
+    editieNaam varchar(100) Not Null,
+    adres Varchar(100) Not null,
+    postcode varchar(4) not null,
+    gemeente varchar(100) not null,
+    telNr varchar(12) not null,
+    email varchar(50) not null
+);
+
 -- Create Genre table
 CREATE TABLE Genre (
     genreId CHAR(36) PRIMARY KEY,
@@ -101,6 +114,14 @@ CREATE TABLE FoodTruck (
     FOREIGN KEY (locatieId) REFERENCES Locatie(locatieId)
 );
 
+CREATE TABLE TruckList (
+    foodTruckId CHAR(36),   -- Assuming UUIDs
+    editieId CHAR(36),    -- Assuming UUIDs
+    PRIMARY KEY (foodTruckId, editieId),   -- Composite Primary Key
+    FOREIGN KEY (foodTruckId) REFERENCES FoodTruck(FoodTruckId),
+    FOREIGN KEY (editieId) REFERENCES Editie(editieId)
+);
+
 -- Create MenuItem table
 CREATE TABLE MenuItem (
     menuItemId CHAR(36) PRIMARY KEY,
@@ -117,6 +138,15 @@ CREATE TABLE Sponsor (
     logo VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE SponsorLijst (
+    sponsorId CHAR(36),   -- Assuming UUIDs
+    editieId CHAR(36),    -- Assuming UUIDs
+    PRIMARY KEY (sponsorId, editieId),   -- Composite Primary Key
+    FOREIGN KEY (sponsorId) REFERENCES Sponsor(sponsorId),
+    FOREIGN KEY (editieId) REFERENCES Editie(editieId)
+);
+
+
 -- Create NieuwsArtikel (News Article) table
 CREATE TABLE NieuwsArtikel (
     artikelId CHAR(36) PRIMARY KEY,
@@ -132,6 +162,11 @@ CREATE TABLE Foto (
     beschrijving TEXT
 );
 
+-- Insert Edities
+INSERT INTO Editie (editieId, editieNaam, adres, postcode, gemeente, telNr, email) VALUES
+(UUID(), 'Fritfest', '123 Festival Lane', '1000', 'Brussels', '020123456', 'info@fritfest.be');
+
+
 -- Insert Genres
 INSERT INTO Genre (genreId, naam) VALUES 
 (UUID(), 'Rock'), 
@@ -142,15 +177,15 @@ INSERT INTO Genre (genreId, naam) VALUES
 
 -- Insert Locations
 INSERT INTO Locatie (locatieId, naam, coordinaten) VALUES 
-(UUID(), 'City Park', '50.8503° N, 4.3517° E'), 
-(UUID(), 'Downtown Arena', '50.8476° N, 4.3572° E'), 
-(UUID(), 'Riverside Amphitheater', '50.8457° N, 4.3500° E');
+(UUID(), 'S1', '50.8503° N, 4.3517° E'), 
+(UUID(), 'S2', '50.8476° N, 4.3572° E'), 
+(UUID(), 'T1', '50.8457° N, 4.3500° E');
 
 -- Insert Stages
 INSERT INTO Podium (podiumId, naam, locatieId) VALUES 
-(UUID(), 'Main Stage', (SELECT locatieId FROM Locatie WHERE naam = 'City Park')), 
-(UUID(), 'Side Stage', (SELECT locatieId FROM Locatie WHERE naam = 'Downtown Arena')), 
-(UUID(), 'Electronic Arena', (SELECT locatieId FROM Locatie WHERE naam = 'Riverside Amphitheater'));
+(UUID(), 'Main Stage', (SELECT locatieId FROM Locatie WHERE naam = 'S1')), 
+(UUID(), 'Side Stage', (SELECT locatieId FROM Locatie WHERE naam = 'S1')), 
+(UUID(), 'Electronic Arena', (SELECT locatieId FROM Locatie WHERE naam = 'S2'));
 
 -- Insert Days
 INSERT INTO Dag (dagId, date) VALUES 
@@ -206,9 +241,9 @@ INSERT INTO DagList (ticketId, dagId) VALUES
 
 -- Insert Food Trucks
 INSERT INTO FoodTruck (foodTruckId, naam, locatieId) VALUES 
-(UUID(), 'Tasty Tacos', (SELECT locatieId FROM Locatie WHERE naam = 'City Park')), 
-(UUID(), 'Burgers Galore', (SELECT locatieId FROM Locatie WHERE naam = 'Downtown Arena')), 
-(UUID(), 'Sushi Station', (SELECT locatieId FROM Locatie WHERE naam = 'Riverside Amphitheater'));
+(UUID(), 'Tasty Tacos', (SELECT locatieId FROM Locatie WHERE naam = 'T1')), 
+(UUID(), 'Burgers Galore', (SELECT locatieId FROM Locatie WHERE naam = 'T1')), 
+(UUID(), 'Sushi Station', (SELECT locatieId FROM Locatie WHERE naam = 'T1'));
 
 -- Insert Menu Items
 INSERT INTO MenuItem (menuItemId, naam, prijs, foodTruckId) VALUES 
@@ -219,14 +254,40 @@ INSERT INTO MenuItem (menuItemId, naam, prijs, foodTruckId) VALUES
 (UUID(), 'California Roll', 8.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Sushi Station')), 
 (UUID(), 'Spicy Tuna Roll', 9.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Sushi Station'));
 
+INSERT INTO Sponsor (sponsorId, naam, logo) VALUES
+(UUID(), 'Coca-Cola', 'https://example.com/coca-cola-logo.png'),
+(UUID(), 'Nike', 'https://example.com/nike-logo.png'),
+(UUID(), 'Red Bull', 'https://example.com/redbull-logo.png');
+
+INSERT INTO SponsorLijst (sponsorId, editieId) VALUES
+((SELECT sponsorId FROM Sponsor WHERE naam = 'Coca-Cola'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT sponsorId FROM Sponsor WHERE naam = 'Nike'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT sponsorId FROM Sponsor WHERE naam = 'Red Bull'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
+
+INSERT INTO TruckList (foodTruckId, editieId) VALUES
+((SELECT foodTruckId FROM FoodTruck WHERE naam = 'Tasty Tacos'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT foodTruckId FROM FoodTruck WHERE naam = 'Burgers Galore'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT foodTruckId FROM FoodTruck WHERE naam = 'Sushi Station'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
+
+INSERT INTO NieuwsArtikel (artikelId, titel, inhoud, datum) VALUES
+(UUID(), 'New Headliner Announced!', 'Taylor Swift will headline Summer Fest.', '2024-10-01 12:00:00'),
+(UUID(), 'Red Bull Sponsorship Confirmed', 'Red Bull is now an official sponsor of Spring Music Festival.', '2024-10-05 14:30:00'),
+(UUID(), 'Weather Update', 'The Winter Wonderland organizers confirmed that indoor stages will be available.', '2024-10-10 09:15:00');
+
+INSERT INTO Foto (fotoId, bestand, beschrijving) VALUES
+(UUID(), '#', 'Crowd enjoying the Summer Fest vibes.'),
+(UUID(), '#', 'Beautiful snowfall at Winter Wonderland.'),
+(UUID(), '#', 'Daft Punk on stage at Spring Music Festival.');
+
+
 
 
 -- Verify Data with Select Queries
-SELECT * FROM Genre;
-SELECT * FROM Artiest;
-SELECT * FROM Podium;
-SELECT * FROM Tijdstip;
-SELECT * FROM Dag;
-SELECT * FROM Tickettype;
-SELECT * FROM Ticket;
-SELECT * FROM DagList;
+-- SELECT * FROM Genre;
+-- SELECT * FROM Artiest;
+-- SELECT * FROM Podium;
+-- SELECT * FROM Tijdstip;
+-- SELECT * FROM Dag;
+-- SELECT * FROM Tickettype;
+-- SELECT * FROM Ticket;
+-- SELECT * FROM DagList;
