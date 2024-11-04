@@ -21,6 +21,8 @@ namespace FritFest.API.Entities
         [ForeignKey(nameof(TicketType))]
         public Guid TicketTypeId { get; set; }
 
-        public ICollection<DagList> DagList { get; set; }
+        public Dag Dag { get; set; }
+        [ForeignKey(nameof(Dag))]
+        public Guid DagId { get; set; }
     }
 }

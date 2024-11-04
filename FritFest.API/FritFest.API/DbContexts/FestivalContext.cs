@@ -12,7 +12,6 @@ namespace FritFest.API.DbContexts
         public DbSet<Artiest> Artiest { get; set; }
         public DbSet<Artikel> Artikel { get; set; }
         public DbSet<Dag> Dag { get; set; }
-        public DbSet<DagList> DagLijst { get; set; }
         public DbSet<Editie> Editie { get; set; }
         public DbSet<FoodTruck> FoodTruck { get; set; }
         public DbSet<Foto> Foto { get; set; }

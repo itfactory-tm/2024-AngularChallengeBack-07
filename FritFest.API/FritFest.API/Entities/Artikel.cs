@@ -7,6 +7,7 @@ namespace FritFest.API.Entities
     {
         [Key]
         public Guid ArtikelId { get; set; }
+        [Required]
         public string Titel { get; set; }
         public string Beschrijving { get; set; }
         public DateTime Datum { get; set; }

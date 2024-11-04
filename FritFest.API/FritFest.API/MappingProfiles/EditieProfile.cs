@@ -8,6 +8,7 @@ namespace FritFest.API.MappingProfiles
     {
         public EditieProfile()
         {
+            CreateMap<EditieDto, Editie>();
             CreateMap<Editie,EditieDto>();
         }
     }

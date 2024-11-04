@@ -5,7 +5,7 @@ namespace FritFest.API.Entities
     public class Editie
     {
         [Key]
-        public Guid EditieId { get; set; } // primary key
+        public Guid EditieId { get; set; }
         public string EditieNaam { get; set; }
         public string Adres { get; set; }
         public string Postcode { get; set; }

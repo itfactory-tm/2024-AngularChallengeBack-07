@@ -7,8 +7,12 @@ namespace FritFest.API.Entities
     {
         [Key]
         public Guid ArtistId { get; set; }
+        [Required]
         public string Naam { get; set; }
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
+        public string Beschrijving { get; set; }
         public string SpotifyApi { get; set; }
 
         [ForeignKey(nameof(Genre))]

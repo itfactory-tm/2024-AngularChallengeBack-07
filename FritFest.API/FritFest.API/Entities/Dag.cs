@@ -6,7 +6,11 @@ namespace FritFest.API.Entities
     {
         [Key]
         public Guid DagId { get; set; }
-        public DateTime Date { get; set; }
-        public ICollection<DagList> DagList { get; set; }
+        public string Naam { get; set; }
+        [Required]
+        public DateTime StartDatum { get; set; }
+        [Required]
+        public DateTime EindDatum { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
     }
 }
