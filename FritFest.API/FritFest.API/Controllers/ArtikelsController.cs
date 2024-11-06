@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using FritFest.API.DbContexts;
+using FritFest.API.Dtos;
+using FritFest.API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using FritFest.API.DbContexts;
-using FritFest.API.Entities;
 
 namespace FritFest.API.Controllers
 {
@@ -15,43 +12,61 @@ namespace FritFest.API.Controllers
     public class ArtikelsController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public ArtikelsController(FestivalContext context)
+        public ArtikelsController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Artikels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Artikel>>> GetArtikel()
+        public async Task<ActionResult<IEnumerable<ArtikelDto>>> GetArtikels()
         {
-            return await _context.Artikel.ToListAsync();
+            var artikels = await _context.Artikel
+                .Include(a => a.Editie)  // Include Editie to map Editie.Titel
+                .ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<ArtikelDto>>(artikels));
         }
 
         // GET: api/Artikels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Artikel>> GetArtikel(Guid id)
+        public async Task<ActionResult<ArtikelDto>> GetArtikel(Guid id)
         {
-            var artikel = await _context.Artikel.FindAsync(id);
+            var artikel = await _context.Artikel
+                .Include(a => a.Editie)  // Include Editie to map Editie.Titel
+                .FirstOrDefaultAsync(a => a.ArtikelId == id);
 
             if (artikel == null)
             {
                 return NotFound();
             }
 
-            return artikel;
+            return Ok(_mapper.Map<ArtikelDto>(artikel));
+        }
+
+        // POST: api/Artikels
+        [HttpPost]
+        public async Task<ActionResult<ArtikelDto>> PostArtikel(ArtikelDto artikelDto)
+        {
+            var artikel = _mapper.Map<Artikel>(artikelDto);
+            _context.Artikel.Add(artikel);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetArtikel), new { id = artikel.ArtikelId }, _mapper.Map<ArtikelDto>(artikel));
         }
 
         // PUT: api/Artikels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutArtikel(Guid id, Artikel artikel)
+        public async Task<IActionResult> PutArtikel(Guid id, ArtikelDto artikelDto)
         {
-            if (id != artikel.ArtikelId)
+            if (id != artikelDto.ArtikelId)
             {
                 return BadRequest();
             }
 
+            var artikel = _mapper.Map<Artikel>(artikelDto);
             _context.Entry(artikel).State = EntityState.Modified;
 
             try
@@ -71,17 +86,6 @@ namespace FritFest.API.Controllers
             }
 
             return NoContent();
-        }
-
-        // POST: api/Artikels
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Artikel>> PostArtikel(Artikel artikel)
-        {
-            _context.Artikel.Add(artikel);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetArtikel", new { id = artikel.ArtikelId }, artikel);
         }
 
         // DELETE: api/Artikels/5

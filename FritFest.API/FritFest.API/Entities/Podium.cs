@@ -10,7 +10,7 @@ namespace FritFest.API.Entities
         public string Naam { get; set; }
 
         [ForeignKey(nameof(Locatie))]
-        public Guid LocationId { get; set; }
+        public Guid locatieId { get; set; }
         public Locatie Locatie { get; set; }
 
         public ICollection<TijdStip> TijdStippen { get; set; }

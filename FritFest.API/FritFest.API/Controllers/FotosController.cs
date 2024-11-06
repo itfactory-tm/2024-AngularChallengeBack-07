@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class FotosController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public FotosController(FestivalContext context)
+        public FotosController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Fotos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Foto>>> GetFoto()
+        public async Task<ActionResult<IEnumerable<FotoDto>>> GetFoto()
         {
-            return await _context.Foto.ToListAsync();
+            var fotos = await _context.Foto.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<FotoDto>>(fotos));
         }
 
         // GET: api/Fotos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Foto>> GetFoto(Guid id)
+        public async Task<ActionResult<FotoDto>> GetFoto(Guid id)
         {
             var foto = await _context.Foto.FindAsync(id);
 
@@ -39,19 +44,19 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return foto;
+            return Ok(_mapper.Map<FotoDto>(foto));
         }
 
         // PUT: api/Fotos/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFoto(Guid id, Foto foto)
+        public async Task<IActionResult> PutFoto(Guid id, FotoDto fotoDto)
         {
-            if (id != foto.FototId)
+            if (id != fotoDto.FotoId)
             {
                 return BadRequest();
             }
 
+            var foto = _mapper.Map<Foto>(fotoDto);
             _context.Entry(foto).State = EntityState.Modified;
 
             try
@@ -74,14 +79,14 @@ namespace FritFest.API.Controllers
         }
 
         // POST: api/Fotos
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Foto>> PostFoto(Foto foto)
+        public async Task<ActionResult<FotoDto>> PostFoto(FotoDto fotoDto)
         {
+            var foto = _mapper.Map<Foto>(fotoDto);
             _context.Foto.Add(foto);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFoto", new { id = foto.FototId }, foto);
+            return CreatedAtAction("GetFoto", new { id = foto.FotoId }, _mapper.Map<FotoDto>(foto));
         }
 
         // DELETE: api/Fotos/5
@@ -102,7 +107,7 @@ namespace FritFest.API.Controllers
 
         private bool FotoExists(Guid id)
         {
-            return _context.Foto.Any(e => e.FototId == id);
+            return _context.Foto.Any(e => e.FotoId == id);
         }
     }
 }

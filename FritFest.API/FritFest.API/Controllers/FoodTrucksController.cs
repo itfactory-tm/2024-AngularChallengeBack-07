@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class FoodTrucksController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public FoodTrucksController(FestivalContext context)
+        public FoodTrucksController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/FoodTrucks
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FoodTruck>>> GetFoodTruck()
+        public async Task<ActionResult<IEnumerable<FoodTruckDto>>> GetFoodTruck()
         {
-            return await _context.FoodTruck.ToListAsync();
+            var foodTrucks = await _context.FoodTruck.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<FoodTruckDto>>(foodTrucks));
         }
 
         // GET: api/FoodTrucks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<FoodTruck>> GetFoodTruck(Guid id)
+        public async Task<ActionResult<FoodTruckDto>> GetFoodTruck(Guid id)
         {
             var foodTruck = await _context.FoodTruck.FindAsync(id);
 
@@ -39,19 +44,20 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return foodTruck;
+            return Ok(_mapper.Map<FoodTruckDto>(foodTruck));
         }
 
         // PUT: api/FoodTrucks/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFoodTruck(Guid id, FoodTruck foodTruck)
+        public async Task<IActionResult> PutFoodTruck(Guid id, FoodTruckDto foodTruckDto)
         {
-            if (id != foodTruck.FoodTruckId)
+            if (id != foodTruckDto.FoodTruckId)
             {
                 return BadRequest();
             }
 
+            var foodTruck = _mapper.Map<FoodTruck>(foodTruckDto);
             _context.Entry(foodTruck).State = EntityState.Modified;
 
             try
@@ -76,12 +82,13 @@ namespace FritFest.API.Controllers
         // POST: api/FoodTrucks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<FoodTruck>> PostFoodTruck(FoodTruck foodTruck)
+        public async Task<ActionResult<FoodTruckDto>> PostFoodTruck(FoodTruckDto foodTruckDto)
         {
+            var foodTruck = _mapper.Map<FoodTruck>(foodTruckDto);
             _context.FoodTruck.Add(foodTruck);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFoodTruck", new { id = foodTruck.FoodTruckId }, foodTruck);
+            return CreatedAtAction("GetFoodTruck", new { id = foodTruck.FoodTruckId }, _mapper.Map<FoodTruckDto>(foodTruck));
         }
 
         // DELETE: api/FoodTrucks/5

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public TicketsController(FestivalContext context)
+        public TicketsController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Tickets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ticket>>> GetTicket()
+        public async Task<ActionResult<IEnumerable<TicketDto>>> GetTicket()
         {
-            return await _context.Ticket.ToListAsync();
+            var tickets = await _context.Ticket.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<TicketDto>>(tickets));
         }
 
         // GET: api/Tickets/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ticket>> GetTicket(Guid id)
+        public async Task<ActionResult<TicketDto>> GetTicket(Guid id)
         {
             var ticket = await _context.Ticket.FindAsync(id);
 
@@ -39,19 +44,19 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return ticket;
+            return Ok(_mapper.Map<TicketDto>(ticket));
         }
 
         // PUT: api/Tickets/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTicket(Guid id, Ticket ticket)
+        public async Task<IActionResult> PutTicket(Guid id, TicketDto ticketDto)
         {
-            if (id != ticket.TicketId)
+            if (id != ticketDto.TicketId)
             {
                 return BadRequest();
             }
 
+            var ticket = _mapper.Map<Ticket>(ticketDto);
             _context.Entry(ticket).State = EntityState.Modified;
 
             try
@@ -74,14 +79,14 @@ namespace FritFest.API.Controllers
         }
 
         // POST: api/Tickets
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
+        public async Task<ActionResult<TicketDto>> PostTicket(TicketDto ticketDto)
         {
+            var ticket = _mapper.Map<Ticket>(ticketDto);
             _context.Ticket.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTicket", new { id = ticket.TicketId }, ticket);
+            return CreatedAtAction("GetTicket", new { id = ticket.TicketId }, _mapper.Map<TicketDto>(ticket));
         }
 
         // DELETE: api/Tickets/5

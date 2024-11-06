@@ -63,7 +63,7 @@ namespace FritFest.API.Controllers
                 return BadRequest();
             }
 
-            var editie = _mapper.Map<Editie>(editieDto);
+            var editie = _mapper.Map<EditieDto>(editieDto);
             _context.Entry(editie).State = EntityState.Modified;
 
             try

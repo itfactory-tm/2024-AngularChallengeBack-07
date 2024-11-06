@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class SponsorsController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public SponsorsController(FestivalContext context)
+        public SponsorsController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Sponsors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Sponsor>>> GetSponsor()
+        public async Task<ActionResult<IEnumerable<SponsorDto>>> GetSponsor()
         {
-            return await _context.Sponsor.ToListAsync();
+            var sponsors = await _context.Sponsor.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<SponsorDto>>(sponsors));
         }
 
         // GET: api/Sponsors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Sponsor>> GetSponsor(Guid id)
+        public async Task<ActionResult<SponsorDto>> GetSponsor(Guid id)
         {
             var sponsor = await _context.Sponsor.FindAsync(id);
 
@@ -39,19 +44,19 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return sponsor;
+            return Ok(_mapper.Map<SponsorDto>(sponsor));
         }
 
         // PUT: api/Sponsors/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSponsor(Guid id, Sponsor sponsor)
+        public async Task<IActionResult> PutSponsor(Guid id, SponsorDto sponsorDto)
         {
-            if (id != sponsor.SponsorId)
+            if (id != sponsorDto.SponsorId)
             {
                 return BadRequest();
             }
 
+            var sponsor = _mapper.Map<Sponsor>(sponsorDto);
             _context.Entry(sponsor).State = EntityState.Modified;
 
             try
@@ -74,14 +79,14 @@ namespace FritFest.API.Controllers
         }
 
         // POST: api/Sponsors
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Sponsor>> PostSponsor(Sponsor sponsor)
+        public async Task<ActionResult<SponsorDto>> PostSponsor(SponsorDto sponsorDto)
         {
+            var sponsor = _mapper.Map<Sponsor>(sponsorDto);
             _context.Sponsor.Add(sponsor);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSponsor", new { id = sponsor.SponsorId }, sponsor);
+            return CreatedAtAction("GetSponsor", new { id = sponsor.SponsorId }, _mapper.Map<SponsorDto>(sponsor));
         }
 
         // DELETE: api/Sponsors/5

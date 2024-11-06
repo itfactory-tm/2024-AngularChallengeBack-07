@@ -6,7 +6,7 @@ namespace FritFest.API.Entities
     public class Artiest
     {
         [Key]
-        public Guid ArtistId { get; set; }
+        public Guid ArtiestId { get; set; }
         [Required]
         public string Naam { get; set; }
         [Required]

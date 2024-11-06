@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class DagsController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public DagsController(FestivalContext context)
+        public DagsController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Dags
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Dag>>> GetDag()
+        public async Task<ActionResult<IEnumerable<DagDto>>> GetDag()
         {
-            return await _context.Dag.ToListAsync();
+            var dags = await _context.Dag.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<DagDto>>(dags));
         }
 
         // GET: api/Dags/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Dag>> GetDag(Guid id)
+        public async Task<ActionResult<DagDto>> GetDag(Guid id)
         {
             var dag = await _context.Dag.FindAsync(id);
 
@@ -39,19 +44,20 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return dag;
+            return Ok(_mapper.Map<DagDto>(dag));
         }
 
         // PUT: api/Dags/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDag(Guid id, Dag dag)
+        public async Task<IActionResult> PutDag(Guid id, DagDto dagDto)
         {
-            if (id != dag.DagId)
+            if (id != dagDto.DagId)
             {
                 return BadRequest();
             }
 
+            var dag = _mapper.Map<Dag>(dagDto);
             _context.Entry(dag).State = EntityState.Modified;
 
             try
@@ -76,12 +82,13 @@ namespace FritFest.API.Controllers
         // POST: api/Dags
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Dag>> PostDag(Dag dag)
+        public async Task<ActionResult<DagDto>> PostDag(DagDto dagDto)
         {
+            var dag = _mapper.Map<Dag>(dagDto);
             _context.Dag.Add(dag);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDag", new { id = dag.DagId }, dag);
+            return CreatedAtAction("GetDag", new { id = dag.DagId }, _mapper.Map<DagDto>(dag));
         }
 
         // DELETE: api/Dags/5

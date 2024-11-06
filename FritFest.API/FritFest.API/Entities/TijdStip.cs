@@ -5,6 +5,8 @@ namespace FritFest.API.Entities
 {
     public class TijdStip
     {
+        [Key]
+        public Guid TijdStipId { get; set; } // Primary Key for TijdStip
 
         public DateTime Tijd { get; set; }
 

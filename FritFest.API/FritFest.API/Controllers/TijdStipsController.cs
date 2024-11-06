@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class TijdStipsController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public TijdStipsController(FestivalContext context)
+        public TijdStipsController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/TijdStips
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TijdStip>>> GetTijdStip()
+        public async Task<ActionResult<IEnumerable<TijdStipDto>>> GetTijdStip()
         {
-            return await _context.TijdStip.ToListAsync();
+            var tijdStips = await _context.TijdStip.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<TijdStipDto>>(tijdStips));
         }
 
         // GET: api/TijdStips/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TijdStip>> GetTijdStip(Guid id)
+        public async Task<ActionResult<TijdStipDto>> GetTijdStip(Guid id)
         {
             var tijdStip = await _context.TijdStip.FindAsync(id);
 
@@ -39,19 +44,19 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return tijdStip;
+            return Ok(_mapper.Map<TijdStipDto>(tijdStip));
         }
 
         // PUT: api/TijdStips/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTijdStip(Guid id, TijdStip tijdStip)
+        public async Task<IActionResult> PutTijdStip(Guid id, TijdStipDto tijdStipDto)
         {
-            if (id != tijdStip.ArtiestId)
+            if (id != tijdStipDto.ArtiestId)
             {
                 return BadRequest();
             }
 
+            var tijdStip = _mapper.Map<TijdStip>(tijdStipDto);
             _context.Entry(tijdStip).State = EntityState.Modified;
 
             try
@@ -74,10 +79,10 @@ namespace FritFest.API.Controllers
         }
 
         // POST: api/TijdStips
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TijdStip>> PostTijdStip(TijdStip tijdStip)
+        public async Task<ActionResult<TijdStipDto>> PostTijdStip(TijdStipDto tijdStipDto)
         {
+            var tijdStip = _mapper.Map<TijdStip>(tijdStipDto);
             _context.TijdStip.Add(tijdStip);
             try
             {
@@ -95,7 +100,7 @@ namespace FritFest.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTijdStip", new { id = tijdStip.ArtiestId }, tijdStip);
+            return CreatedAtAction("GetTijdStip", new { id = tijdStip.ArtiestId }, _mapper.Map<TijdStipDto>(tijdStip));
         }
 
         // DELETE: api/TijdStips/5

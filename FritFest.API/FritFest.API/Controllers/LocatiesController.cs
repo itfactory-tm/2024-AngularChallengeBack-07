@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class LocatiesController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public LocatiesController(FestivalContext context)
+        public LocatiesController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Locaties
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Locatie>>> GetLocatie()
+        public async Task<ActionResult<IEnumerable<LocatieDto>>> GetLocatie()
         {
-            return await _context.Locatie.ToListAsync();
+            var locaties = await _context.Locatie.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<LocatieDto>>(locaties));
         }
 
         // GET: api/Locaties/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Locatie>> GetLocatie(Guid id)
+        public async Task<ActionResult<LocatieDto>> GetLocatie(Guid id)
         {
             var locatie = await _context.Locatie.FindAsync(id);
 
@@ -39,19 +44,19 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return locatie;
+            return Ok(_mapper.Map<LocatieDto>(locatie));
         }
 
         // PUT: api/Locaties/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLocatie(Guid id, Locatie locatie)
+        public async Task<IActionResult> PutLocatie(Guid id, LocatieDto locatieDto)
         {
-            if (id != locatie.LocatieId)
+            if (id != locatieDto.LocatieId)
             {
                 return BadRequest();
             }
 
+            var locatie = _mapper.Map<Locatie>(locatieDto);
             _context.Entry(locatie).State = EntityState.Modified;
 
             try
@@ -74,14 +79,14 @@ namespace FritFest.API.Controllers
         }
 
         // POST: api/Locaties
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Locatie>> PostLocatie(Locatie locatie)
+        public async Task<ActionResult<LocatieDto>> PostLocatie(LocatieDto locatieDto)
         {
+            var locatie = _mapper.Map<Locatie>(locatieDto);
             _context.Locatie.Add(locatie);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLocatie", new { id = locatie.LocatieId }, locatie);
+            return CreatedAtAction("GetLocatie", new { id = locatie.LocatieId }, _mapper.Map<LocatieDto>(locatie));
         }
 
         // DELETE: api/Locaties/5

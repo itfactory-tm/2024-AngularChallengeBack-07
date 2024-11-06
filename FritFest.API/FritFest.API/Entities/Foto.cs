@@ -6,7 +6,7 @@ namespace FritFest.API.Entities
     public class Foto
     {
         [Key]
-        public Guid FototId { get; set; }
+        public Guid FotoId { get; set; }
         public string Bestand { get; set; }
         public string Beschrijving { get; set; }
 

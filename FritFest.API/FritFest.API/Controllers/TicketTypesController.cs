@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class TicketTypesController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public TicketTypesController(FestivalContext context)
+        public TicketTypesController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/TicketTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TicketType>>> GetTicketType()
+        public async Task<ActionResult<IEnumerable<TicketTypeDto>>> GetTicketType()
         {
-            return await _context.TicketType.ToListAsync();
+            var ticketTypes = await _context.TicketType.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<TicketTypeDto>>(ticketTypes));
         }
 
         // GET: api/TicketTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TicketType>> GetTicketType(Guid id)
+        public async Task<ActionResult<TicketTypeDto>> GetTicketType(Guid id)
         {
             var ticketType = await _context.TicketType.FindAsync(id);
 
@@ -39,19 +44,19 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return ticketType;
+            return Ok(_mapper.Map<TicketTypeDto>(ticketType));
         }
 
         // PUT: api/TicketTypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTicketType(Guid id, TicketType ticketType)
+        public async Task<IActionResult> PutTicketType(Guid id, TicketTypeDto ticketTypeDto)
         {
-            if (id != ticketType.TicketTypeId)
+            if (id != ticketTypeDto.TicketTypeId)
             {
                 return BadRequest();
             }
 
+            var ticketType = _mapper.Map<TicketType>(ticketTypeDto);
             _context.Entry(ticketType).State = EntityState.Modified;
 
             try
@@ -74,14 +79,14 @@ namespace FritFest.API.Controllers
         }
 
         // POST: api/TicketTypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TicketType>> PostTicketType(TicketType ticketType)
+        public async Task<ActionResult<TicketTypeDto>> PostTicketType(TicketTypeDto ticketTypeDto)
         {
+            var ticketType = _mapper.Map<TicketType>(ticketTypeDto);
             _context.TicketType.Add(ticketType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTicketType", new { id = ticketType.TicketTypeId }, ticketType);
+            return CreatedAtAction("GetTicketType", new { id = ticketType.TicketTypeId }, _mapper.Map<TicketTypeDto>(ticketType));
         }
 
         // DELETE: api/TicketTypes/5

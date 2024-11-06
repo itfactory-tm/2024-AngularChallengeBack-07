@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class PodiumsController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public PodiumsController(FestivalContext context)
+        public PodiumsController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Podiums
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Podium>>> GetPodium()
+        public async Task<ActionResult<IEnumerable<PodiumDto>>> GetPodium()
         {
-            return await _context.Podium.ToListAsync();
+            var podiums = await _context.Podium.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<PodiumDto>>(podiums));
         }
 
         // GET: api/Podiums/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Podium>> GetPodium(Guid id)
+        public async Task<ActionResult<PodiumDto>> GetPodium(Guid id)
         {
             var podium = await _context.Podium.FindAsync(id);
 
@@ -39,19 +44,19 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return podium;
+            return Ok(_mapper.Map<PodiumDto>(podium));
         }
 
         // PUT: api/Podiums/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPodium(Guid id, Podium podium)
+        public async Task<IActionResult> PutPodium(Guid id, PodiumDto podiumDto)
         {
-            if (id != podium.PodiumId)
+            if (id != podiumDto.PodiumId)
             {
                 return BadRequest();
             }
 
+            var podium = _mapper.Map<Podium>(podiumDto);
             _context.Entry(podium).State = EntityState.Modified;
 
             try
@@ -74,14 +79,14 @@ namespace FritFest.API.Controllers
         }
 
         // POST: api/Podiums
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Podium>> PostPodium(Podium podium)
+        public async Task<ActionResult<PodiumDto>> PostPodium(PodiumDto podiumDto)
         {
+            var podium = _mapper.Map<Podium>(podiumDto);
             _context.Podium.Add(podium);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPodium", new { id = podium.PodiumId }, podium);
+            return CreatedAtAction("GetPodium", new { id = podium.PodiumId }, _mapper.Map<PodiumDto>(podium));
         }
 
         // DELETE: api/Podiums/5

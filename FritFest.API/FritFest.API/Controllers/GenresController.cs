@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FritFest.API.DbContexts;
 using FritFest.API.Entities;
+using FritFest.API.Dtos;
+using AutoMapper;
 
 namespace FritFest.API.Controllers
 {
@@ -15,22 +17,25 @@ namespace FritFest.API.Controllers
     public class GenresController : ControllerBase
     {
         private readonly FestivalContext _context;
+        private readonly IMapper _mapper;
 
-        public GenresController(FestivalContext context)
+        public GenresController(FestivalContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Genres
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Genre>>> GetGenre()
+        public async Task<ActionResult<IEnumerable<GenreDto>>> GetGenre()
         {
-            return await _context.Genre.ToListAsync();
+            var genres = await _context.Genre.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<GenreDto>>(genres));
         }
 
         // GET: api/Genres/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Genre>> GetGenre(Guid id)
+        public async Task<ActionResult<GenreDto>> GetGenre(Guid id)
         {
             var genre = await _context.Genre.FindAsync(id);
 
@@ -39,19 +44,19 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return genre;
+            return Ok(_mapper.Map<GenreDto>(genre));
         }
 
         // PUT: api/Genres/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGenre(Guid id, Genre genre)
+        public async Task<IActionResult> PutGenre(Guid id, GenreDto genreDto)
         {
-            if (id != genre.GenreId)
+            if (id != genreDto.GenreId)
             {
                 return BadRequest();
             }
 
+            var genre = _mapper.Map<Genre>(genreDto);
             _context.Entry(genre).State = EntityState.Modified;
 
             try
@@ -74,14 +79,14 @@ namespace FritFest.API.Controllers
         }
 
         // POST: api/Genres
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Genre>> PostGenre(Genre genre)
+        public async Task<ActionResult<GenreDto>> PostGenre(GenreDto genreDto)
         {
+            var genre = _mapper.Map<Genre>(genreDto);
             _context.Genre.Add(genre);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGenre", new { id = genre.GenreId }, genre);
+            return CreatedAtAction("GetGenre", new { id = genre.GenreId }, _mapper.Map<GenreDto>(genre));
         }
 
         // DELETE: api/Genres/5
