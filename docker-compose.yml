@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: festivaldb
+    ports:
+      - "3307:3306"  # Expose MySQL to localhost:3307
+    volumes:
+      - db_data:/var/lib/mysql  # Persistent MySQL data storage
+      - /Database/festival.sql:/docker-entrypoint-initdb.d/festival.sql  # Initialize DB with this SQL script
+    command: --default-authentication-plugin=mysql_native_password
+
+  web:
+    build:
+      context: ./FritFest.API
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=festivaldb;User=root;Password=1234;
+    ports:
+      - "5000:80"  # Expose API on localhost:5000
+    depends_on:
+      - db  # Ensure the database service starts before the web API
+    restart: always  # Optionally ensure the container restarts if it fails
+
+volumes:
+  db_data:  # Named volume for MySQL data persistence
