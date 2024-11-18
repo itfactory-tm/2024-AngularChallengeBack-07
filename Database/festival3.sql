@@ -174,10 +174,13 @@ CREATE TABLE Artikel (
 CREATE TABLE Foto (
     fotoId CHAR(36) PRIMARY KEY,           -- GUID type as CHAR(36) for primary key
     bestand VARCHAR(255) NOT NULL,         -- Bestand (file name) as a string
-    titel VARCHAR(255) NOT NULL,           -- Titel of the photo (not nullable)
-    datum DATETIME NOT NULL,               -- Datum when the photo was taken
+    beschrijving VARCHAR(255) NOT NULL,
     editieId CHAR(36),                     -- Foreign key to Editie table
-    FOREIGN KEY (editieId) REFERENCES Editie(editieId)  -- Foreign key constraint to Editie
+    FOREIGN KEY (editieId) REFERENCES Editie(editieId),  -- Foreign key constraint to Editie
+    artikelId CHAR(36),
+    foreign key (artikelId) references Artikel(artikelId),
+    podiumId CHAR(36),
+    foreign key (podiumId) references Podium(podiumId)
 );
 
 -- Insert data into Editie (Edition)
@@ -291,7 +294,7 @@ VALUES
 (UUID(), 'Fritfest 2024 Highlights', 'The best moments from Fritfest 2024', '2024-06-30 09:00:00', (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
 
 -- Insert data into Foto (Photo)
-INSERT INTO Foto (fotoId, bestand, titel, datum, editieId)
+INSERT INTO Foto (fotoId, bestand, beschrijving,  editieId,artikelId,podiumId)
 VALUES
-(UUID(), 'photo1.jpg', 'Main Stage Crowd', '2024-07-01 15:00:00', (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
-(UUID(), 'photo2.jpg', 'DJ Spin Performing', '2024-07-01 16:00:00', (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
+(UUID(), 'photo1.jpg', 'Main Stage Crowd',  (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'),(select artikelId from Artikel WHERE titel = 'Fritfest 2024 Highlights'),(select podiumId from Podium where naam = 'Test1')),
+(UUID(), 'photo2.jpg', 'DJ Spin Performing',  (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'),(select artikelId from Artikel WHERE titel = 'Fritfest 2024 Highlights'),(select podiumId from Podium where naam = 'Test2'));
