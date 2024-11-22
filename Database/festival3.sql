@@ -18,6 +18,8 @@ DROP TABLE IF EXISTS Locatie;
 DROP TABLE IF EXISTS Artiest;
 DROP TABLE IF EXISTS Genre;
 DROP TABLE IF EXISTS Editie;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Type;
 
 -- Step 1: Create the Database
 CREATE DATABASE IF NOT EXISTS festivaldb;
@@ -182,11 +184,42 @@ CREATE TABLE Foto (
     podiumId CHAR(36),
     foreign key (podiumId) references Podium(podiumId)
 );
+-- Create Role table
+create table Type(
+                     typeId char(36) primary key,
+                     name varchar(255) not null
+
+);
+-- Create Gebruiker (User) table
+create table User(
+    userId char(36) primary key ,
+    name VARCHAR(255) NOT NULL ,
+    email VARCHAR(255),
+    phone VARCHAR(255),
+    typeId CHAR(36),
+    foreign key (typeId) references Type(typeId)
+);
+    
+
 
 -- Insert data into Editie (Edition)
 INSERT INTO Editie (editieId, editieNaam, adres, postcode, gemeente, telNr, email, jaar)
 VALUES 
 (UUID(), 'Fritfest', 'Main Street 123', '1000', 'Brussels', '02-1234567', 'info@fritfest.be', 2024);
+
+-- Insert data into User
+INSERT INTO User(userId, name, email, phone, typeId) 
+values 
+    (
+     UUID(),'Jorrit Geurts','jorrit.geurts@tm.be','0339648', (SELECT typeId FROM Type WHERE name = 'admin')
+    ),
+    (UUID(),'Willem De Bie','wdb@tm.be','0255225',(SELECT typeId FROM Type where name = 'user'));
+
+-- Insert data into Type
+INSERT INTO Type(typeId, name)
+VALUES 
+    (UUID(), 'admin'),
+    (UUID(), 'user');
 
 -- Insert data into Genre
 INSERT INTO Genre (genreId, naam)
