@@ -19,7 +19,7 @@ DROP TABLE IF EXISTS Artiest;
 DROP TABLE IF EXISTS Genre;
 DROP TABLE IF EXISTS Editie;
 DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS Type;
+DROP TABLE IF EXISTS UserType;
 
 -- Step 1: Create the Database
 CREATE DATABASE IF NOT EXISTS festivaldb;
@@ -185,7 +185,7 @@ CREATE TABLE Foto (
     foreign key (podiumId) references Podium(podiumId)
 );
 -- Create Role table
-create table Type(
+create table UserType(
                      typeId char(36) primary key,
                      name varchar(255) not null
 
@@ -197,7 +197,7 @@ create table User(
     email VARCHAR(255),
     phone VARCHAR(255),
     typeId CHAR(36),
-    foreign key (typeId) references Type(typeId)
+    foreign key (typeId) references UserType(typeId)
 );
     
 
@@ -211,12 +211,12 @@ VALUES
 INSERT INTO User(userId, name, email, phone, typeId) 
 values 
     (
-     UUID(),'Jorrit Geurts','jorrit.geurts@tm.be','0339648', (SELECT typeId FROM Type WHERE name = 'admin')
+     UUID(),'Jorrit Geurts','jorrit.geurts@tm.be','0339648', (SELECT typeId FROM UserType WHERE name = 'admin')
     ),
-    (UUID(),'Willem De Bie','wdb@tm.be','0255225',(SELECT typeId FROM Type where name = 'user'));
+    (UUID(),'Willem De Bie','wdb@tm.be','0255225',(SELECT typeId FROM UserType where name = 'user'));
 
--- Insert data into Type
-INSERT INTO Type(typeId, name)
+-- Insert data into UserType
+INSERT INTO UserType(typeId, name)
 VALUES 
     (UUID(), 'admin'),
     (UUID(), 'user');

@@ -2,6 +2,7 @@
 using FritFest.API.DbContexts;
 using FritFest.API.Dtos;
 using FritFest.API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artiests
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ArtiestDto>>> GetArtiests()
         {
             var artiesten = await _context.Artiest
