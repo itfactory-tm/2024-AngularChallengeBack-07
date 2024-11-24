@@ -9,60 +9,57 @@ using FritFest.API.DbContexts;
 using FritFest.API.Entities;
 using AutoMapper;
 using FritFest.API.Dtos;
+using Humanizer.Localisation;
 
 namespace FritFest.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserTypesController : ControllerBase
     {
         private readonly FestivalContext _context;
         private readonly IMapper _mapper;
 
-        public UsersController(FestivalContext context, IMapper mapper)
+        public UserTypesController(FestivalContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        // GET: api/Users
+        // GET: api/UserTypes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserTypeDto>>> GetUserType()
         {
-            var users = await _context.User
-                .Include(u => u.Type)  // Include UserType to map TypeName
-                .ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<ArtiestDto>>(users));
+            var userTypes = await _context.UserType.ToListAsync();
+            return Ok(_mapper.Map<IEnumerable<UserTypeDto>>(userTypes));
         }
 
-        // GET: api/Users/5
+        // GET: api/UserTypes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDto>> GetUser(Guid id)
+        public async Task<ActionResult<UserTypeDto>> GetUserType(Guid id)
         {
-            var user = await _context.User
-                .Include(u => u.Type)  // Include Genre to map GenreNaam
-                .FirstOrDefaultAsync(u => u.UserId == id);
+            var userType = await _context.UserType.FindAsync(id);
 
-            if (user == null)
+            if (userType == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<UserDto>(user));
+            return Ok(_mapper.Map<GenreDto>(userType));
         }
 
-        // PUT: api/Users/5
+        // PUT: api/UserTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, UserDto userDto)
+        public async Task<IActionResult> PutUserType(Guid id, UserTypeDto userTypeDto)
         {
-            if (id != userDto.UserId)
+            if (id != userTypeDto.TypeId)
             {
                 return BadRequest();
             }
 
-            var user = _mapper.Map<User>(userDto);
-            _context.Entry(user).State = EntityState.Modified;
+            var userType = _mapper.Map<UserType>(userTypeDto);
+            _context.Entry(userType).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +67,7 @@ namespace FritFest.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!UserTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -83,37 +80,37 @@ namespace FritFest.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/UserTypes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UserDto>> PostUser(UserDto userDto)
+        public async Task<ActionResult<UserTypeDto>> PostUserType(UserTypeDto userTypeDto)
         {
-            var user = _mapper.Map<User>(userDto);
-            _context.User.Add(user);
+            var userType = _mapper.Map<UserType>(userTypeDto);
+            _context.UserType.Add(userType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetUser), new { id = user.UserId }, _mapper.Map<ArtiestDto>(user));
+            return CreatedAtAction(nameof(GetUserType), new { id = userType.TypeId }, _mapper.Map<GenreDto>(userType));
         }
 
-        // DELETE: api/Users/5
+        // DELETE: api/UserTypes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteUserType(Guid id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var userType = await _context.UserType.FindAsync(id);
+            if (userType == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.UserType.Remove(userType);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(Guid id)
+        private bool UserTypeExists(Guid id)
         {
-            return _context.User.Any(e => e.UserId == id);
+            return _context.UserType.Any(e => e.TypeId == id);
         }
     }
 }

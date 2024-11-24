@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
 using FritFest.API.Dtos;
-using Type = FritFest.API.Entities.Type;
+using UserType = FritFest.API.Entities.UserType;
 
 namespace FritFest.API.MappingProfiles;
 
-public class TypeProfile : Profile
+public class UserTypeProfile : Profile
 {
-    public TypeProfile()
+    public UserTypeProfile()
     {
-        CreateMap<Type, TypeDto>()
+        CreateMap<UserType, UserTypeDto>()
             .ForMember(dest => dest.Users,
                 opt => opt.MapFrom(src => src.Users.Select(u => u.Name).ToList()));
 
-        CreateMap<TypeDto, Type>()
+        CreateMap<UserTypeDto, UserType>()
             .ForMember(dest => dest.Users, opt => opt.Ignore());
     }
 }
