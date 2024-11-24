@@ -2,14 +2,17 @@
 using FritFest.API.Dtos;
 using FritFest.API.Entities;
 
-namespace FritFest.API.MappingProfiles;
-
-public class UserProfile : Profile
+namespace FritFest.API.MappingProfiles
 {
-    public UserProfile()
+
+    public class UserProfile : Profile
     {
-        CreateMap<User, UserDto>()
-            .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.Type.Name));
-        CreateMap<UserDto, User>().ForMember(dest => dest.Type,opt=>opt.Ignore()).ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId));
+        public UserProfile()
+        {
+            CreateMap<User, UserDto>()
+                .ForMember(dest => dest.TypeName, opt => opt.MapFrom(src => src.UserType.Name));
+            CreateMap<UserDto, User>().ForMember(dest => dest.UserType, opt => opt.Ignore())
+                .ForMember(dest => dest.TypeId, opt => opt.MapFrom(src => src.TypeId));
+        }
     }
 }

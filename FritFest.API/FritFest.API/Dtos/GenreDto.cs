@@ -7,6 +7,6 @@ namespace FritFest.API.Dtos
     {
         public Guid GenreId { get; set; }
         public string Naam { get; set; }
-        public List<string> ArtiestNamen { get; set; } // List of artist names in this genre
+        public List<string>ArtiestNamen { get; set; } // List of artist names in this genre
     }
 }
