@@ -29,7 +29,10 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LocatieDto>>> GetLocatie()
         {
-            var locaties = await _context.Locatie.ToListAsync();
+            var locaties = await _context.Locatie
+                .Include(l => l.FoodTrucks)
+                .Include(l => l.Podia)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<LocatieDto>>(locaties));
         }
 
@@ -37,7 +40,10 @@ namespace FritFest.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<LocatieDto>> GetLocatie(Guid id)
         {
-            var locatie = await _context.Locatie.FindAsync(id);
+            var locatie = await _context.Locatie
+                .Include(l => l.FoodTrucks)
+                .Include(l => l.Podia)
+                .FirstOrDefaultAsync(l => l.LocatieId == id);
 
             if (locatie == null)
             {

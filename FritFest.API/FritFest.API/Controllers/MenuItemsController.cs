@@ -29,7 +29,9 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MenuItemDto>>> GetMenuItem()
         {
-            var menuItems = await _context.MenuItem.ToListAsync();
+            var menuItems = await _context.MenuItem
+                .Include(mi => mi.FoodTruck)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<MenuItemDto>>(menuItems));
         }
 
@@ -37,7 +39,9 @@ namespace FritFest.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<MenuItemDto>> GetMenuItem(Guid id)
         {
-            var menuItem = await _context.MenuItem.FindAsync(id);
+            var menuItem = await _context.MenuItem
+                .Include(mi => mi.FoodTruck)
+                .FirstOrDefaultAsync(mi => mi.MenuItemId == id);
 
             if (menuItem == null)
             {

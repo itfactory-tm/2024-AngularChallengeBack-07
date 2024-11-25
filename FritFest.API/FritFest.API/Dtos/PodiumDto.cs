@@ -9,7 +9,7 @@ namespace FritFest.API.Dtos
         public string Naam { get; set; }
         public Guid locatieId { get; set; }
         public string LocatieNaam { get; set; } // Maps Locatie.Naam to this property
-        public ICollection<TijdStipDto> TijdStippen { get; set; } // Assuming TijdStipDto exists
-        public ICollection<FotoDto> Fotos { get; set; } // Assuming FotoDto exists
+        public List<DateTime> TijdStippen { get; set; } // Assuming TijdStipDto exists
+        public List<string> Fotos { get; set; } // Assuming FotoDto exists
     }
 }
