@@ -32,6 +32,15 @@ namespace FritFest.API.DbContexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<TijdStip>().HasKey(ts => new {ts.ArtiestId, ts.PodiumId });
+            modelBuilder.Entity<Artiest>()
+                .HasMany(a => a.Editie)
+                .WithMany(e => e.Artiesten)
+                .UsingEntity<Dictionary<string, object>>(
+                    "ArtiestenLijst", 
+                    join => join.HasOne<Editie>().WithMany().HasForeignKey("editieId"),
+                    join => join.HasOne<Artiest>().WithMany().HasForeignKey("artiestId")
+                );
+
         }
     }
 }

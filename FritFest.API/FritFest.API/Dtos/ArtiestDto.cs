@@ -9,6 +9,6 @@
         public string SpotifyApi { get; set; }
         public Guid GenreId { get; set; }
         public string GenreNaam { get; set; } // Optional, if you want to include genre name
-        public ICollection<EditieDto> Edities { get; set; }
+        public List<string> Edities { get; set; }
     }
 }
