@@ -31,6 +31,7 @@ namespace FritFest.API.Controllers
         {
             var tickets = await _context.Ticket
                 .Include(t => t.Editie)
+                .Include(t => t.TicketType)
                 .Include(t => t.Dag)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<TicketDto>>(tickets));
@@ -41,6 +42,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<TicketDto>> GetTicket(Guid id)
         {
             var ticket = await _context.Ticket
+                .Include(t => t.TicketType)
                 .Include(t => t.Editie)
                 .Include(t => t.Dag)
                 .FirstOrDefaultAsync(t => t.TicketId == id);
@@ -89,10 +91,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<TicketDto>> PostTicket(TicketDto ticketDto)
         {
             var ticket = _mapper.Map<Ticket>(ticketDto);
+            ticket.TicketId = Guid.NewGuid();
             _context.Ticket.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTicket", new { id = ticket.TicketId }, _mapper.Map<TicketDto>(ticket));
+            return CreatedAtAction(nameof(GetTicket), new { id = ticket.TicketId }, _mapper.Map<TicketDto>(ticket));
         }
 
         // DELETE: api/Tickets/5

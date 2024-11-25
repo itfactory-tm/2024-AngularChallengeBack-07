@@ -1,4 +1,6 @@
 USE festivaldb;
+
+-- Drop Tables if they exist
 DROP TABLE IF EXISTS DagList;
 DROP TABLE IF EXISTS Foto;
 DROP TABLE IF EXISTS Artikel;
@@ -13,82 +15,111 @@ DROP TABLE IF EXISTS Tijdstip;
 DROP TABLE IF EXISTS Dag;
 DROP TABLE IF EXISTS Podium;
 DROP TABLE IF EXISTS Locatie;
+Drop table if Exists ArtiestenLijst;
 DROP TABLE IF EXISTS Artiest;
 DROP TABLE IF EXISTS Genre;
 DROP TABLE IF EXISTS Editie;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS UserType;
+DROP TABLE IF EXISTS ArtiestenLijst;
 -- Step 1: Create the Database
 CREATE DATABASE IF NOT EXISTS festivaldb;
 USE festivaldb;
+
 -- Create tables
--- Create Editie table
-CREATE TABLE Editie(
-	editieId CHAR(36) PRIMARY KEY,
-    editieNaam varchar(100) Not Null,
-    adres Varchar(100) Not null,
-    postcode varchar(4) not null,
-    gemeente varchar(100) not null,
-    telNr varchar(12) not null,
-    email varchar(50) not null,
-    jaar int Not null
+-- Create Editie (Edition) table
+CREATE TABLE Editie (
+    editieId CHAR(36) PRIMARY KEY,            -- GUID type as CHAR(36)
+    editieNaam VARCHAR(100) NOT NULL,         -- EditieNaam as a string (not nullable)
+    adres VARCHAR(100) NOT NULL,              -- Adres as a string (not nullable)
+    postcode VARCHAR(4) NOT NULL,             -- Postcode as a string (not nullable)
+    gemeente VARCHAR(100) NOT NULL,           -- Gemeente as a string (not nullable)
+    telNr VARCHAR(12) NOT NULL,               -- TelNr as a string (not nullable)
+    email VARCHAR(50) NOT NULL,               -- Email as a string (not nullable)
+    jaar INT NOT NULL                         -- Jaar as an integer (not nullable)
 );
+
 -- Create Genre table
 CREATE TABLE Genre (
-    genreId CHAR(36) PRIMARY KEY,
-    naam VARCHAR(255) NOT NULL
+    genreId CHAR(36) PRIMARY KEY,          -- GUID type for the GenreId
+    naam VARCHAR(255) NOT NULL             -- Naam (Name) as a string (not nullable)
 );
--- Create Artiest (Artist) table
+
+-- Create Artiest (Artist) table (adjusted for GenreId relationship)
 CREATE TABLE Artiest (
-    artiestId CHAR(36) PRIMARY KEY,
-    naam VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    genreId CHAR(36),
-    FOREIGN KEY (genreId) REFERENCES Genre(genreId)
+    artiestId CHAR(36) PRIMARY KEY,             -- GUID for ArtiestId
+    naam VARCHAR(255) NOT NULL,                 -- Name of the artist
+    email VARCHAR(255) NOT NULL,                -- Email of the artist
+    beschrijving VARCHAR(255) NOT NULL,         -- Description of the artist
+    spotifyApi VARCHAR(255),                    -- Spotify API link (nullable)
+    genreId CHAR(36),                           -- Foreign key to Genre table
+    FOREIGN KEY (genreId) REFERENCES Genre(genreId)   -- Foreign key constraint
 );
--- Create Locatie (Location) table
+
+CREATE TABLE ArtiestenLijst(
+                               artiestId CHAR(36),                      -- Foreign key to Sponsor table
+                               editieId CHAR(36),                       -- Foreign key to Editie table
+                               PRIMARY KEY (artiestId, editieId),       -- Composite primary key
+                               FOREIGN KEY (artiestId) REFERENCES Artiest(artiestId),  -- Foreign key constraint to Sponsor
+                               FOREIGN KEY (editieId) REFERENCES Editie(editieId)
+);
+
+-- Create Locatie table
 CREATE TABLE Locatie (
-    locatieId CHAR(36) PRIMARY KEY,
-    naam VARCHAR(255) NOT NULL,
-    coordinaten VARCHAR(255) NOT NULL
+    locatieId CHAR(36) PRIMARY KEY,         -- GUID as primary key
+    naam VARCHAR(255) NOT NULL,             -- Location name (not nullable)
+    coordinaten VARCHAR(255) NOT NULL      -- Coordinates (not nullable)
 );
--- Create Podium (Stage) table
+
+-- Create Podium table
 CREATE TABLE Podium (
-    podiumId CHAR(36) PRIMARY KEY,
-    naam VARCHAR(255) NOT NULL,
-    locatieId CHAR(36),
-    groote int,
-    beschrijving VarChar(500),
-    FOREIGN KEY (locatieId) REFERENCES Locatie(locatieId)
+    podiumId CHAR(36) PRIMARY KEY,        -- GUID as the primary key for PodiumId
+    naam VARCHAR(255) NOT NULL,           -- Name of the stage (not nullable)
+    locatieId CHAR(36),                  -- Foreign key to the Locatie table
+    FOREIGN KEY (locatieId) REFERENCES Locatie(locatieId) -- Foreign key constraint to Locatie
 );
+
 -- Create Dag (Day) table
 CREATE TABLE Dag (
-    dagId CHAR(36) PRIMARY KEY,
-    date DATE NOT NULL
+    dagId CHAR(36) PRIMARY KEY,          -- GUID type as CHAR(36)
+    naam VARCHAR(255),                   -- Naam is nullable (optional field)
+    startDatum DATETIME NOT NULL,        -- StartDatum is required (DATETIME type)
+    eindDatum DATETIME NOT NULL          -- EindDatum is required (DATETIME type)
 );
--- Create Tijdstip (Time Slot) table
-CREATE TABLE Tijdstip (
-    tijdstip TIMESTAMP NOT NULL,
-    artiestId CHAR(36),
-    podiumId CHAR(36),
-    PRIMARY KEY (artiestId, podiumId), 
-    FOREIGN KEY (artiestId) REFERENCES Artiest(artiestId),
-    FOREIGN KEY (podiumId) REFERENCES Podium(podiumId)
+
+-- Create TijdStip table
+CREATE TABLE TijdStip (
+    tijdStipId CHAR(36) PRIMARY KEY,            -- Primary Key for TijdStip
+    tijd DATETIME NOT NULL,                     -- The date and time of the event
+    artiestId CHAR(36),                         -- Foreign Key to Artiest (Artist)
+    podiumId CHAR(36),                          -- Foreign Key to Podium (Stage)
+    FOREIGN KEY (artiestId) REFERENCES Artiest(artiestId),  -- Foreign Key constraint to Artiest
+    FOREIGN KEY (podiumId) REFERENCES Podium(podiumId)      -- Foreign Key constraint to Podium
 );
--- Create Tickettype (Ticket Type) table
-CREATE TABLE Tickettype (
-    typeId CHAR(36) PRIMARY KEY,
-    naam VARCHAR(255) NOT NULL
+
+-- Create TicketType table
+CREATE TABLE TicketType (
+    ticketTypeId CHAR(36) PRIMARY KEY,       -- GUID as the primary key for TicketTypeId
+    naam VARCHAR(255) NOT NULL,               -- The name of the ticket type (e.g., VIP, General Admission)
+    prijs double NOT NULL
 );
+
 -- Create Ticket table
 CREATE TABLE Ticket (
-    ticketId CHAR(36) PRIMARY KEY,
-    prijs DECIMAL(10, 2) NOT NULL,
-    typeId CHAR(36),
-    firstName VARCHAR(255) NOT NULL,
-    lastName VARCHAR(255) NOT NULL,
-    telephoneNumber VARCHAR(15) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    FOREIGN KEY (typeId) REFERENCES Tickettype(typeId)
+    ticketId CHAR(36) PRIMARY KEY,                 -- GUID as the primary key for TicketId
+    prijs DECIMAL(18,2) NOT NULL,                  -- Price of the ticket (decimal type)
+    firstName VARCHAR(255) NOT NULL,               -- First name of the ticket holder
+    lastName VARCHAR(255) NOT NULL,                -- Last name of the ticket holder
+    telNr VARCHAR(50),                             -- Phone number of the ticket holder
+    email VARCHAR(255),                            -- Email of the ticket holder
+    editieId CHAR(36),                             -- Foreign key to Editie (Edition)
+    ticketTypeId CHAR(36),                         -- Foreign key to TicketType
+    dagId CHAR(36),                                -- Foreign key to Dag (Day)
+    FOREIGN KEY (editieId) REFERENCES Editie(editieId),      -- Foreign key constraint to Editie
+    FOREIGN KEY (ticketTypeId) REFERENCES TicketType(ticketTypeId),  -- Foreign key constraint to TicketType
+    FOREIGN KEY (dagId) REFERENCES Dag(dagId)               -- Foreign key constraint to Dag
 );
+
 -- Create DagList (Day List) table
 CREATE TABLE DagList (
     ticketId CHAR(36),
@@ -97,157 +128,217 @@ CREATE TABLE DagList (
     FOREIGN KEY (ticketId) REFERENCES Ticket(ticketId),
     FOREIGN KEY (dagId) REFERENCES Dag(dagId)
 );
+
 -- Create FoodTruck table
 CREATE TABLE FoodTruck (
-    foodTruckId CHAR(36) PRIMARY KEY,
-    naam VARCHAR(255) NOT NULL,
-    locatieId CHAR(36),
-    FOREIGN KEY (locatieId) REFERENCES Locatie(locatieId)
+    foodTruckId CHAR(36) PRIMARY KEY,      -- GUID type as CHAR(36)
+    naam VARCHAR(255) NOT NULL,            -- Naam as a string (not nullable)
+    locatieId CHAR(36) NOT NULL,           -- LocatieId as a GUID (foreign key)
+    FOREIGN KEY (locatieId) REFERENCES Locatie(locatieId)  -- Foreign key reference to Locatie table
 );
+
+-- Create TruckList table
 CREATE TABLE TruckList (
-    foodTruckId CHAR(36),   -- Assuming UUIDs
-    editieId CHAR(36),    -- Assuming UUIDs
-    PRIMARY KEY (foodTruckId, editieId),   -- Composite Primary Key
-    FOREIGN KEY (foodTruckId) REFERENCES FoodTruck(FoodTruckId),
-    FOREIGN KEY (editieId) REFERENCES Editie(editieId)
+    foodTruckId CHAR(36),              -- Foreign key to FoodTruck
+    editieId CHAR(36),                 -- Foreign key to Editie
+    PRIMARY KEY (foodTruckId, editieId),  -- Composite primary key
+    FOREIGN KEY (foodTruckId) REFERENCES FoodTruck(foodTruckId),  -- Foreign key reference to FoodTruck
+    FOREIGN KEY (editieId) REFERENCES Editie(editieId)             -- Foreign key reference to Editie
 );
+
 -- Create MenuItem table
 CREATE TABLE MenuItem (
-    menuItemId CHAR(36) PRIMARY KEY,
-    naam VARCHAR(255) NOT NULL,
-    prijs DECIMAL(10, 2) NOT NULL,
-    foodTruckId CHAR(36),
-    FOREIGN KEY (foodTruckId) REFERENCES FoodTruck(foodTruckId)
+    menuItemId CHAR(36) PRIMARY KEY,        -- GUID as primary key for MenuItemId
+    naam VARCHAR(255) NOT NULL,             -- Name of the menu item (not nullable)
+    prijs DECIMAL(10, 2) NOT NULL,          -- Price of the menu item (not nullable)
+    foodTruckId CHAR(36),                   -- Foreign key to the FoodTruck table
+    FOREIGN KEY (foodTruckId) REFERENCES FoodTruck(foodTruckId) -- Foreign key constraint to FoodTruck
 );
+
 -- Create Sponsor table
 CREATE TABLE Sponsor (
-    sponsorId CHAR(36) PRIMARY KEY,
-    naam VARCHAR(255) NOT NULL,
-    logo VARCHAR(255) NOT NULL
+    sponsorId CHAR(36) PRIMARY KEY,           -- GUID as the primary key for SponsorId
+    sponsorNaam VARCHAR(255) NOT NULL,        -- Name of the sponsor (not nullable)
+    hoeveelheid INT,                          -- Amount contributed by the sponsor
+    gesponsordeItem VARCHAR(255)            -- Sponsored item description
 );
+
+-- Create SponsorLijst (Sponsor List) table
 CREATE TABLE SponsorLijst (
-    sponsorId CHAR(36),   -- Assuming UUIDs
-    editieId CHAR(36),    -- Assuming UUIDs
-    PRIMARY KEY (sponsorId, editieId),   -- Composite Primary Key
-    FOREIGN KEY (sponsorId) REFERENCES Sponsor(sponsorId),
-    FOREIGN KEY (editieId) REFERENCES Editie(editieId)
+    sponsorId CHAR(36),                      -- Foreign key to Sponsor table
+    editieId CHAR(36),                       -- Foreign key to Editie table
+    PRIMARY KEY (sponsorId, editieId),       -- Composite primary key
+    FOREIGN KEY (sponsorId) REFERENCES Sponsor(sponsorId),  -- Foreign key constraint to Sponsor
+    FOREIGN KEY (editieId) REFERENCES Editie(editieId)       -- Foreign key constraint to Editie
 );
--- Create NieuwsArtikel (News Article) table
+
+-- Create Artikel (News Article) table
 CREATE TABLE Artikel (
-    artikelId CHAR(36) PRIMARY KEY,
-    titel VARCHAR(255) NOT NULL,
-    inhoud TEXT NOT NULL,
-    datum TIMESTAMP NOT NULL
+    artikelId CHAR(36) PRIMARY KEY,           -- GUID type as CHAR(36)
+    titel VARCHAR(255) NOT NULL,              -- Titel is required
+    beschrijving TEXT,                        -- Beschrijving is nullable (TEXT type)
+    datum DATETIME NOT NULL,                  -- Datum is required and uses DATETIME
+    editieId CHAR(36),                        -- EditieId is a GUID (CHAR(36))
+    FOREIGN KEY (editieId) REFERENCES Editie(editieId)  -- Foreign key referencing the Editie table
 );
--- Create Foto table
+
+-- Create Foto (Photo) table
 CREATE TABLE Foto (
-    fotoId CHAR(36) PRIMARY KEY,
-    bestand VARCHAR(255) NOT NULL,
-    beschrijving TEXT
+    fotoId CHAR(36) PRIMARY KEY,           -- GUID type as CHAR(36) for primary key
+    bestand VARCHAR(255) NOT NULL,         -- Bestand (file name) as a string
+    beschrijving VARCHAR(255) NOT NULL,
+    editieId CHAR(36),                     -- Foreign key to Editie table
+    FOREIGN KEY (editieId) REFERENCES Editie(editieId),  -- Foreign key constraint to Editie
+    artikelId CHAR(36),
+    foreign key (artikelId) references Artikel(artikelId),
+    podiumId CHAR(36),
+    foreign key (podiumId) references Podium(podiumId)
 );
--- Insert Edities
-INSERT INTO Editie (editieId, editieNaam, adres, postcode, gemeente, telNr, email,jaar) VALUES
-(UUID(), 'Fritfest', '123 Festival Lane', '1000', 'Brussels', '020123456', 'info@fritfest.be',2024);
--- Insert Genres
-INSERT INTO Genre (genreId, naam) VALUES 
-(UUID(), 'Rock'), 
-(UUID(), 'Jazz'), 
-(UUID(), 'Pop'), 
-(UUID(), 'Electronic'), 
-(UUID(), 'Hip-Hop');
--- Insert Locations
-INSERT INTO Locatie (locatieId, naam, coordinaten) VALUES 
-(UUID(), 'S1', '50.8503° N, 4.3517° E'), 
-(UUID(), 'S2', '50.8476° N, 4.3572° E'), 
-(UUID(), 'T1', '50.8457° N, 4.3500° E');
--- Insert Stages
-INSERT INTO Podium (podiumId, naam, locatieId, groote, beschrijving) VALUES 
-(UUID(), 'Main Stage', (SELECT locatieId FROM Locatie WHERE naam = 'S1'), 500, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur voluptas sequi voluptatum pariatur!"), 
-(UUID(), 'Side Stage', (SELECT locatieId FROM Locatie WHERE naam = 'S1'), 200, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur voluptas sequi voluptatum pariatur!"), 
-(UUID(), 'Electronic Arena', (SELECT locatieId FROM Locatie WHERE naam = 'S2'), 300, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur voluptas sequi voluptatum pariatur!");
--- Insert Days
-INSERT INTO Dag (dagId, date) VALUES 
-(UUID(), '2024-10-18'), 
-(UUID(), '2024-10-19'), 
-(UUID(), '2024-10-20');
--- Insert Artists
-INSERT INTO Artiest (artiestId, naam, email, genreId) VALUES 
-(UUID(), 'The Rolling Stones', 'contact@rollingstones.com', (SELECT genreId FROM Genre WHERE naam = 'Rock')), 
-(UUID(), 'Miles Davis', 'milesd@jazz.com', (SELECT genreId FROM Genre WHERE naam = 'Jazz')), 
-(UUID(), 'Taylor Swift', 'taylorswift@popstar.com', (SELECT genreId FROM Genre WHERE naam = 'Pop')), 
-(UUID(), 'Daft Punk', 'info@daftpunk.com', (SELECT genreId FROM Genre WHERE naam = 'Electronic')), 
-(UUID(), 'Kanye West', 'kanye@hiphop.com', (SELECT genreId FROM Genre WHERE naam = 'Hip-Hop'));
--- Insert Time Slots
-INSERT INTO Tijdstip (tijdstip, artiestId, podiumId) VALUES 
-('2024-10-18 14:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'The Rolling Stones'), (SELECT podiumId FROM Podium WHERE naam = 'Main Stage')),  
-('2024-10-18 18:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'Miles Davis'), (SELECT podiumId FROM Podium WHERE naam = 'Side Stage')),  
-('2024-10-19 16:30:00', (SELECT artiestId FROM Artiest WHERE naam = 'Taylor Swift'), (SELECT podiumId FROM Podium WHERE naam = 'Main Stage')),  
-('2024-10-19 21:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'Daft Punk'), (SELECT podiumId FROM Podium WHERE naam = 'Electronic Arena')),  
-('2024-10-20 20:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'Kanye West'), (SELECT podiumId FROM Podium WHERE naam = 'Main Stage'));
--- Insert Ticket Types
-INSERT INTO Tickettype (typeId, naam) VALUES 
-(UUID(), 'Day Pass'), 
-(UUID(), 'Weekend Pass'), 
-(UUID(), 'VIP Pass');
--- Insert Tickets
-INSERT INTO Ticket (ticketId, prijs, typeId, firstName, lastName, telephoneNumber, email) VALUES
-(UUID(), 50.00, (SELECT typeId FROM Tickettype WHERE naam = 'Day Pass'), 'Arno', 'Van Haecke', '1234567890', 'arno.vh@example.com'), 
-(UUID(), 90.00, (SELECT typeId FROM Tickettype WHERE naam = 'Weekend Pass'), 'Steffy Sandra Monique', 'Meylaers', '9876543210', 'steffy.m@example.com'), 
-(UUID(), 150.00, (SELECT typeId FROM Tickettype WHERE naam = 'VIP Pass'), 'Wesley Johan A Flopper', 'Meylaers', '5551234567', 'wesley.m@example.com'), 
-(UUID(), 50.00, (SELECT typeId FROM Tickettype WHERE naam = 'Day Pass'), 'Chocoprins', 'Joris', '4445556666', 'choco.joris@example.com'), 
-(UUID(), 90.00, (SELECT typeId FROM Tickettype WHERE naam = 'Weekend Pass'), 'Emiel', 'De Pedofiel', '1112223333', 'emiel.p@example.com');
--- Insert Ticket-Day Associations
--- Day Pass valid only for 18th October
-INSERT INTO DagList (ticketId, dagId) VALUES 
-((SELECT ticketId FROM Ticket WHERE firstName = 'Arno' AND lastName = 'Van Haecke'), (SELECT dagId FROM Dag WHERE date = '2024-10-18'));
--- Weekend Pass valid for both 18th and 19th October
-INSERT INTO DagList (ticketId, dagId) VALUES 
-((SELECT ticketId FROM Ticket WHERE firstName = 'Steffy Sandra Monique' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-18')), 
-((SELECT ticketId FROM Ticket WHERE firstName = 'Steffy Sandra Monique' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-19'));
--- VIP Pass valid for all 3 days
-INSERT INTO DagList (ticketId, dagId) VALUES 
-((SELECT ticketId FROM Ticket WHERE firstName = 'Wesley Johan A Flopper' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-18')), 
-((SELECT ticketId FROM Ticket WHERE firstName = 'Wesley Johan A Flopper' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-19')), 
-((SELECT ticketId FROM Ticket WHERE firstName = 'Wesley Johan A Flopper' AND lastName = 'Meylaers'), (SELECT dagId FROM Dag WHERE date = '2024-10-20'));
--- Insert Food Trucks
-INSERT INTO FoodTruck (foodTruckId, naam, locatieId) VALUES 
-(UUID(), 'Tasty Tacos', (SELECT locatieId FROM Locatie WHERE naam = 'T1')), 
-(UUID(), 'Burgers Galore', (SELECT locatieId FROM Locatie WHERE naam = 'T1')), 
-(UUID(), 'Sushi Station', (SELECT locatieId FROM Locatie WHERE naam = 'T1'));
--- Insert Menu Items
-INSERT INTO MenuItem (menuItemId, naam, prijs, foodTruckId) VALUES 
-(UUID(), 'Chicken Taco', 5.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Tasty Tacos')), 
-(UUID(), 'Beef Taco', 6.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Tasty Tacos')), 
-(UUID(), 'Cheeseburger', 7.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Burgers Galore')), 
-(UUID(), 'Veggie Burger', 7.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Burgers Galore')), 
-(UUID(), 'California Roll', 8.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Sushi Station')), 
-(UUID(), 'Spicy Tuna Roll', 9.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Sushi Station'));
-INSERT INTO Sponsor (sponsorId, naam, logo) VALUES
-(UUID(), 'Coca-Cola', 'https://example.com/coca-cola-logo.png'),
-(UUID(), 'Nike', 'https://example.com/nike-logo.png'),
-(UUID(), 'Red Bull', 'https://example.com/redbull-logo.png');
-INSERT INTO SponsorLijst (sponsorId, editieId) VALUES
-((SELECT sponsorId FROM Sponsor WHERE naam = 'Coca-Cola'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
-((SELECT sponsorId FROM Sponsor WHERE naam = 'Nike'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
-((SELECT sponsorId FROM Sponsor WHERE naam = 'Red Bull'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
-INSERT INTO TruckList (foodTruckId, editieId) VALUES
-((SELECT foodTruckId FROM FoodTruck WHERE naam = 'Tasty Tacos'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
-((SELECT foodTruckId FROM FoodTruck WHERE naam = 'Burgers Galore'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
-((SELECT foodTruckId FROM FoodTruck WHERE naam = 'Sushi Station'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
-INSERT INTO Artikel (artikelId, titel, inhoud, datum) VALUES
-(UUID(), 'New Headliner Announced!', 'Taylor Swift will headline Summer Fest.', '2024-10-01 12:00:00'),
-(UUID(), 'Red Bull Sponsorship Confirmed', 'Red Bull is now an official sponsor of Spring Music Festival.', '2024-10-05 14:30:00'),
-(UUID(), 'Weather Update', 'The Winter Wonderland organizers confirmed that indoor stages will be available.', '2024-10-10 09:15:00');
-INSERT INTO Foto (fotoId, bestand, beschrijving) VALUES
-(UUID(), '#', 'Crowd enjoying the Summer Fest vibes.'),
-(UUID(), '#', 'Beautiful snowfall at Winter Wonderland.'),
-(UUID(), '#', 'Daft Punk on stage at Spring Music Festival.');
--- Verify Data with Select Queries
--- SELECT * FROM Genre;
--- SELECT * FROM Artiest;
--- SELECT * FROM Podium;
--- SELECT * FROM Tijdstip;
--- SELECT * FROM Dag;
--- SELECT * FROM Tickettype;
--- SELECT * FROM Ticket;
--- SELECT * FROM DagList;
+-- Create Role table
+create table UserType(
+                     typeId char(36) primary key,
+                     naam varchar(255) not null
+
+);
+-- Create Gebruiker (User) table
+create table User(
+    userId char(36) primary key ,
+    naam VARCHAR(255) NOT NULL ,
+    email VARCHAR(255),
+    phone VARCHAR(255),
+    typeId CHAR(36),
+    foreign key (typeId) references UserType(typeId)
+);
+    
+
+
+-- Insert data into Editie (Edition)
+INSERT INTO Editie (editieId, editieNaam, adres, postcode, gemeente, telNr, email, jaar)
+VALUES 
+(UUID(), 'Fritfest', 'Main Street 123', '1000', 'Brussels', '02-1234567', 'info@fritfest.be', 2024);
+INSERT INTO UserType(typeId, naam)
+VALUES 
+    (UUID(), 'admin'),
+    (UUID(), 'user');
+-- Insert data into User
+INSERT INTO User(userId, naam, email, phone, typeId) 
+VALUES 
+    (UUID(),'Jorrit Geurts','jorrit.geurts@tm.be','0339648', (SELECT typeId FROM UserType WHERE naam = 'admin')),
+    (UUID(),'Willem De Bie','wdb@tm.be','0255225',(SELECT typeId FROM UserType where naam = 'user'));
+
+-- Insert data into UserType
+
+
+-- Insert data into Genre
+INSERT INTO Genre (genreId, naam)
+VALUES
+(UUID(), 'Rock'),
+(UUID(), 'Pop'),
+(UUID(), 'Jazz'),
+(UUID(), 'Electronic');
+
+-- Insert data into Artiest (Artist)
+INSERT INTO Artiest (artiestId, naam, email, beschrijving, spotifyApi, genreId)
+VALUES 
+(UUID(), 'The Rockers', 'rockers@music.com', 'A famous rock band', 'spotify.com/therockers', (SELECT genreId FROM Genre WHERE naam = 'Rock')),
+(UUID(), 'DJ Spin', 'djspin@beats.com', 'A well-known electronic DJ', 'spotify.com/djspin', (SELECT genreId FROM Genre WHERE naam = 'Electronic')),
+(UUID(), 'PopStar', 'popstar@music.com', 'A pop music sensation', 'spotify.com/popstar', (SELECT genreId FROM Genre WHERE naam = 'Pop')),
+(UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet', (SELECT genreId FROM Genre WHERE naam = 'Jazz'));
+
+-- Insert data into Locatie (Location)
+INSERT INTO Locatie (locatieId, naam, coordinaten)
+VALUES
+(UUID(), 'Main Stage', '52.366, 4.904'),
+(UUID(), 'Beach Arena', '51.922, 4.481'),
+(UUID(), 'Jazz Lounge', '52.364, 4.903');
+
+INSERT INTO Podium (podiumId,naam, locatieId) 
+VALUES 
+(UUID(), 'Test1',(SELECT locatieId FROM Locatie WHERE naam = 'Main Stage')),
+(UUID(),'Test2' ,(SELECT locatieId FROM Locatie WHERE naam = 'Beach Arena')),
+(UUID(),'test3' ,(SELECT locatieId FROM Locatie WHERE naam = 'Jazz Lounge'));
+
+
+-- Insert data into Dag (Day)
+INSERT INTO Dag (dagId, naam, startDatum, eindDatum)
+VALUES
+(UUID(), 'Day 1', '2024-07-01 10:00:00', '2024-07-01 22:00:00'),
+(UUID(), 'Day 2', '2024-07-02 10:00:00', '2024-07-02 22:00:00');
+
+-- Insert data into TijdStip (Time Slot)
+INSERT INTO TijdStip (tijdStipId, tijd, artiestId, podiumId)
+VALUES
+(UUID(), '2024-07-01 12:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'The Rockers'), (SELECT podiumId FROM Podium WHERE naam = 'Test1')),
+(UUID(), '2024-07-01 14:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'DJ Spin'), (SELECT podiumId FROM Podium WHERE naam = 'Test2')),
+(UUID(), '2024-07-02 16:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'PopStar'), (SELECT podiumId FROM Podium WHERE naam = 'Test1')),
+(UUID(), '2024-07-02 18:00:00', (SELECT artiestId FROM Artiest WHERE naam = 'Jazz Quartet'), (SELECT podiumId FROM Podium WHERE naam = 'Test3'));
+
+-- Insert data into TicketType
+INSERT INTO TicketType (ticketTypeId, naam,prijs)
+VALUES
+(UUID(), 'General Admission',10.00),
+(UUID(), 'VIP',12.00);
+
+-- Insert data into Ticket
+INSERT INTO Ticket (ticketId, prijs, firstName, lastName, telNr, email, editieId, ticketTypeId, dagId)
+VALUES
+(UUID(), 50.00, 'John', 'Doe', '0612345678', 'john.doe@example.com', (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE naam = 'General Admission'), (SELECT dagId FROM Dag WHERE naam = 'Day 1')),
+(UUID(), 120.00, 'Jane', 'Smith', '0698765432', 'jane.smith@example.com', (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE naam = 'VIP'), (SELECT dagId FROM Dag WHERE naam = 'Day 2'));
+
+-- Insert data into DagList (Day List)
+INSERT INTO DagList (ticketId, dagId)
+VALUES
+((SELECT ticketId FROM Ticket WHERE firstName = 'John' AND lastName = 'Doe'), (SELECT dagId FROM Dag WHERE naam = 'Day 1')),
+((SELECT ticketId FROM Ticket WHERE firstName = 'Jane' AND lastName = 'Smith'), (SELECT dagId FROM Dag WHERE naam = 'Day 2'));
+
+-- Insert data into FoodTruck
+INSERT INTO FoodTruck (foodTruckId, naam, locatieId)
+VALUES
+(UUID(), 'Burger Truck', (SELECT locatieId FROM Locatie WHERE naam = 'Main Stage')),
+(UUID(), 'Pizza Truck', (SELECT locatieId FROM Locatie WHERE naam = 'Beach Arena')),
+(UUID(), 'Ice Cream Truck', (SELECT locatieId FROM Locatie WHERE naam = 'Jazz Lounge'));
+
+-- Insert data into TruckList (Food Truck List)
+INSERT INTO TruckList (foodTruckId, editieId)
+VALUES
+((SELECT foodTruckId FROM FoodTruck WHERE naam = 'Burger Truck'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT foodTruckId FROM FoodTruck WHERE naam = 'Pizza Truck'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT foodTruckId FROM FoodTruck WHERE naam = 'Ice Cream Truck'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
+
+-- Insert data into MenuItem (Menu Items)
+INSERT INTO MenuItem (menuItemId, naam, prijs, foodTruckId)
+VALUES
+(UUID(), 'Cheeseburger', 10.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Burger Truck')),
+(UUID(), 'Veggie Burger', 12.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Burger Truck')),
+(UUID(), 'Margherita Pizza', 8.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Pizza Truck')),
+(UUID(), 'Pepperoni Pizza', 10.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Pizza Truck')),
+(UUID(), 'Vanilla Ice Cream', 3.00, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Ice Cream Truck')),
+(UUID(), 'Chocolate Ice Cream', 3.50, (SELECT foodTruckId FROM FoodTruck WHERE naam = 'Ice Cream Truck'));
+
+-- Insert data into Sponsor
+INSERT INTO Sponsor (sponsorId, sponsorNaam, hoeveelheid, gesponsordeItem)
+VALUES
+(UUID(), 'TechCo', 50000, 'Stage Equipment'),
+(UUID(), 'DrinkCorp', 20000, 'Refreshments'),
+(UUID(), 'Foodies Ltd', 30000, 'Food Stalls');
+
+-- Insert data into SponsorLijst (Sponsor List)
+INSERT INTO SponsorLijst (sponsorId, editieId)
+VALUES
+((SELECT sponsorId FROM Sponsor WHERE sponsorNaam = 'TechCo'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT sponsorId FROM Sponsor WHERE sponsorNaam = 'DrinkCorp'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT sponsorId FROM Sponsor WHERE sponsorNaam = 'Foodies Ltd'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
+
+INSERT INTO ArtiestenLijst(artiestId, editieId) VALUES 
+((SELECT artiestId FROM Artiest WHERE naam = 'The Rockers'),(SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT artiestId FROM Artiest WHERE naam = 'DJ Spin'),(SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
+-- Insert data into Artikel (Article)
+INSERT INTO Artikel (artikelId, titel, beschrijving, datum, editieId)
+VALUES
+(UUID(), 'Fritfest 2024 Highlights', 'The best moments from Fritfest 2024', '2024-06-30 09:00:00', (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
+
+-- Insert data into Foto (Photo)
+INSERT INTO Foto (fotoId, bestand, beschrijving,  editieId,artikelId,podiumId)
+VALUES
+(UUID(), 'photo1.jpg', 'Main Stage Crowd',  (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'),(select artikelId from Artikel WHERE titel = 'Fritfest 2024 Highlights'),(select podiumId from Podium where naam = 'Test1')),
+(UUID(), 'photo2.jpg', 'DJ Spin Performing',  (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'),(select artikelId from Artikel WHERE titel = 'Fritfest 2024 Highlights'),(select podiumId from Podium where naam = 'Test2'));

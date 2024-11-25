@@ -32,13 +32,34 @@ namespace FritFest.API.DbContexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<TijdStip>().HasKey(ts => new {ts.ArtiestId, ts.PodiumId });
+            //Association between Artiest and Editie
             modelBuilder.Entity<Artiest>()
                 .HasMany(a => a.Editie)
                 .WithMany(e => e.Artiesten)
                 .UsingEntity<Dictionary<string, object>>(
-                    "ArtiestenLijst", 
+                    "ArtiestenLijst",
                     join => join.HasOne<Editie>().WithMany().HasForeignKey("editieId"),
                     join => join.HasOne<Artiest>().WithMany().HasForeignKey("artiestId")
+                );
+
+            //Association between Sponsor and Editie
+            modelBuilder.Entity<Sponsor>()
+                .HasMany(a => a.Editie)
+                .WithMany(e => e.Sponsors)
+                .UsingEntity<Dictionary<string, object>>(
+                    "SponsorLijst",
+                    join => join.HasOne<Editie>().WithMany().HasForeignKey("editieId"),
+                    join => join.HasOne<Sponsor>().WithMany().HasForeignKey("sponsorId")
+                );
+
+            //Association between Foodtruck and Editie
+            modelBuilder.Entity<FoodTruck>()
+                .HasMany(a => a.Edities)
+                .WithMany(e => e.Foodtrucks)
+                .UsingEntity<Dictionary<string, object>>(
+                    "TruckList",
+                    join => join.HasOne<Editie>().WithMany().HasForeignKey("editieId"),
+                    join => join.HasOne<FoodTruck>().WithMany().HasForeignKey("foodTruckId")
                 );
 
         }

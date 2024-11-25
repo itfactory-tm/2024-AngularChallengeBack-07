@@ -90,6 +90,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<UserTypeDto>> PostUserType(UserTypeDto userTypeDto)
         {
             var userType = _mapper.Map<UserType>(userTypeDto);
+            userType.TypeId = Guid.NewGuid(); // Ensure a new GUID is assigned
             _context.UserType.Add(userType);
             await _context.SaveChangesAsync();
 

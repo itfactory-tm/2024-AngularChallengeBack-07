@@ -30,7 +30,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<IEnumerable<TicketTypeDto>>> GetTicketType()
         {
             var ticketTypes = await _context.TicketType
-                .Include(tt => tt.Ticket)
+               
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<TicketTypeDto>>(ticketTypes));
         }
@@ -40,7 +40,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<TicketTypeDto>> GetTicketType(Guid id)
         {
             var ticketType = await _context.TicketType
-                .Include(tt => tt.Ticket)
+               
                 .FirstOrDefaultAsync(tt => tt.TicketTypeId == id);
 
             if (ticketType == null)
@@ -87,10 +87,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<TicketTypeDto>> PostTicketType(TicketTypeDto ticketTypeDto)
         {
             var ticketType = _mapper.Map<TicketType>(ticketTypeDto);
+            ticketType.TicketTypeId = Guid.NewGuid(); // Ensure a new GUID is assigned
             _context.TicketType.Add(ticketType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTicketType", new { id = ticketType.TicketTypeId }, _mapper.Map<TicketTypeDto>(ticketType));
+            return CreatedAtAction(nameof(GetTicketType), new { id = ticketType.TicketTypeId }, _mapper.Map<TicketTypeDto>(ticketType));
         }
 
         // DELETE: api/TicketTypes/5

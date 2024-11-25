@@ -15,6 +15,7 @@ namespace FritFest.API.Dtos
         public string EditieNaam { get; set; } // Editie.Name field to display the name in the DTO
 
         public Guid TicketTypeId { get; set; }
+        public double TicketPrijs { get; set; }
         public Guid DagId { get; set; }
         public string DagNaam { get; set; } // Dag.Name field to display the name in the DTO
     }

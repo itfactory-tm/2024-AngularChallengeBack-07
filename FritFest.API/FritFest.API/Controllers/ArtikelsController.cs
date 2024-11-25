@@ -51,6 +51,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<ArtikelDto>> PostArtikel(ArtikelDto artikelDto)
         {
             var artikel = _mapper.Map<Artikel>(artikelDto);
+            artikel.ArtikelId = Guid.NewGuid();
             _context.Artikel.Add(artikel);
             await _context.SaveChangesAsync();
 

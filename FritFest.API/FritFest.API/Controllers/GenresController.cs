@@ -91,7 +91,7 @@ namespace FritFest.API.Controllers
             _context.Genre.Add(genre);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGenre", new { id = genre.GenreId }, _mapper.Map<GenreDto>(genre));
+            return CreatedAtAction(nameof(GetGenre), new { id = genre.GenreId }, _mapper.Map<GenreDto>(genre));
         }
 
         // DELETE: api/Genres/5

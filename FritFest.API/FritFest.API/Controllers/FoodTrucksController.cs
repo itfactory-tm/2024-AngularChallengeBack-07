@@ -29,7 +29,10 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FoodTruckDto>>> GetFoodTruck()
         {
-            var foodTrucks = await _context.FoodTruck.ToListAsync();
+            var foodTrucks = await _context.FoodTruck
+                .Include(ft => ft.Edities)
+                .Include(ft => ft.Locatie)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<FoodTruckDto>>(foodTrucks));
         }
 
@@ -37,7 +40,10 @@ namespace FritFest.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<FoodTruckDto>> GetFoodTruck(Guid id)
         {
-            var foodTruck = await _context.FoodTruck.FindAsync(id);
+            var foodTruck = await _context.FoodTruck
+                .Include(ft => ft.Edities)
+                .Include(ft => ft.Locatie)
+                .FirstOrDefaultAsync(ft => ft.FoodTruckId == id);
 
             if (foodTruck == null)
             {
@@ -85,10 +91,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<FoodTruckDto>> PostFoodTruck(FoodTruckDto foodTruckDto)
         {
             var foodTruck = _mapper.Map<FoodTruck>(foodTruckDto);
+            foodTruck.FoodTruckId = Guid.NewGuid(); // Ensure a new GUID is assigned
             _context.FoodTruck.Add(foodTruck);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFoodTruck", new { id = foodTruck.FoodTruckId }, _mapper.Map<FoodTruckDto>(foodTruck));
+            return CreatedAtAction(nameof(GetFoodTruck), new { id = foodTruck.FoodTruckId }, _mapper.Map<FoodTruckDto>(foodTruck));
         }
 
         // DELETE: api/FoodTrucks/5

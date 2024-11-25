@@ -87,10 +87,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<PodiumDto>> PostPodium(PodiumDto podiumDto)
         {
             var podium = _mapper.Map<Podium>(podiumDto);
+            podium.PodiumId = Guid.NewGuid();
             _context.Podium.Add(podium);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPodium", new { id = podium.PodiumId }, _mapper.Map<PodiumDto>(podium));
+            return CreatedAtAction(nameof(GetPodium), new { id = podium.PodiumId }, _mapper.Map<PodiumDto>(podium));
         }
 
         // DELETE: api/Podiums/5
