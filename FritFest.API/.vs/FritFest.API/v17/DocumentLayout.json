@@ -214,15 +214,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
@@ -234,8 +230,7 @@
               "RelativeToolTip": "FritFest.API\\MappingProfiles\\MenuItemProfile.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T12:52:50.306Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T12:52:50.306Z"
             },
             {
               "$type": "Document",
@@ -245,7 +240,7 @@
               "RelativeDocumentMoniker": "FritFest.API\\Program.cs",
               "ToolTip": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Program.cs",
               "RelativeToolTip": "FritFest.API\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-25T09:38:13.255Z",
               "EditorCaption": ""
@@ -260,8 +255,7 @@
               "RelativeToolTip": "FritFest.API\\Dtos\\TicketDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T09:54:32.095Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T09:54:32.095Z"
             },
             {
               "$type": "Document",
@@ -273,8 +267,7 @@
               "RelativeToolTip": "FritFest.API\\Dtos\\EditieDto.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAkwBAAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T09:27:46.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T09:27:46.607Z"
             },
             {
               "$type": "Document",
@@ -286,8 +279,7 @@
               "RelativeToolTip": "FritFest.API\\Dtos\\FoodTruckDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T09:44:31.224Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T09:44:31.224Z"
             },
             {
               "$type": "Document",
@@ -299,8 +291,7 @@
               "RelativeToolTip": "FritFest.API\\MappingProfiles\\FoodTruckProfile.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAACDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T09:45:47.887Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T09:45:47.887Z"
             },
             {
               "$type": "Document",
@@ -312,8 +303,7 @@
               "RelativeToolTip": "FritFest.API\\MappingProfiles\\EditieProfile.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAuwBYAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T09:43:06.759Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T09:43:06.759Z"
             },
             {
               "$type": "Document",
@@ -337,8 +327,7 @@
               "RelativeToolTip": "FritFest.API\\Entities\\FoodTruck.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T09:43:42.315Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T09:43:42.315Z"
             },
             {
               "$type": "Document",
@@ -350,8 +339,7 @@
               "RelativeToolTip": "FritFest.API\\Entities\\Editie.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAA7wAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T09:42:41.458Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T09:42:41.458Z"
             },
             {
               "$type": "Document",
