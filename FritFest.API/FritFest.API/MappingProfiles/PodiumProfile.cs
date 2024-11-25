@@ -10,7 +10,10 @@ namespace FritFest.API.Profiles
         {
             // Map from Podium to PodiumDto
             CreateMap<Podium, PodiumDto>()
-                .ForMember(dest => dest.LocatieNaam, opt => opt.MapFrom(src => src.Locatie.Naam));
+                .ForMember(dest => dest.LocatieNaam, opt => opt.MapFrom(src => src.Locatie.Naam))
+                .ForMember(dest => dest.TijdStippen, opt => opt.MapFrom(src => src.TijdStippen.Select(ts => ts.Tijd).ToList()))
+                .ForMember(dest => dest.Fotos, opt => opt.MapFrom(src => src.Fotos.Select(f => f.Bestand).ToList()))
+                ;
 
             // Map from PodiumDto to Podium
             CreateMap<PodiumDto, Podium>()

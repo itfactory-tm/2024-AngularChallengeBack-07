@@ -12,7 +12,7 @@ namespace FritFest.API.Profiles
             // Map from FoodTruck to FoodTruckDto
             CreateMap<FoodTruck, FoodTruckDto>()
                 .ForMember(dest => dest.LocatieNaam, opt => opt.MapFrom(src => src.Locatie != null ? src.Locatie.Naam : null))
-                .ForMember(dest => dest.EditieCount, opt => opt.MapFrom(src => src.Edities != null ? src.Edities.Count : 0))
+                
                 .ForMember(dest => dest.MenuItemCount, opt => opt.MapFrom(src => src.MenuItems != null ? src.MenuItems.Count : 0));
 
             // Reverse map from FoodTruckDto to FoodTruck

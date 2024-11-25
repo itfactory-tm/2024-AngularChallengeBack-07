@@ -29,7 +29,9 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TicketTypeDto>>> GetTicketType()
         {
-            var ticketTypes = await _context.TicketType.ToListAsync();
+            var ticketTypes = await _context.TicketType
+                .Include(tt => tt.Ticket)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<TicketTypeDto>>(ticketTypes));
         }
 
@@ -37,7 +39,9 @@ namespace FritFest.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TicketTypeDto>> GetTicketType(Guid id)
         {
-            var ticketType = await _context.TicketType.FindAsync(id);
+            var ticketType = await _context.TicketType
+                .Include(tt => tt.Ticket)
+                .FirstOrDefaultAsync(tt => tt.TicketTypeId == id);
 
             if (ticketType == null)
             {
