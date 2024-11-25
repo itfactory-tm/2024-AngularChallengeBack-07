@@ -29,7 +29,9 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FoodTruckDto>>> GetFoodTruck()
         {
-            var foodTrucks = await _context.FoodTruck.ToListAsync();
+            var foodTrucks = await _context.FoodTruck
+                .Include(ft => ft.Edities)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<FoodTruckDto>>(foodTrucks));
         }
 
