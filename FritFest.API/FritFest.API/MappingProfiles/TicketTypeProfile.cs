@@ -8,7 +8,12 @@ namespace FritFest.API.Profiles
     {
         public TicketTypeProfile()
         {
-            
+            // Map from TicketType to TicketTypeDto
+            CreateMap<TicketType, TicketTypeDto>();
+
+            // Map from TicketTypeDto to TicketType
+            CreateMap<TicketTypeDto, TicketType>();
+                 
         }
     }
 }

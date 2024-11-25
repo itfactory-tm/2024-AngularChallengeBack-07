@@ -85,10 +85,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<TicketTypeDto>> PostTicketType(TicketTypeDto ticketTypeDto)
         {
             var ticketType = _mapper.Map<TicketType>(ticketTypeDto);
+            ticketType.TicketTypeId = Guid.NewGuid(); // Ensure a new GUID is assigned
             _context.TicketType.Add(ticketType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTicketType", new { id = ticketType.TicketTypeId }, _mapper.Map<TicketTypeDto>(ticketType));
+            return CreatedAtAction(nameof(GetTicketType), new { id = ticketType.TicketTypeId }, _mapper.Map<TicketTypeDto>(ticketType));
         }
 
         // DELETE: api/TicketTypes/5

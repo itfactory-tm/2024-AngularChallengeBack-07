@@ -87,10 +87,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<SponsorDto>> PostSponsor(SponsorDto sponsorDto)
         {
             var sponsor = _mapper.Map<Sponsor>(sponsorDto);
+            sponsor.SponsorId = Guid.NewGuid(); // Ensure a new GUID is assigned
             _context.Sponsor.Add(sponsor);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSponsor", new { id = sponsor.SponsorId }, _mapper.Map<SponsorDto>(sponsor));
+            return CreatedAtAction(nameof(GetSponsor), new { id = sponsor.SponsorId }, _mapper.Map<SponsorDto>(sponsor));
         }
 
         // DELETE: api/Sponsors/5

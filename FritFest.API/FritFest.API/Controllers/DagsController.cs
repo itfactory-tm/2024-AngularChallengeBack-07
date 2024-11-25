@@ -85,10 +85,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<DagDto>> PostDag(DagDto dagDto)
         {
             var dag = _mapper.Map<Dag>(dagDto);
+            dag.DagId = Guid.NewGuid();
             _context.Dag.Add(dag);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDag", new { id = dag.DagId }, _mapper.Map<DagDto>(dag));
+            return CreatedAtAction(nameof(GetDag), new { id = dag.DagId }, _mapper.Map<DagDto>(dag));
         }
 
         // DELETE: api/Dags/5

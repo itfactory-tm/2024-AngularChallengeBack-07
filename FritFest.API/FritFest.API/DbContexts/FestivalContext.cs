@@ -32,13 +32,13 @@ namespace FritFest.API.DbContexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<TijdStip>().HasKey(ts => new {ts.ArtiestId, ts.PodiumId });
-
+            
             //Association between Artiest and Editie
             modelBuilder.Entity<Artiest>()
                 .HasMany(a => a.Editie)
                 .WithMany(e => e.Artiesten)
                 .UsingEntity<Dictionary<string, object>>(
-                    "ArtiestenLijst", 
+                    "ArtiestenLijst",
                     join => join.HasOne<Editie>().WithMany().HasForeignKey("editieId"),
                     join => join.HasOne<Artiest>().WithMany().HasForeignKey("artiestId")
                 );
@@ -63,7 +63,6 @@ namespace FritFest.API.DbContexts
                     join => join.HasOne<FoodTruck>().WithMany().HasForeignKey("foodTruckId")
                 );
 
-            //Connection between TicketType and Ticket
         }
     }
 }

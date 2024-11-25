@@ -89,10 +89,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<LocatieDto>> PostLocatie(LocatieDto locatieDto)
         {
             var locatie = _mapper.Map<Locatie>(locatieDto);
+            locatie.LocatieId = Guid.NewGuid(); // Ensure a new GUID is assigned
             _context.Locatie.Add(locatie);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLocatie", new { id = locatie.LocatieId }, _mapper.Map<LocatieDto>(locatie));
+            return CreatedAtAction(nameof(GetLocatie), new { id = locatie.LocatieId }, _mapper.Map<LocatieDto>(locatie));
         }
 
         // DELETE: api/Locaties/5

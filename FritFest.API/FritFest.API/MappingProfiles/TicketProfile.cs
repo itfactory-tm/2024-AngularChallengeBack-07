@@ -11,6 +11,7 @@ namespace FritFest.API.Profiles
             // Map from Ticket to TicketDto
             CreateMap<Ticket, TicketDto>()
                 .ForMember(dest => dest.EditieNaam, opt => opt.MapFrom(src => src.Editie.EditieNaam)) // Map Editie name
+                .ForMember(dest => dest.TicketPrijs, opt => opt.MapFrom(src => src.TicketType.Prijs))
                 .ForMember(dest => dest.DagNaam, opt => opt.MapFrom(src => src.Dag.Naam)); // Map Dag name
 
             // Map from TicketDto to Ticket

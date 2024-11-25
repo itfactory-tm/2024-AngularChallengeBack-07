@@ -29,7 +29,10 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TijdStipDto>>> GetTijdStip()
         {
-            var tijdStips = await _context.TijdStip.ToListAsync();
+            var tijdStips = await _context.TijdStip
+                .Include(ts => ts.Artiest)
+                .Include(ts => ts.Podium)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<TijdStipDto>>(tijdStips));
         }
 
@@ -37,7 +40,10 @@ namespace FritFest.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TijdStipDto>> GetTijdStip(Guid id)
         {
-            var tijdStip = await _context.TijdStip.FindAsync(id);
+            var tijdStip = await _context.TijdStip
+                .Include(ts => ts.Artiest)
+                .Include(ts => ts.Podium)
+                .FirstOrDefaultAsync(ts => ts.TijdStipId == id);
 
             if (tijdStip == null)
             {
@@ -83,24 +89,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<TijdStipDto>> PostTijdStip(TijdStipDto tijdStipDto)
         {
             var tijdStip = _mapper.Map<TijdStip>(tijdStipDto);
+            tijdStip.TijdStipId = Guid.NewGuid();
             _context.TijdStip.Add(tijdStip);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (TijdStipExists(tijdStip.ArtiestId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTijdStip", new { id = tijdStip.ArtiestId }, _mapper.Map<TijdStipDto>(tijdStip));
+            return CreatedAtAction(nameof(GetTijdStip), new { id = tijdStip.ArtiestId }, _mapper.Map<TijdStipDto>(tijdStip));
         }
 
         // DELETE: api/TijdStips/5

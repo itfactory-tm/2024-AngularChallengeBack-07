@@ -6,7 +6,7 @@ public class UserType
 {
     [Key]
     public Guid TypeId { get; set; }
-    public string Name { get; set; }
+    public string Naam { get; set; }
     
     public ICollection<User> Users { get; set; }
 }

@@ -89,6 +89,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<UserDto>> PostUser(UserDto userDto)
         {
             var user = _mapper.Map<User>(userDto);
+            user.UserId = Guid.NewGuid(); // Ensure a new GUID is assigned
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 

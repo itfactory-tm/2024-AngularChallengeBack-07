@@ -87,10 +87,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<MenuItemDto>> PostMenuItem(MenuItemDto menuItemDto)
         {
             var menuItem = _mapper.Map<MenuItem>(menuItemDto);
+            menuItem.MenuItemId = Guid.NewGuid(); // Ensure a new GUID is assigned
             _context.MenuItem.Add(menuItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMenuItem", new { id = menuItem.MenuItemId }, _mapper.Map<MenuItemDto>(menuItem));
+            return CreatedAtAction(nameof(GetMenuItem), new { id = menuItem.MenuItemId }, _mapper.Map<MenuItemDto>(menuItem));
         }
 
         // DELETE: api/MenuItems/5

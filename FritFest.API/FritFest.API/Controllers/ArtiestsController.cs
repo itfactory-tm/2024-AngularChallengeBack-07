@@ -56,6 +56,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<ArtiestDto>> PostArtiest(ArtiestDto artiestDto)
         {
             var artiest = _mapper.Map<Artiest>(artiestDto);
+            artiest.ArtiestId = Guid.NewGuid();
             _context.Artiest.Add(artiest);
             await _context.SaveChangesAsync();
 

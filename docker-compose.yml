@@ -10,7 +10,7 @@ services:
       - "3307:3306"  # Expose MySQL to localhost:3307
     volumes:
       - db_data:/var/lib/mysql  # Persistent MySQL data storage
-      - ./Database/festival3.sql:/docker-entrypoint-initdb.d/festival3.sql  # Initialize DB with this SQL script
+      - ./Database/festival.sql:/docker-entrypoint-initdb.d/festival.sql  # Initialize DB with this SQL script
     command: --default-authentication-plugin=mysql_native_password
 
   web:

@@ -8,7 +8,7 @@ public class User
     [Key]
     public Guid UserId { get; set; }
     [Required]
-    public string Name { get; set; }
+    public string Naam { get; set; }
     [EmailAddress]
     public string Email { get; set; }
     [Phone]
