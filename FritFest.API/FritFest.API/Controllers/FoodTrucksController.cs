@@ -31,6 +31,7 @@ namespace FritFest.API.Controllers
         {
             var foodTrucks = await _context.FoodTruck
                 .Include(ft => ft.Edities)
+                .Include(ft => ft.MenuItems)
                 .Include(ft => ft.Locatie)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<FoodTruckDto>>(foodTrucks));
@@ -42,6 +43,7 @@ namespace FritFest.API.Controllers
         {
             var foodTruck = await _context.FoodTruck
                 .Include(ft => ft.Edities)
+                .Include(ft => ft.MenuItems)
                 .Include(ft => ft.Locatie)
                 .FirstOrDefaultAsync(ft => ft.FoodTruckId == id);
 
