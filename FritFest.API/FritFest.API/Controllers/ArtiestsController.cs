@@ -2,9 +2,12 @@
 using FritFest.API.DbContexts;
 using FritFest.API.Dtos;
 using FritFest.API.Entities;
+using FritFest.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 
 namespace FritFest.API.Controllers
@@ -24,24 +27,68 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artiests
         [HttpGet]
-        
         public async Task<ActionResult<IEnumerable<ArtiestDto>>> GetArtiests()
         {
             var artiesten = await _context.Artiest
-                .Include(a => a.Genre)  // Include Genre to map GenreNaam
+                //.Include(a => a.Genre)
                 .Include(a => a.Editie)
                 .ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<ArtiestDto>>(artiesten));
+
+            var spotifyService = new SpotifyService();
+            var artiestDtos = new List<ArtiestDto>();
+
+            foreach (var artiest in artiesten)
+            {
+                var artiestDto = _mapper.Map<ArtiestDto>(artiest);
+
+                if (!string.IsNullOrEmpty(artiest.ApiCode))
+                {
+                    try
+                    {
+                        Console.WriteLine($"Fetching Spotify data for ApiCode: {artiest.ApiCode}");
+                        var spotifyDetails = await spotifyService.GetSpotifyArtistDetails(artiest.ApiCode);
+                        Console.WriteLine($"Spotify API Response: {spotifyDetails}");
+
+                        var spotifyJson = JsonSerializer.Deserialize<JsonElement>(spotifyDetails);
+
+                        artiestDto.SpotifyName = spotifyJson.GetProperty("name").GetString();
+                        artiestDto.SpotifyPopularity = spotifyJson.GetProperty("popularity").GetInt32();
+                        artiestDto.SpotifyFollowers = spotifyJson.GetProperty("followers").GetProperty("total").GetInt32();
+                        
+                        if(spotifyJson.TryGetProperty("genres",out var genresProperty))
+                        {
+                            var genres = genresProperty.EnumerateArray().Select(g => g.GetString()).ToList();
+                            artiestDto.Genre = string.Join(",", genres);
+                        }
+
+                        var images = spotifyJson.GetProperty("images");
+                        if (images.GetArrayLength() > 0)
+                        {
+                            artiestDto.SpotifyPhoto = images[0].GetProperty("url").GetString();
+                        }
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to fetch Spotify data for ApiCode {artiest.ApiCode}. Error: {ex.Message}");
+                    }
+                }
+
+                artiestDtos.Add(artiestDto);
+            }
+
+            return Ok(artiestDtos);
         }
 
         // GET: api/Artiests/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ArtiestDto>> GetArtiest(Guid id)
         {
+            // Fetch the artist from the database with related data
             var artiest = await _context.Artiest
-                .Include(a => a.Genre)  // Include Genre to map 
+                //.Include(a => a.Genre)  // Include Genre to map 
                 .Include(a => a.Editie)
-                
                 .FirstOrDefaultAsync(a => a.ArtiestId == id);
 
             if (artiest == null)
@@ -49,8 +96,47 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<ArtiestDto>(artiest));
+            // Map to DTO
+            var artiestDto = _mapper.Map<ArtiestDto>(artiest);
+
+            // Fetch additional Spotify data if ApiCode exists
+            if (!string.IsNullOrEmpty(artiest.ApiCode))
+            {
+                try
+                {
+                    Console.WriteLine($"Fetching Spotify data for ApiCode: {artiest.ApiCode}");
+                    var spotifyService = new SpotifyService();
+                    var spotifyDetails = await spotifyService.GetSpotifyArtistDetails(artiest.ApiCode);
+                    Console.WriteLine($"Spotify API Response: {spotifyDetails}");
+
+                    var spotifyJson = JsonSerializer.Deserialize<JsonElement>(spotifyDetails);
+
+                    // Enrich DTO with Spotify data
+                    artiestDto.SpotifyName = spotifyJson.GetProperty("name").GetString();
+                    artiestDto.SpotifyPopularity = spotifyJson.GetProperty("popularity").GetInt32();
+                    artiestDto.SpotifyFollowers = spotifyJson.GetProperty("followers").GetProperty("total").GetInt32();
+
+                    if (spotifyJson.TryGetProperty("genres", out var genresProperty))
+                    {
+                        var genres = genresProperty.EnumerateArray().Select(g => g.GetString()).ToList();
+                        artiestDto.Genre = string.Join(",", genres);
+                    }
+
+                    var images = spotifyJson.GetProperty("images");
+                    if (images.GetArrayLength() > 0)
+                    {
+                        artiestDto.SpotifyPhoto = images[0].GetProperty("url").GetString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to fetch Spotify data for ApiCode {artiest.ApiCode}. Error: {ex.Message}");
+                }
+            }
+
+            return Ok(artiestDto);
         }
+
 
         // POST: api/Artiests
         [HttpPost]
@@ -76,6 +162,7 @@ namespace FritFest.API.Controllers
         }
 
         // PUT: api/Artiests/5
+        // PUT: api/Artiests/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutArtiest(Guid id, ArtiestDto artiestDto)
         {
@@ -84,8 +171,8 @@ namespace FritFest.API.Controllers
                 return BadRequest();
             }
 
+            // Extract the Spotify ApiCode from the SpotifyLink
             var spotifyCodePattern = @"artist\/(.*?)\?";
-
             if (!string.IsNullOrEmpty(artiestDto.SpotifyLink))
             {
                 var match = Regex.Match(artiestDto.SpotifyLink, spotifyCodePattern);
@@ -95,6 +182,42 @@ namespace FritFest.API.Controllers
                 }
             }
 
+            // Fetch additional data from Spotify if ApiCode is present
+            if (!string.IsNullOrEmpty(artiestDto.ApiCode))
+            {
+                try
+                {
+                    Console.WriteLine($"Fetching Spotify data for ApiCode: {artiestDto.ApiCode}");
+                    var spotifyService = new SpotifyService();
+                    var spotifyDetails = await spotifyService.GetSpotifyArtistDetails(artiestDto.ApiCode);
+                    Console.WriteLine($"Spotify API Response: {spotifyDetails}");
+
+                    var spotifyJson = JsonSerializer.Deserialize<JsonElement>(spotifyDetails);
+
+                    // Update the ArtiestDto with Spotify data
+                    artiestDto.SpotifyName = spotifyJson.GetProperty("name").GetString();
+                    artiestDto.SpotifyPopularity = spotifyJson.GetProperty("popularity").GetInt32();
+                    artiestDto.SpotifyFollowers = spotifyJson.GetProperty("followers").GetProperty("total").GetInt32();
+
+                    if (spotifyJson.TryGetProperty("genres", out var genresProperty))
+                    {
+                        var genres = genresProperty.EnumerateArray().Select(g => g.GetString()).ToList();
+                        artiestDto.Genre = string.Join(",", genres);
+                    }
+
+                    var images = spotifyJson.GetProperty("images");
+                    if (images.GetArrayLength() > 0)
+                    {
+                        artiestDto.SpotifyPhoto = images[0].GetProperty("url").GetString();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to fetch Spotify data for ApiCode {artiestDto.ApiCode}. Error: {ex.Message}");
+                }
+            }
+
+            // Map the DTO back to the entity and update the database
             var artiest = _mapper.Map<Artiest>(artiestDto);
             _context.Entry(artiest).State = EntityState.Modified;
 
@@ -116,6 +239,7 @@ namespace FritFest.API.Controllers
 
             return NoContent();
         }
+
 
         // DELETE: api/Artiests/5
         [HttpDelete("{id}")]

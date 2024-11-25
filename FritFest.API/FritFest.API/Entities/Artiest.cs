@@ -16,9 +16,9 @@ namespace FritFest.API.Entities
         public string SpotifyLink { get; set; }
         public string ApiCode { get; set; }
 
-        [ForeignKey(nameof(Genre))]
-        public Guid GenreId { get; set; }
-        public Genre Genre { get; set; }
+        //[ForeignKey(nameof(Genre))]
+        //public Guid GenreId { get; set; }
+        //public Genre Genre { get; set; }
 
         public ICollection<Editie> Editie { get; set; }
        
