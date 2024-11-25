@@ -29,7 +29,11 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FotoDto>>> GetFoto()
         {
-            var fotos = await _context.Foto.ToListAsync();
+            var fotos = await _context.Foto
+                .Include(f => f.Editie)
+                .Include(f => f.Artikel)
+                .Include(f => f.Podium)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<FotoDto>>(fotos));
         }
 
@@ -37,7 +41,11 @@ namespace FritFest.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<FotoDto>> GetFoto(Guid id)
         {
-            var foto = await _context.Foto.FindAsync(id);
+            var foto = await _context.Foto
+                .Include(f => f.Editie)
+                .Include(f => f.Artikel)
+                .Include(f => f.Podium)
+                .FirstOrDefaultAsync(f => f.FotoId == id);
 
             if (foto == null)
             {

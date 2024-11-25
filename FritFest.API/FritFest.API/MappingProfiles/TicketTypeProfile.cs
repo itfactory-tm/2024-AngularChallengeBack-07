@@ -13,7 +13,8 @@ namespace FritFest.API.Profiles
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.Ticket.FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.Ticket.LastName))
                 .ForMember(dest => dest.TelNr, opt => opt.MapFrom(src => src.Ticket.TelNr))
-                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Ticket.Email));
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Ticket.Email))
+                .ForMember(dest => dest.TicketId, opt => opt.MapFrom(src => src.Ticket.TicketId));
 
             // Map from TicketTypeDto to TicketType
             CreateMap<TicketTypeDto, TicketType>()

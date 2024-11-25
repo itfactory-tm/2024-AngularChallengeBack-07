@@ -29,7 +29,11 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PodiumDto>>> GetPodium()
         {
-            var podiums = await _context.Podium.ToListAsync();
+            var podiums = await _context.Podium
+                .Include(p => p.TijdStippen)
+                .Include(p => p.Fotos)
+                .Include(p => p.Locatie)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<PodiumDto>>(podiums));
         }
 

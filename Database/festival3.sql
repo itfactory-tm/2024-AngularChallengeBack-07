@@ -21,8 +21,7 @@ DROP TABLE IF EXISTS Genre;
 DROP TABLE IF EXISTS Editie;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS UserType;
-
-
+DROP TABLE IF EXISTS ArtiestenLijst;
 -- Step 1: Create the Database
 CREATE DATABASE IF NOT EXISTS festivaldb;
 USE festivaldb;
