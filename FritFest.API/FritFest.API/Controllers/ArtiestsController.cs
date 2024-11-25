@@ -23,11 +23,12 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artiests
         [HttpGet]
-        [Authorize]
+        
         public async Task<ActionResult<IEnumerable<ArtiestDto>>> GetArtiests()
         {
             var artiesten = await _context.Artiest
                 .Include(a => a.Genre)  // Include Genre to map GenreNaam
+                .Include(a => a.Editie)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<ArtiestDto>>(artiesten));
         }
@@ -37,7 +38,9 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<ArtiestDto>> GetArtiest(Guid id)
         {
             var artiest = await _context.Artiest
-                .Include(a => a.Genre)  // Include Genre to map GenreNaam
+                .Include(a => a.Genre)  // Include Genre to map 
+                .Include(a => a.Editie)
+                
                 .FirstOrDefaultAsync(a => a.ArtiestId == id);
 
             if (artiest == null)

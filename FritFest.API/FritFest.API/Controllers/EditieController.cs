@@ -22,17 +22,31 @@ namespace FritFest.API.Controllers
 
         // GET: api/Editie
         [HttpGet]
-        public ActionResult<IEnumerable<EditieDto>> GetEdities()
+        public async Task<ActionResult<IEnumerable<EditieDto>>> GetEditie()
         {
-            var edities = _context.Editie.ToList();
+            var edities = await _context.Editie
+                .Include(e => e.Tickets)
+                .Include(e => e.Artiesten)
+                .Include(e => e.Fotos)
+                .Include(e => e.Artikelen)
+                .Include(e => e.Sponsors)
+                .Include(e => e.Foodtrucks)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<EditieDto>>(edities));
         }
 
         // GET: api/Editie/{id}
         [HttpGet("{id}")]
-        public ActionResult<EditieDto> GetEditie(Guid id)
+        public async Task<ActionResult<EditieDto>> GetEditie(Guid id)
         {
-            var editie = _context.Editie.Find(id);
+            var editie = await _context.Editie
+                .Include(e => e.Tickets)
+                .Include(e => e.Artiesten)
+                .Include(e => e.Fotos)
+                .Include(e => e.Artikelen)
+                .Include(e => e.Sponsors)
+                .Include(e => e.Foodtrucks)
+                .FirstOrDefaultAsync(e => e.EditieId == id);
 
             if (editie == null)
             {
@@ -44,21 +58,21 @@ namespace FritFest.API.Controllers
 
         // POST: api/Editie
         [HttpPost]
-        public ActionResult<EditieDto> PostEditie(EditieDto editieDto)
+        public async Task<ActionResult<EditieDto>> PostEditie(EditieDto editieDto)
         {
             var editie = _mapper.Map<Editie>(editieDto);
             editie.EditieId = Guid.NewGuid(); // Ensure a new GUID is assigned
             _context.Editie.Add(editie);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetEditie), new { id = editie.EditieId }, _mapper.Map<EditieDto>(editie));
         }
 
         // PUT: api/Editie/{id}
         [HttpPut("{id}")]
-        public IActionResult PutEditie(Guid id, EditieDto editieDto)
+        public async Task<IActionResult> PutEditie(Guid id, EditieDto editieDto)
         {
-            if (id != editieDto.EditieId)
+            if (!EditieExists(id))
             {
                 return BadRequest();
             }
@@ -68,7 +82,7 @@ namespace FritFest.API.Controllers
 
             try
             {
-                _context.SaveChanges();
+              await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -87,18 +101,23 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Editie/{id}
         [HttpDelete("{id}")]
-        public IActionResult DeleteEditie(Guid id)
+        public async Task<IActionResult> DeleteEditie(Guid id)
         {
-            var editie = _context.Editie.Find(id);
+            var editie = await _context.Editie.FindAsync(id);
             if (editie == null)
             {
                 return NotFound();
             }
 
             _context.Editie.Remove(editie);
-            _context.SaveChanges();
+             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+        
+        private bool EditieExists(Guid id)
+        {
+            return _context.Genre.Any(e => e.GenreId == id);
         }
     }
 

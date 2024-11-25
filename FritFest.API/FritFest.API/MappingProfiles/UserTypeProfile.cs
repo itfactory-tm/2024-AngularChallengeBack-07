@@ -9,8 +9,7 @@ public class UserTypeProfile : Profile
     public UserTypeProfile()
     {
         CreateMap<UserType, UserTypeDto>()
-            .ForMember(dest => dest.Users,
-                opt => opt.MapFrom(src => src.Users.Select(u => u.Name).ToList()));
+            .ForMember(dest => dest.Users, opt => opt.MapFrom(src => src.Users.Select(u => u.Name).ToList()));
 
         CreateMap<UserTypeDto, UserType>()
             .ForMember(dest => dest.Users, opt => opt.Ignore());

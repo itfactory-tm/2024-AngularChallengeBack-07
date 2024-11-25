@@ -55,6 +55,14 @@ CREATE TABLE Artiest (
     FOREIGN KEY (genreId) REFERENCES Genre(genreId)   -- Foreign key constraint
 );
 
+CREATE TABLE ArtiestenLijst(
+                               artiestId CHAR(36),                      -- Foreign key to Sponsor table
+                               editieId CHAR(36),                       -- Foreign key to Editie table
+                               PRIMARY KEY (artiestId, editieId),       -- Composite primary key
+                               FOREIGN KEY (artiestId) REFERENCES Artiest(artiestId),  -- Foreign key constraint to Sponsor
+                               FOREIGN KEY (editieId) REFERENCES Editie(editieId)
+);
+
 -- Create Locatie table
 CREATE TABLE Locatie (
     locatieId CHAR(36) PRIMARY KEY,         -- GUID as primary key
@@ -321,6 +329,9 @@ VALUES
 ((SELECT sponsorId FROM Sponsor WHERE sponsorNaam = 'DrinkCorp'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
 ((SELECT sponsorId FROM Sponsor WHERE sponsorNaam = 'Foodies Ltd'), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
 
+INSERT INTO ArtiestenLijst(artiestId, editieId) VALUES 
+((SELECT artiestId FROM Artiest WHERE naam = 'The Rockers'),(SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest')),
+((SELECT artiestId FROM Artiest WHERE naam = 'DJ Spin'),(SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'));
 -- Insert data into Artikel (Article)
 INSERT INTO Artikel (artikelId, titel, beschrijving, datum, editieId)
 VALUES

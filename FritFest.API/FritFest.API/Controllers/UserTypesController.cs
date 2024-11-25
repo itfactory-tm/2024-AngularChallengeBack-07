@@ -30,7 +30,9 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserTypeDto>>> GetUserType()
         {
-            var userTypes = await _context.UserType.ToListAsync();
+            var userTypes = await _context.UserType
+                .Include(ut => ut.Users)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<UserTypeDto>>(userTypes));
         }
 
@@ -38,7 +40,9 @@ namespace FritFest.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserTypeDto>> GetUserType(Guid id)
         {
-            var userType = await _context.UserType.FindAsync(id);
+            var userType = await _context.UserType
+                .Include(ut => ut.Users)
+                .FirstOrDefaultAsync(ut => ut.TypeId == id);
 
             if (userType == null)
             {

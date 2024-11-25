@@ -32,7 +32,7 @@ namespace FritFest.API.Controllers
             var users = await _context.User
                 .Include(u => u.Type)  // Include UserType to map TypeName
                 .ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<ArtiestDto>>(users));
+            return Ok(_mapper.Map<IEnumerable<UserDto>>(users));
         }
 
         // GET: api/Users/5
