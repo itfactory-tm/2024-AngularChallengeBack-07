@@ -32,6 +32,7 @@ namespace FritFest.API.DbContexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<TijdStip>().HasKey(ts => new {ts.ArtiestId, ts.PodiumId });
+            
             //Association between Artiest and Editie
             modelBuilder.Entity<Artiest>()
                 .HasMany(a => a.Editie)

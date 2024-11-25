@@ -251,6 +251,19 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TicketTypeProfile.cs",
+              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\TicketTypeProfile.cs",
+              "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\TicketTypeProfile.cs",
+              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\TicketTypeProfile.cs",
+              "RelativeToolTip": "FritFest.API\\MappingProfiles\\TicketTypeProfile.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAwAoAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-25T10:28:17.791Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
               "Title": "TicketsController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\TicketsController.cs",

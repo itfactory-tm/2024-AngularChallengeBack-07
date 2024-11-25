@@ -30,7 +30,6 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<IEnumerable<TicketTypeDto>>> GetTicketType()
         {
             var ticketTypes = await _context.TicketType
-               
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<TicketTypeDto>>(ticketTypes));
         }
@@ -40,7 +39,6 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<TicketTypeDto>> GetTicketType(Guid id)
         {
             var ticketType = await _context.TicketType
-               
                 .FirstOrDefaultAsync(tt => tt.TicketTypeId == id);
 
             if (ticketType == null)
