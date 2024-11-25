@@ -51,7 +51,7 @@ namespace FritFest.API.Controllers
 
                         var spotifyJson = JsonSerializer.Deserialize<JsonElement>(spotifyDetails);
 
-                        artiestDto.SpotifyName = spotifyJson.GetProperty("name").GetString();
+                        artiestDto.Naam = spotifyJson.GetProperty("name").GetString();
                         artiestDto.SpotifyPopularity = spotifyJson.GetProperty("popularity").GetInt32();
                         artiestDto.SpotifyFollowers = spotifyJson.GetProperty("followers").GetProperty("total").GetInt32();
                         
@@ -112,7 +112,7 @@ namespace FritFest.API.Controllers
                     var spotifyJson = JsonSerializer.Deserialize<JsonElement>(spotifyDetails);
 
                     // Enrich DTO with Spotify data
-                    artiestDto.SpotifyName = spotifyJson.GetProperty("name").GetString();
+                    artiestDto.Naam = spotifyJson.GetProperty("name").GetString();
                     artiestDto.SpotifyPopularity = spotifyJson.GetProperty("popularity").GetInt32();
                     artiestDto.SpotifyFollowers = spotifyJson.GetProperty("followers").GetProperty("total").GetInt32();
 
@@ -195,7 +195,7 @@ namespace FritFest.API.Controllers
                     var spotifyJson = JsonSerializer.Deserialize<JsonElement>(spotifyDetails);
 
                     // Update the ArtiestDto with Spotify data
-                    artiestDto.SpotifyName = spotifyJson.GetProperty("name").GetString();
+                    artiestDto.Naam = spotifyJson.GetProperty("name").GetString();
                     artiestDto.SpotifyPopularity = spotifyJson.GetProperty("popularity").GetInt32();
                     artiestDto.SpotifyFollowers = spotifyJson.GetProperty("followers").GetProperty("total").GetInt32();
 

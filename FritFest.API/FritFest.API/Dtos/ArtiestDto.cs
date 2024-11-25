@@ -8,7 +8,6 @@
         public string Beschrijving { get; set; }
         public string SpotifyLink { get; set; }
         public string ApiCode { get; set; }
-        public string SpotifyName { get; set; } // Spotify name
         public int? SpotifyPopularity { get; set; } // Spotify popularity
         public int? SpotifyFollowers { get; set; } // Spotify followers
         public string SpotifyPhoto { get; set; } // New - Spotify photo URL
