@@ -5,6 +5,7 @@ using FritFest.API.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace FritFest.API.Controllers
 {
@@ -55,6 +56,17 @@ namespace FritFest.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ArtiestDto>> PostArtiest(ArtiestDto artiestDto)
         {
+            var spotifyCodePattern = @"artist\/(.*?)\?";
+
+            if (!string.IsNullOrEmpty(artiestDto.SpotifyLink))
+            {
+                var match = Regex.Match(artiestDto.SpotifyLink, spotifyCodePattern);
+                if (match.Success)
+                {
+                    artiestDto.ApiCode = match.Groups[1].Value;
+                }
+            }
+
             var artiest = _mapper.Map<Artiest>(artiestDto);
             artiest.ArtiestId = Guid.NewGuid();
             _context.Artiest.Add(artiest);
@@ -70,6 +82,17 @@ namespace FritFest.API.Controllers
             if (id != artiestDto.ArtiestId)
             {
                 return BadRequest();
+            }
+
+            var spotifyCodePattern = @"artist\/(.*?)\?";
+
+            if (!string.IsNullOrEmpty(artiestDto.SpotifyLink))
+            {
+                var match = Regex.Match(artiestDto.SpotifyLink, spotifyCodePattern);
+                if (match.Success)
+                {
+                    artiestDto.ApiCode = match.Groups[1].Value;
+                }
             }
 
             var artiest = _mapper.Map<Artiest>(artiestDto);

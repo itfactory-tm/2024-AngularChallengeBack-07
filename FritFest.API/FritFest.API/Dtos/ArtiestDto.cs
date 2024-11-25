@@ -6,7 +6,8 @@
         public string Naam { get; set; }
         public string Email { get; set; }
         public string Beschrijving { get; set; }
-        public string SpotifyApi { get; set; }
+        public string SpotifyLink { get; set; }
+        public string ApiCode { get; set; }
         public Guid GenreId { get; set; }
         public string GenreNaam { get; set; } // Optional, if you want to include genre name
         public List<string> Edities { get; set; }

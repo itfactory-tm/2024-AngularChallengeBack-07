@@ -13,7 +13,8 @@ namespace FritFest.API.Entities
         [EmailAddress]
         public string Email { get; set; }
         public string Beschrijving { get; set; }
-        public string SpotifyApi { get; set; }
+        public string SpotifyLink { get; set; }
+        public string ApiCode { get; set; }
 
         [ForeignKey(nameof(Genre))]
         public Guid GenreId { get; set; }
