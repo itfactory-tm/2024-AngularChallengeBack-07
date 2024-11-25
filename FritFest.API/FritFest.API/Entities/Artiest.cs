@@ -19,7 +19,7 @@ namespace FritFest.API.Entities
         public Guid GenreId { get; set; }
         public Genre Genre { get; set; }
 
-        public ICollection<Editie> Edities { get; set; }
-        public ICollection<TijdStip> TijdStippen { get; set; }
+        public ICollection<Editie> Editie { get; set; }
+       
     }
 }

@@ -29,7 +29,9 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GenreDto>>> GetGenre()
         {
-            var genres = await _context.Genre.ToListAsync();
+            var genres = await _context.Genre
+                .Include(g => g.Artiesten)
+                .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<GenreDto>>(genres));
         }
 
@@ -37,7 +39,9 @@ namespace FritFest.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GenreDto>> GetGenre(Guid id)
         {
-            var genre = await _context.Genre.FindAsync(id);
+            var genre = await _context.Genre
+                .Include(g => g.Artiesten)
+                .FirstOrDefaultAsync(g => g.GenreId == id);
 
             if (genre == null)
             {
@@ -83,6 +87,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<GenreDto>> PostGenre(GenreDto genreDto)
         {
             var genre = _mapper.Map<Genre>(genreDto);
+            genre.GenreId = Guid.NewGuid();
             _context.Genre.Add(genre);
             await _context.SaveChangesAsync();
 

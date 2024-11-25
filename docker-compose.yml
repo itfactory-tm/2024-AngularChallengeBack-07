@@ -20,6 +20,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=db;Database=festivaldb;User=root;Password=1234;
+      - Authentication__Google__ClientId=661879216618-0gl8krhgkntc04h7m8qfvnp3k16datne.apps.googleusercontent.com
+      - Authentication__Google__ClientSecret=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
     ports:
       - "5000:80"  # Expose API on localhost:5000
     depends_on:

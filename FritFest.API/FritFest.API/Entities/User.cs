@@ -14,8 +14,8 @@ public class User
     [Phone]
     public string Phone { get; set; }
     
-    [ForeignKey(nameof(Type))]
+    [ForeignKey(nameof(UserType))]
     public Guid TypeId { get; set; }
     
-    public Type Type { get; set; }
+    public UserType Type { get; set; }
 }

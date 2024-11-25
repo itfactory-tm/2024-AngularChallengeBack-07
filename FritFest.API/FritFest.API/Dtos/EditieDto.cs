@@ -14,11 +14,11 @@ namespace FritFest.API.Dtos
         public string Email { get; set; }
         public int Jaar { get; set; }
 
-        public List<TicketDto> Tickets { get; set; }
-        public List<ArtiestDto> Artiesten { get; set; }
-        public List<FotoDto> Fotos { get; set; }
-        public List<ArtikelDto> Artikelen { get; set; }
-        public List<SponsorDto> Sponsors { get; set; }
-        public List<FoodTruckDto> Foodtrucks { get; set; }
+        public List<string> Tickets { get; set; }
+        public List<string> ArtiestNamen { get; set; }
+        public List<string> Fotos { get; set; }
+        public List<string> ArtikelNamen { get; set; }
+        public List<string> SponsorNamen { get; set; }
+        public List<string> FoodtruckNamen { get; set; }
     }
 }

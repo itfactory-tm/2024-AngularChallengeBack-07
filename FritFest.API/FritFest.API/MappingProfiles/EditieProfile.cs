@@ -10,34 +10,21 @@ namespace FritFest.API.Profiles
         {
             // Main Editie mapping
             CreateMap<Editie, EditieDto>()
-                .ForMember(dest => dest.Tickets, opt => opt.MapFrom(src => src.Tickets))
-                .ForMember(dest => dest.Artiesten, opt => opt.MapFrom(src => src.Artiesten))
+                .ForMember(dest => dest.Tickets, opt => opt.MapFrom(src => src.Tickets.Select(t => t.TicketType).ToList()))
+                .ForMember(dest => dest.ArtiestNamen, opt => opt.MapFrom(src => src.Artiesten.Select(a => a.Naam).ToList()))
                 .ForMember(dest => dest.Fotos, opt => opt.MapFrom(src => src.Fotos))
-                .ForMember(dest => dest.Artikelen, opt => opt.MapFrom(src => src.Artikelen))
-                .ForMember(dest => dest.Sponsors, opt => opt.MapFrom(src => src.Sponsors))
-                .ForMember(dest => dest.Foodtrucks, opt => opt.MapFrom(src => src.Foodtrucks));
+                .ForMember(dest => dest.ArtikelNamen, opt => opt.MapFrom(src => src.Artikelen.Select(a => a.Titel).ToList()))
+                .ForMember(dest => dest.SponsorNamen, opt => opt.MapFrom(src => src.Sponsors.Select(s => s.SponsorNaam).ToList()))
+                .ForMember(dest => dest.FoodtruckNamen, opt => opt.MapFrom(src => src.Foodtrucks.Select(f => f.Naam).ToList()));
 
-            CreateMap<EditieDto, Editie>();
-
-            // Related entity mappings
-            CreateMap<Ticket, TicketDto>();
-            CreateMap<TicketDto, Ticket>();
-
-            CreateMap<Artiest, ArtiestDto>()
-                .ForMember(dest => dest.GenreNaam, opt => opt.MapFrom(src => src.Genre.Naam));
-            CreateMap<ArtiestDto, Artiest>();
-
-            CreateMap<Foto, FotoDto>();
-            CreateMap<FotoDto, Foto>();
-
-            CreateMap<Artikel, ArtikelDto>();
-            CreateMap<ArtikelDto, Artikel>();
-
-            CreateMap<Sponsor, SponsorDto>();
-            CreateMap<SponsorDto, Sponsor>();
-
-            CreateMap<FoodTruck, FoodTruckDto>();
-            CreateMap<FoodTruckDto, FoodTruck>();
+            CreateMap<EditieDto, Editie>()
+                .ForMember(dest => dest.Tickets, opt => opt.Ignore())
+                .ForMember(dest => dest.Artiesten, opt => opt.Ignore())
+                .ForMember(dest => dest.Fotos, opt => opt.Ignore())
+                .ForMember(dest => dest.Sponsors, opt => opt.Ignore())
+                .ForMember(dest => dest.Foodtrucks, opt => opt.Ignore())
+                .ForMember(dest => dest.Artikelen, opt => opt.Ignore())
+                ;
         }
     }
 }

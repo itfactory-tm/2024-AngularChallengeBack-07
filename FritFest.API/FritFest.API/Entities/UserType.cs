@@ -2,7 +2,7 @@
 
 namespace FritFest.API.Entities;
 
-public class Type
+public class UserType
 {
     [Key]
     public Guid TypeId { get; set; }
