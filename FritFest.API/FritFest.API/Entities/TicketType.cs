@@ -8,9 +8,5 @@ namespace FritFest.API.Entities
         [Key]
         public Guid TicketTypeId { get; set; }
         public string Naam { get; set; }
-
-        [ForeignKey(nameof(Ticket))]
-        public Guid TicketId { get; set; }
-        public Ticket Ticket { get; set; }
     }
 }

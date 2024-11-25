@@ -6,8 +6,6 @@ namespace FritFest.API.Dtos
     {
         public Guid TicketTypeId { get; set; }
         public string Naam { get; set; }
-
-        public Guid TicketId { get; set; }
         public string FirstName { get; set; } // Mapping for Ticket's FirstName
         public string LastName { get; set; }  // Mapping for Ticket's LastName
         public string TelNr { get; set; }     // Mapping for Ticket's TelNr
