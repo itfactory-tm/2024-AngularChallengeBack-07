@@ -9,6 +9,8 @@ using FritFest.API.DbContexts;
 using FritFest.API.Entities;
 using FritFest.API.Dtos;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace FritFest.API.Controllers
 {
@@ -27,6 +29,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Dags
         [HttpGet]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<DagDto>>> GetDag()
         {
             var dags = await _context.Dag.ToListAsync();
@@ -35,6 +39,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Dags/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<DagDto>> GetDag(Guid id)
         {
             var dag = await _context.Dag.FindAsync(id);
@@ -50,6 +56,7 @@ namespace FritFest.API.Controllers
         // PUT: api/Dags/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> PutDag(Guid id, DagDto dagDto)
         {
             if (id != dagDto.DagId)

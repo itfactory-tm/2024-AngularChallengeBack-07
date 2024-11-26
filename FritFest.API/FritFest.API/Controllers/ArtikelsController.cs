@@ -2,13 +2,16 @@
 using FritFest.API.DbContexts;
 using FritFest.API.Dtos;
 using FritFest.API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace FritFest.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class ArtikelsController : ControllerBase
     {
         private readonly FestivalContext _context;
@@ -22,6 +25,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artikels
         [HttpGet]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<ArtikelDto>>> GetArtikels()
         {
             var artikels = await _context.Artikel
@@ -32,6 +37,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artikels/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<ArtikelDto>> GetArtikel(Guid id)
         {
             var artikel = await _context.Artikel

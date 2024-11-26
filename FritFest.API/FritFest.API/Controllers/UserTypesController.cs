@@ -10,6 +10,8 @@ using FritFest.API.Entities;
 using AutoMapper;
 using FritFest.API.Dtos;
 using Humanizer.Localisation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace FritFest.API.Controllers
 {
@@ -28,6 +30,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/UserTypes
         [HttpGet]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<UserTypeDto>>> GetUserType()
         {
             var userTypes = await _context.UserType
@@ -38,6 +42,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/UserTypes/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<UserTypeDto>> GetUserType(Guid id)
         {
             var userType = await _context.UserType

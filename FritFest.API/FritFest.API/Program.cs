@@ -1,5 +1,6 @@
 using FritFest.API.DbContexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Pomelo.EntityFrameworkCore.MySql;
@@ -16,7 +17,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.WebHost.UseUrls("http://0.0.0.0:80");
 //// Configure Auth0 Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -34,7 +34,20 @@ builder.Services.AddAuthentication(options =>
     googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 });
 
+builder.Services.AddAuthorization();
+builder.Services.AddRateLimiter(
+    options =>
+    {
+        options.AddFixedWindowLimiter("PublicLimiter", config =>
+        {
+            config.PermitLimit = 100; // Allow 100 requests
+            config.Window = TimeSpan.FromMinutes(1); // Per minute
+        });
+    }
+    );
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -47,6 +60,28 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.UseAuthentication();
+app.UseRateLimiter();
+
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == HttpMethods.Get )
+    {
+        // Allow unauthenticated access for GET /api/Artiests
+        await next.Invoke();
+    }
+    else
+    {
+        // Require authentication for other routes
+        if (!context.User.Identity?.IsAuthenticated ?? true)
+        {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            await context.Response.WriteAsync("Unauthorized");
+            return;
+        }
+
+        await next.Invoke();
+    }
+});
 
 app.MapControllers();
 

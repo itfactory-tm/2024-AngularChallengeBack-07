@@ -9,6 +9,8 @@ using FritFest.API.DbContexts;
 using FritFest.API.Entities;
 using FritFest.API.Dtos;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace FritFest.API.Controllers
 {
@@ -27,6 +29,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/TijdStips
         [HttpGet]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<TijdStipDto>>> GetTijdStip()
         {
             var tijdStips = await _context.TijdStip
@@ -38,6 +42,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/TijdStips/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<TijdStipDto>> GetTijdStip(Guid id)
         {
             var tijdStip = await _context.TijdStip
