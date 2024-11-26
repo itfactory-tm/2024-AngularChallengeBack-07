@@ -5,6 +5,7 @@ using FritFest.API.Entities;
 using FritFest.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -14,6 +15,7 @@ namespace FritFest.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class ArtiestsController : ControllerBase
     {
         private readonly FestivalContext _context;
@@ -27,6 +29,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artiests
         [HttpGet]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<ArtiestDto>>> GetArtiests()
         {
             var artiesten = await _context.Artiest
@@ -83,6 +87,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artiests/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<ArtiestDto>> GetArtiest(Guid id)
         {
             // Fetch the artist from the database with related data
@@ -140,6 +146,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Artiests
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<ArtiestDto>> PostArtiest(ArtiestDto artiestDto)
         {
             var spotifyCodePattern = @"artist\/(.*?)\?";
@@ -164,6 +171,7 @@ namespace FritFest.API.Controllers
         // PUT: api/Artiests/5
         // PUT: api/Artiests/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutArtiest(Guid id, ArtiestDto artiestDto)
         {
             if (id != artiestDto.ArtiestId)
@@ -243,6 +251,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Artiests/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteArtiest(Guid id)
         {
             var artiest = await _context.Artiest.FindAsync(id);
