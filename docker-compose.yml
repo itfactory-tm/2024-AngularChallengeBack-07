@@ -16,14 +16,16 @@ services:
     restart: always  # Restart on failure
 
   web:
+    env_file:
+      - .env
     build:
       context: ./FritFest.API  # Path to your .NET Core API project
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Database=festivaldb;User=root;Password=1234;
-      - Authentication__Google__ClientId=661879216618-0gl8krhgkntc04h7m8qfvnp3k16datne.apps.googleusercontent.com
-      - Authentication__Google__ClientSecret=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
+      - ConnectionStrings__DefaultConnection=Server=db;Database=festivaldb;User=root;Password=${DB_PASSWORD};
+      - Authentication__Google__ClientId=${GOOGLE_CLIENT_ID}
+      - Authentication__Google__ClientSecret=${GOOGLE_CLIENT_SECRET}
     ports:
       - "8080:8080"  
     depends_on:
