@@ -7,11 +7,6 @@ namespace FritFest.API.Entities
     {
         [Key]
         public Guid TicketId { get; set; }
-        public decimal Prijs { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string TelNr { get; set; }
-        public string Email { get; set; }
 
         public Editie Editie { get; set; }
         public TicketType TicketType { get; set; }
