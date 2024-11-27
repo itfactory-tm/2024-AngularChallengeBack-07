@@ -9,6 +9,7 @@ using FritFest.API.DbContexts;
 using FritFest.API.Entities;
 using FritFest.API.Dtos;
 using AutoMapper;
+using System.Net.Sockets;
 
 namespace FritFest.API.Controllers
 {
@@ -39,29 +40,34 @@ namespace FritFest.API.Controllers
 
         // GET: api/GekochteTickets/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<GekochteTicket>> GetGekochteTicket(Guid id)
+        public async Task<ActionResult<GekochteTicketDto>> GetGekochteTicket(Guid id)
         {
-            var gekochteTicket = await _context.GekochteTicket.FindAsync(id);
+            var gekochteTicket = await _context.GekochteTicket
+                .Include(gt => gt.Ticket)
+                .ThenInclude(t => t.TicketType)
+                .FirstOrDefaultAsync(t => t.GekochteTicketId == id);
 
             if (gekochteTicket == null)
             {
                 return NotFound();
             }
 
-            return gekochteTicket;
+            return Ok(_mapper.Map<TicketDto>(gekochteTicket));
         }
 
         // PUT: api/GekochteTickets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGekochteTicket(Guid id, GekochteTicket gekochteTicket)
+        public async Task<IActionResult> PutGekochteTicket(Guid id, GekochteTicketDto dto)
         {
-            if (id != gekochteTicket.GekochteTicketId)
+            if (id != dto.GekochteTicketId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(gekochteTicket).State = EntityState.Modified;
+            var ticket = _mapper.Map<Ticket>(dto);
+
+            _context.Entry(dto).State = EntityState.Modified;
 
             try
             {
@@ -85,25 +91,27 @@ namespace FritFest.API.Controllers
         // POST: api/GekochteTickets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<GekochteTicket>> PostGekochteTicket(GekochteTicket gekochteTicket)
+        public async Task<ActionResult<GekochteTicketDto>> PostGekochteTicket(GekochteTicketDto dto)
         {
-            _context.GekochteTicket.Add(gekochteTicket);
+            var ticket = _mapper.Map<GekochteTicket>(dto);
+            ticket.TicketId = Guid.NewGuid();
+            _context.GekochteTicket.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGekochteTicket", new { id = gekochteTicket.GekochteTicketId }, gekochteTicket);
+            return CreatedAtAction(nameof(GetGekochteTicket), new { id = ticket.GekochteTicketId }, _mapper.Map<TicketDto>(ticket));
         }
 
         // DELETE: api/GekochteTickets/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGekochteTicket(Guid id)
         {
-            var gekochteTicket = await _context.GekochteTicket.FindAsync(id);
-            if (gekochteTicket == null)
+            var ticket = await _context.GekochteTicket.FindAsync(id);
+            if (ticket == null)
             {
                 return NotFound();
             }
 
-            _context.GekochteTicket.Remove(gekochteTicket);
+            _context.GekochteTicket.Remove(ticket);
             await _context.SaveChangesAsync();
 
             return NoContent();
