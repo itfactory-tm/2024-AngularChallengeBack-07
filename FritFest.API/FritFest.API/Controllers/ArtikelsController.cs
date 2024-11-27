@@ -55,6 +55,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Artikels
         [HttpPost]
+        
         public async Task<ActionResult<ArtikelDto>> PostArtikel(ArtikelDto artikelDto)
         {
             var artikel = _mapper.Map<Artikel>(artikelDto);
@@ -67,6 +68,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Artikels/5
         [HttpPut("{id}")]
+        
         public async Task<IActionResult> PutArtikel(Guid id, ArtikelDto artikelDto)
         {
             if (id != artikelDto.ArtikelId)
@@ -98,6 +100,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Artikels/5
         [HttpDelete("{id}")]
+        
         public async Task<IActionResult> DeleteArtikel(Guid id)
         {
             var artikel = await _context.Artikel.FindAsync(id);

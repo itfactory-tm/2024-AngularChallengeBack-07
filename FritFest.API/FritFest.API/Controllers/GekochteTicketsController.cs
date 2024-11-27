@@ -10,6 +10,7 @@ using FritFest.API.Entities;
 using FritFest.API.Dtos;
 using AutoMapper;
 using System.Net.Sockets;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FritFest.API.Controllers
 {
@@ -58,6 +59,7 @@ namespace FritFest.API.Controllers
         // PUT: api/GekochteTickets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutGekochteTicket(Guid id, GekochteTicketDto dto)
         {
             if (id != dto.GekochteTicketId)
@@ -91,6 +93,7 @@ namespace FritFest.API.Controllers
         // POST: api/GekochteTickets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<GekochteTicketDto>> PostGekochteTicket(GekochteTicketDto dto)
         {
             var ticket = _mapper.Map<GekochteTicket>(dto);
@@ -103,6 +106,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/GekochteTickets/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteGekochteTicket(Guid id)
         {
             var ticket = await _context.GekochteTicket.FindAsync(id);

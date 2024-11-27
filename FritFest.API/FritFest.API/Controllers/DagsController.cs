@@ -56,7 +56,7 @@ namespace FritFest.API.Controllers
         // PUT: api/Dags/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [AllowAnonymous]
+        
         public async Task<IActionResult> PutDag(Guid id, DagDto dagDto)
         {
             if (id != dagDto.DagId)
@@ -89,6 +89,7 @@ namespace FritFest.API.Controllers
         // POST: api/Dags
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        
         public async Task<ActionResult<DagDto>> PostDag(DagDto dagDto)
         {
             var dag = _mapper.Map<Dag>(dagDto);
@@ -101,6 +102,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Dags/5
         [HttpDelete("{id}")]
+        
         public async Task<IActionResult> DeleteDag(Guid id)
         {
             var dag = await _context.Dag.FindAsync(id);

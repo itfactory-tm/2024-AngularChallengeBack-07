@@ -56,8 +56,7 @@ namespace FritFest.API.Controllers
                         var spotifyJson = JsonSerializer.Deserialize<JsonElement>(spotifyDetails);
 
                         artiestDto.Naam = spotifyJson.GetProperty("name").GetString();
-                        artiestDto.SpotifyPopularity = spotifyJson.GetProperty("popularity").GetInt32();
-                        artiestDto.SpotifyFollowers = spotifyJson.GetProperty("followers").GetProperty("total").GetInt32();
+                        
                         
                         if(spotifyJson.TryGetProperty("genres",out var genresProperty))
                         {
@@ -119,8 +118,7 @@ namespace FritFest.API.Controllers
 
                     // Enrich DTO with Spotify data
                     artiestDto.Naam = spotifyJson.GetProperty("name").GetString();
-                    artiestDto.SpotifyPopularity = spotifyJson.GetProperty("popularity").GetInt32();
-                    artiestDto.SpotifyFollowers = spotifyJson.GetProperty("followers").GetProperty("total").GetInt32();
+                   
 
                     if (spotifyJson.TryGetProperty("genres", out var genresProperty))
                     {
@@ -146,7 +144,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Artiests
         [HttpPost]
-        [Authorize]
+        
         public async Task<ActionResult<ArtiestDto>> PostArtiest(ArtiestDto artiestDto)
         {
             var spotifyCodePattern = @"artist\/(.*?)\?";
@@ -171,7 +169,7 @@ namespace FritFest.API.Controllers
         // PUT: api/Artiests/5
         // PUT: api/Artiests/5
         [HttpPut("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> PutArtiest(Guid id, ArtiestDto artiestDto)
         {
             if (id != artiestDto.ArtiestId)
@@ -204,8 +202,7 @@ namespace FritFest.API.Controllers
 
                     // Update the ArtiestDto with Spotify data
                     artiestDto.Naam = spotifyJson.GetProperty("name").GetString();
-                    artiestDto.SpotifyPopularity = spotifyJson.GetProperty("popularity").GetInt32();
-                    artiestDto.SpotifyFollowers = spotifyJson.GetProperty("followers").GetProperty("total").GetInt32();
+                   
 
                     if (spotifyJson.TryGetProperty("genres", out var genresProperty))
                     {
@@ -251,7 +248,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Artiests/5
         [HttpDelete("{id}")]
-        [Authorize]
+        
         public async Task<IActionResult> DeleteArtiest(Guid id)
         {
             var artiest = await _context.Artiest.FindAsync(id);

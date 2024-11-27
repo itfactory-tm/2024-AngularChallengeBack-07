@@ -20,7 +20,6 @@ Drop table if Exists ArtiestenLijst;
 DROP TABLE IF EXISTS Artiest;
 DROP TABLE IF EXISTS Genre;
 DROP TABLE IF EXISTS Editie;
-DROP TABLE IF EXISTS UserType;
 DROP TABLE IF EXISTS ArtiestenLijst;
 
 
@@ -203,14 +202,6 @@ CREATE TABLE Foto (
     podiumId CHAR(36),
     foreign key (podiumId) references Podium(podiumId)
 );
--- Create Role table
-create table UserType(
-                     typeId char(36) primary key,
-                     naam varchar(255) not null
-
-);
-    
-
 
 -- Insert data into Editie (Edition)
 INSERT INTO Editie (editieId, editieNaam, adres, postcode, gemeente, telNr, email, jaar)

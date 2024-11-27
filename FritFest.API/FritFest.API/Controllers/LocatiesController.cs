@@ -61,6 +61,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Locaties/5
         [HttpPut("{id}")]
+        
         public async Task<IActionResult> PutLocatie(Guid id, LocatieDto locatieDto)
         {
             if (id != locatieDto.LocatieId)
@@ -92,6 +93,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Locaties
         [HttpPost]
+        
         public async Task<ActionResult<LocatieDto>> PostLocatie(LocatieDto locatieDto)
         {
             var locatie = _mapper.Map<Locatie>(locatieDto);
@@ -104,6 +106,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Locaties/5
         [HttpDelete("{id}")]
+        
         public async Task<IActionResult> DeleteLocatie(Guid id)
         {
             var locatie = await _context.Locatie.FindAsync(id);

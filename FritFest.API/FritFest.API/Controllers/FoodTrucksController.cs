@@ -64,6 +64,7 @@ namespace FritFest.API.Controllers
         // PUT: api/FoodTrucks/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutFoodTruck(Guid id, FoodTruckDto foodTruckDto)
         {
             if (id != foodTruckDto.FoodTruckId)
@@ -96,6 +97,7 @@ namespace FritFest.API.Controllers
         // POST: api/FoodTrucks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<FoodTruckDto>> PostFoodTruck(FoodTruckDto foodTruckDto)
         {
             var foodTruck = _mapper.Map<FoodTruck>(foodTruckDto);
@@ -108,6 +110,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/FoodTrucks/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteFoodTruck(Guid id)
         {
             var foodTruck = await _context.FoodTruck.FindAsync(id);

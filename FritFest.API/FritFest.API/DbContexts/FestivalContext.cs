@@ -1,7 +1,6 @@
 ﻿
 using FritFest.API.Entities;
 using Microsoft.EntityFrameworkCore;
-using UserType = FritFest.API.Entities.UserType;
 
 namespace FritFest.API.DbContexts
 {
@@ -25,8 +24,7 @@ namespace FritFest.API.DbContexts
         public DbSet<TicketType> TicketType { get; set; }
         public DbSet<GekochteTicket> GekochteTicket { get; set; }
         public DbSet<TijdStip> TijdStip{ get; set; }
-        public DbSet<UserType> UserType { get; set; }
-        public DbSet<User> User { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
