@@ -59,7 +59,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Genres/5
         [HttpPut("{id}")]
-
+        [Authorize]
         public async Task<IActionResult> PutGenre(Guid id, GenreDto genreDto)
         {
             if (id != genreDto.GenreId)
@@ -91,6 +91,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Genres
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<GenreDto>> PostGenre(GenreDto genreDto)
         {
             var genre = _mapper.Map<Genre>(genreDto);
@@ -103,6 +104,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Genres/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteGenre(Guid id)
         {
             var genre = await _context.Genre.FindAsync(id);

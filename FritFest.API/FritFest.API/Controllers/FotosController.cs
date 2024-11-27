@@ -63,6 +63,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Fotos/5
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> PutFoto(Guid id, FotoDto fotoDto)
         {
             if (id != fotoDto.FotoId)
@@ -94,6 +95,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Fotos
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<FotoDto>> PostFoto(FotoDto fotoDto)
         {
             var foto = _mapper.Map<Foto>(fotoDto);
@@ -106,6 +108,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Fotos/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteFoto(Guid id)
         {
             var foto = await _context.Foto.FindAsync(id);
