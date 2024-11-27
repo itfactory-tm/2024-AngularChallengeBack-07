@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS TruckList;
 DROP TABLE IF EXISTS Sponsor;
 DROP TABLE IF EXISTS MenuItem;
 DROP TABLE IF EXISTS FoodTruck;
+DROP TABLE IF EXISTS GekochteTicket;
 DROP TABLE IF EXISTS Ticket;
 DROP TABLE IF EXISTS Tickettype;
 DROP TABLE IF EXISTS Tijdstip;
@@ -19,9 +20,10 @@ Drop table if Exists ArtiestenLijst;
 DROP TABLE IF EXISTS Artiest;
 DROP TABLE IF EXISTS Genre;
 DROP TABLE IF EXISTS Editie;
-DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS UserType;
 DROP TABLE IF EXISTS ArtiestenLijst;
+
+
 -- Step 1: Create the Database
 CREATE DATABASE IF NOT EXISTS festivaldb;
 USE festivaldb;
@@ -107,18 +109,24 @@ CREATE TABLE TicketType (
 
 -- Create Ticket table
 CREATE TABLE Ticket (
-    ticketId CHAR(36) PRIMARY KEY,                 -- GUID as the primary key for TicketId
-    prijs DECIMAL(18,2) NOT NULL,                  -- Price of the ticket (decimal type)
-    firstName VARCHAR(255) NOT NULL,               -- First name of the ticket holder
-    lastName VARCHAR(255) NOT NULL,                -- Last name of the ticket holder
-    telNr VARCHAR(50),                             -- Phone number of the ticket holder
-    email VARCHAR(255),                            -- Email of the ticket holder
+    ticketId CHAR(36) PRIMARY KEY,                 -- GUID as the primary key for TicketId 
     editieId CHAR(36),                             -- Foreign key to Editie (Edition)
     ticketTypeId CHAR(36),                         -- Foreign key to TicketType
     dagId CHAR(36),                                -- Foreign key to Dag (Day)
     FOREIGN KEY (editieId) REFERENCES Editie(editieId),      -- Foreign key constraint to Editie
     FOREIGN KEY (ticketTypeId) REFERENCES TicketType(ticketTypeId),  -- Foreign key constraint to TicketType
     FOREIGN KEY (dagId) REFERENCES Dag(dagId)               -- Foreign key constraint to Dag
+);
+
+CREATE TABLE GekochteTicket (
+    gekochteTicketId CHAR(36) PRIMARY KEY,                 -- GUID as the primary key for TicketId
+    naamVanKoper CHAR(50),
+    emailVanKoper CHAR(50),
+    naamVanHouder CHAR(50),
+    emailVanHouder CHAR(50),   
+    ticketId CHAR(36),
+    betaald boolean,
+    FOREIGN KEY (ticketId) REFERENCES Ticket(ticketId)
 );
 
 -- Create DagList (Day List) table
@@ -201,15 +209,6 @@ create table UserType(
                      naam varchar(255) not null
 
 );
--- Create Gebruiker (User) table
-create table User(
-    userId char(36) primary key ,
-    naam VARCHAR(255) NOT NULL ,
-    email VARCHAR(255),
-    phone VARCHAR(255),
-    typeId CHAR(36),
-    foreign key (typeId) references UserType(typeId)
-);
     
 
 
@@ -221,11 +220,6 @@ INSERT INTO UserType(typeId, naam)
 VALUES 
     (UUID(), 'admin'),
     (UUID(), 'user');
--- Insert data into User
-INSERT INTO User(userId, naam, email, phone, typeId) 
-VALUES 
-    (UUID(),'Jorrit Geurts','jorrit.geurts@tm.be','0339648', (SELECT typeId FROM UserType WHERE naam = 'admin')),
-    (UUID(),'Willem De Bie','wdb@tm.be','0255225',(SELECT typeId FROM UserType where naam = 'user'));
 
 -- Insert data into UserType
 
@@ -281,10 +275,16 @@ VALUES
 (UUID(), 'VIP',12.00);
 
 -- Insert data into Ticket
-INSERT INTO Ticket (ticketId, prijs, firstName, lastName, telNr, email, editieId, ticketTypeId, dagId)
+INSERT INTO Ticket (ticketId, editieId, ticketTypeId, dagId)
 VALUES
-(UUID(), 50.00, 'John', 'Doe', '0612345678', 'john.doe@example.com', (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE naam = 'General Admission'), (SELECT dagId FROM Dag WHERE naam = 'Day 1')),
-(UUID(), 120.00, 'Jane', 'Smith', '0698765432', 'jane.smith@example.com', (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE naam = 'VIP'), (SELECT dagId FROM Dag WHERE naam = 'Day 2'));
+(UUID(), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE naam = 'General Admission'), (SELECT dagId FROM Dag WHERE naam = 'Day 1')),
+(UUID(), (SELECT editieId FROM Editie WHERE editieNaam = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE naam = 'VIP'), (SELECT dagId FROM Dag WHERE naam = 'Day 2'));
+
+Insert Into GekochteTicket(gekochteTicketId, naamVanKoper, emailVanKoper, naamVanHouder, emailVanHouder, ticketId, betaald)
+Values
+(uuid(), "Headmaster", "headmaster@chocoprins.cp", "Headmaster", "headmaster@chocoprins.cp", (Select ticketId From Ticket Where ticketTypeId = (SELECT ticketTypeId FROM TicketType WHERE naam = 'General Admission')), true),
+(uuid(), "Headmaster", "headmaster@chocoprins.cp", "Arnould van Heacke", "arnouldvanheacke@chocoprins.cp", (Select ticketId From Ticket Where ticketTypeId = (SELECT ticketTypeId FROM TicketType WHERE naam = 'General Admission')), true),
+(uuid(), "Headmaster", "headmaster@chocoprins.cp", "Chocoprins Joris", "chocoprinsJoris@chocoprins.cp", (Select ticketId From Ticket Where ticketTypeId = (SELECT ticketTypeId FROM TicketType WHERE naam = 'General Admission')), true);
 
 -- Insert data into DagList (Day List)
 INSERT INTO DagList (ticketId, dagId)
