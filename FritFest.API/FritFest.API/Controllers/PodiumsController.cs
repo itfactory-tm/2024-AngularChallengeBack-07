@@ -9,6 +9,8 @@ using FritFest.API.DbContexts;
 using FritFest.API.Entities;
 using FritFest.API.Dtos;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace FritFest.API.Controllers
 {
@@ -27,6 +29,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Podiums
         [HttpGet]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<PodiumDto>>> GetPodium()
         {
             var podiums = await _context.Podium
@@ -39,6 +43,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Podiums/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<PodiumDto>> GetPodium(Guid id)
         {
             var podium = await _context.Podium.FindAsync(id);

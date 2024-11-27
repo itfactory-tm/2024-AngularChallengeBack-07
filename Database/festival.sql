@@ -53,7 +53,8 @@ CREATE TABLE Artiest (
     naam VARCHAR(255) NOT NULL,                 -- Name of the artist
     email VARCHAR(255) NOT NULL,                -- Email of the artist
     beschrijving VARCHAR(255) NOT NULL,         -- Description of the artist
-    spotifyApi VARCHAR(255),                    -- Spotify API link (nullable)
+    spotifyLink VARCHAR(255),                    -- Spotify API link (nullable)
+    apiCode VARCHAR(255),
     genreId CHAR(36),                           -- Foreign key to Genre table
     FOREIGN KEY (genreId) REFERENCES Genre(genreId)   -- Foreign key constraint
 );
@@ -232,12 +233,12 @@ VALUES
 (UUID(), 'Electronic');
 
 -- Insert data into Artiest (Artist)
-INSERT INTO Artiest (artiestId, naam, email, beschrijving, spotifyApi, genreId)
+INSERT INTO Artiest (artiestId, naam, email, beschrijving, spotifyLink,apiCode ,genreId)
 VALUES 
-(UUID(), 'The Rockers', 'rockers@music.com', 'A famous rock band', 'spotify.com/therockers', (SELECT genreId FROM Genre WHERE naam = 'Rock')),
-(UUID(), 'DJ Spin', 'djspin@beats.com', 'A well-known electronic DJ', 'spotify.com/djspin', (SELECT genreId FROM Genre WHERE naam = 'Electronic')),
-(UUID(), 'PopStar', 'popstar@music.com', 'A pop music sensation', 'spotify.com/popstar', (SELECT genreId FROM Genre WHERE naam = 'Pop')),
-(UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet', (SELECT genreId FROM Genre WHERE naam = 'Jazz'));
+(UUID(), 'The Rockers', 'rockers@music.com', 'A famous rock band', 'spotify.com/therockers','22Wzsyh7moQAwSODsMF6w2' ,(SELECT genreId FROM Genre WHERE naam = 'Rock')),
+(UUID(), 'DJ Spin', 'djspin@beats.com', 'A well-known electronic DJ', 'spotify.com/djspin',' 22Wzsyh7moQAwSODsMF6w2',(SELECT genreId FROM Genre WHERE naam = 'Electronic')),
+(UUID(), 'PopStar', 'popstar@music.com', 'A pop music sensation', 'spotify.com/popstar','' ,(SELECT genreId FROM Genre WHERE naam = 'Pop')),
+(UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet',' ',(SELECT genreId FROM Genre WHERE naam = 'Jazz'));
 
 -- Insert data into Locatie (Location)
 INSERT INTO Locatie (locatieId, naam, coordinaten)

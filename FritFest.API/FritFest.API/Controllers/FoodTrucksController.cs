@@ -9,6 +9,8 @@ using FritFest.API.DbContexts;
 using FritFest.API.Entities;
 using FritFest.API.Dtos;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace FritFest.API.Controllers
 {
@@ -27,6 +29,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/FoodTrucks
         [HttpGet]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<FoodTruckDto>>> GetFoodTruck()
         {
             var foodTrucks = await _context.FoodTruck
@@ -39,6 +43,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/FoodTrucks/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<FoodTruckDto>> GetFoodTruck(Guid id)
         {
             var foodTruck = await _context.FoodTruck

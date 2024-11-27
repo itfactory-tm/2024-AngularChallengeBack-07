@@ -9,6 +9,8 @@ using FritFest.API.DbContexts;
 using FritFest.API.Entities;
 using FritFest.API.Dtos;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace FritFest.API.Controllers
 {
@@ -27,6 +29,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Sponsors
         [HttpGet]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<SponsorDto>>> GetSponsor()
         {
             var sponsors = await _context.Sponsor
@@ -37,6 +41,9 @@ namespace FritFest.API.Controllers
 
         // GET: api/Sponsors/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
+
         public async Task<ActionResult<SponsorDto>> GetSponsor(Guid id)
         {
             var sponsor = await _context.Sponsor

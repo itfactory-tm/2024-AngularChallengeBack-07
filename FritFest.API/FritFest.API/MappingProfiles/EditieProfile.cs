@@ -10,7 +10,7 @@ namespace FritFest.API.Profiles
         {
             // Main Editie mapping
             CreateMap<Editie, EditieDto>()
-                .ForMember(dest => dest.Tickets, opt => opt.MapFrom(src => src.Tickets.Select(t => t.TicketType).ToList()))
+                .ForMember(dest => dest.TicketCount, opt => opt.MapFrom(src => src.Tickets != null ? src.Tickets.Count : 0))
                 .ForMember(dest => dest.ArtiestNamen, opt => opt.MapFrom(src => src.Artiesten.Select(a => a.Naam).ToList()))
                 .ForMember(dest => dest.Fotos, opt => opt.MapFrom(src => src.Fotos))
                 .ForMember(dest => dest.ArtikelNamen, opt => opt.MapFrom(src => src.Artikelen.Select(a => a.Titel).ToList()))

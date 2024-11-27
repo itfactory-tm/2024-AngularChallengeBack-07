@@ -2,7 +2,9 @@
 using FritFest.API.DbContexts;
 using FritFest.API.Dtos;
 using FritFest.API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace FritFest.API.Controllers
@@ -22,6 +24,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Editie
         [HttpGet]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<EditieDto>>> GetEditie()
         {
             var edities = await _context.Editie
@@ -37,6 +41,8 @@ namespace FritFest.API.Controllers
 
         // GET: api/Editie/{id}
         [HttpGet("{id}")]
+        [AllowAnonymous]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<EditieDto>> GetEditie(Guid id)
         {
             var editie = await _context.Editie

@@ -3,19 +3,21 @@ version: '3.8'
 services:
   db:
     image: mysql:8.0
+    container_name: festivaldb
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: festivaldb
     ports:
-      - "3307:3306"  # Expose MySQL to localhost:3307
+      - "3307:3306"  # Expose MySQL on localhost:3307
     volumes:
-      - db_data:/var/lib/mysql  # Persistent MySQL data storage
-      - ./Database/festival.sql:/docker-entrypoint-initdb.d/festival.sql  # Initialize DB with this SQL script
+      - db_data:/var/lib/mysql  # Persistent MySQL data
+      - ./Database/festival.sql:/docker-entrypoint-initdb.d/festival.sql  # Initialize DB
     command: --default-authentication-plugin=mysql_native_password
+    restart: always  # Restart on failure
 
   web:
     build:
-      context: ./FritFest.API
+      context: ./FritFest.API  # Path to your .NET Core API project
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -23,10 +25,10 @@ services:
       - Authentication__Google__ClientId=661879216618-0gl8krhgkntc04h7m8qfvnp3k16datne.apps.googleusercontent.com
       - Authentication__Google__ClientSecret=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
     ports:
-      - "5000:80"  # Expose API on localhost:5000
+      - "8080:8080"  
     depends_on:
-      - db  # Ensure the database service starts before the web API
-    restart: always  # Optionally ensure the container restarts if it fails
+      - db  # Ensure the database service starts first
+    restart: always  # Restart on failure
 
 volumes:
-  db_data:  # Named volume for MySQL data persistence
+  db_data:  # Named volume for persistent MySQL storage
