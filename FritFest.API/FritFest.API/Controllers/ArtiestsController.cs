@@ -125,10 +125,6 @@ namespace FritFest.API.Controllers
                         var genres = genresProperty.EnumerateArray().Select(g => g.GetString()).ToList();
                         artiestDto.Genre = string.Join(",", genres);
                     }
-                    if (spotifyJson.TryGetProperty("uri", out var spotifyLinkProperty))
-                    {
-                        artiestDto.SpotifyLink = spotifyLinkProperty.GetString();
-                    }
 
                     var images = spotifyJson.GetProperty("images");
                     if (images.GetArrayLength() > 0)
