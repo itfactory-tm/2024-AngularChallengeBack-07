@@ -29,7 +29,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Genres
         [HttpGet]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<GenreDto>>> GetGenre()
         {
@@ -41,7 +40,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Genres/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<GenreDto>> GetGenre(Guid id)
         {
@@ -59,7 +58,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Genres/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutGenre(Guid id, GenreDto genreDto)
         {
             if (id != genreDto.GenreId)
@@ -91,7 +90,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Genres
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<GenreDto>> PostGenre(GenreDto genreDto)
         {
             var genre = _mapper.Map<Genre>(genreDto);
@@ -104,7 +103,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Genres/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteGenre(Guid id)
         {
             var genre = await _context.Genre.FindAsync(id);

@@ -14,7 +14,7 @@ namespace FritFest.API.Entities
         public string Email { get; set; }
         public int Jaar { get; set; }
 
-        public ICollection<Ticket> Tickets { get; set; }
+        public ICollection<GekochteTicket> Tickets { get; set; }
         public ICollection<Artiest> Artiesten { get; set; }
         public ICollection<Foto> Fotos { get; set; }
         public ICollection<Artikel> Artikelen { get; set; }

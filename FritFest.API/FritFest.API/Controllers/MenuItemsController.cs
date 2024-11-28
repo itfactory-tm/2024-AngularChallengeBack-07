@@ -29,7 +29,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/MenuItems
         [HttpGet]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<MenuItemDto>>> GetMenuItem()
         {
@@ -41,7 +40,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/MenuItems/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<MenuItemDto>> GetMenuItem(Guid id)
         {
@@ -59,6 +57,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/MenuItems/5
         [HttpPut("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutMenuItem(Guid id, MenuItemDto menuItemDto)
         {
             if (id != menuItemDto.MenuItemId)
@@ -90,6 +89,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/MenuItems
         [HttpPost]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<MenuItemDto>> PostMenuItem(MenuItemDto menuItemDto)
         {
             var menuItem = _mapper.Map<MenuItem>(menuItemDto);
@@ -102,6 +102,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/MenuItems/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteMenuItem(Guid id)
         {
             var menuItem = await _context.MenuItem.FindAsync(id);

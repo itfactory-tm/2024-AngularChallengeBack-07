@@ -29,7 +29,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/FoodTrucks
         [HttpGet]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<FoodTruckDto>>> GetFoodTruck()
         {
@@ -43,7 +43,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/FoodTrucks/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<FoodTruckDto>> GetFoodTruck(Guid id)
         {
@@ -64,7 +64,7 @@ namespace FritFest.API.Controllers
         // PUT: api/FoodTrucks/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutFoodTruck(Guid id, FoodTruckDto foodTruckDto)
         {
             if (id != foodTruckDto.FoodTruckId)
@@ -97,7 +97,7 @@ namespace FritFest.API.Controllers
         // POST: api/FoodTrucks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<FoodTruckDto>> PostFoodTruck(FoodTruckDto foodTruckDto)
         {
             var foodTruck = _mapper.Map<FoodTruck>(foodTruckDto);
@@ -110,7 +110,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/FoodTrucks/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteFoodTruck(Guid id)
         {
             var foodTruck = await _context.FoodTruck.FindAsync(id);

@@ -24,7 +24,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Editie
         [HttpGet]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<EditieDto>>> GetEditie()
         {
@@ -41,7 +40,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Editie/{id}
         [HttpGet("{id}")]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<EditieDto>> GetEditie(Guid id)
         {
@@ -64,7 +62,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Editie
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<EditieDto>> PostEditie(EditieDto editieDto)
         {
             var editie = _mapper.Map<Editie>(editieDto);
@@ -77,7 +75,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Editie/{id}
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutEditie(Guid id, EditieDto editieDto)
         {
             if (!EditieExists(id))
@@ -109,7 +107,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Editie/{id}
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteEditie(Guid id)
         {
             var editie = await _context.Editie.FindAsync(id);

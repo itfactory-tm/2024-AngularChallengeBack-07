@@ -29,7 +29,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/TicketTypes
         [HttpGet]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<TicketTypeDto>>> GetTicketType()
         {
@@ -40,7 +39,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/TicketTypes/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<TicketTypeDto>> GetTicketType(Guid id)
         {
@@ -57,6 +55,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/TicketTypes/5
         [HttpPut("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutTicketType(Guid id, TicketTypeDto ticketTypeDto)
         {
             if (id != ticketTypeDto.TicketTypeId)
@@ -88,6 +87,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/TicketTypes
         [HttpPost]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<TicketTypeDto>> PostTicketType(TicketTypeDto ticketTypeDto)
         {
             var ticketType = _mapper.Map<TicketType>(ticketTypeDto);
@@ -100,6 +100,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/TicketTypes/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteTicketType(Guid id)
         {
             var ticketType = await _context.TicketType.FindAsync(id);

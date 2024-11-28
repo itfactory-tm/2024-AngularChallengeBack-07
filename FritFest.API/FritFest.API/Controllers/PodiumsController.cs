@@ -29,7 +29,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Podiums
         [HttpGet]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<PodiumDto>>> GetPodium()
         {
@@ -43,7 +42,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Podiums/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<PodiumDto>> GetPodium(Guid id)
         {
@@ -59,6 +57,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Podiums/5
         [HttpPut("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutPodium(Guid id, PodiumDto podiumDto)
         {
             if (id != podiumDto.PodiumId)
@@ -90,6 +89,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Podiums
         [HttpPost]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<PodiumDto>> PostPodium(PodiumDto podiumDto)
         {
             var podium = _mapper.Map<Podium>(podiumDto);
@@ -102,6 +102,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Podiums/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeletePodium(Guid id)
         {
             var podium = await _context.Podium.FindAsync(id);

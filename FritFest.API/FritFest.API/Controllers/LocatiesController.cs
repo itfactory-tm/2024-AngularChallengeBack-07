@@ -29,7 +29,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Locaties
         [HttpGet]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<LocatieDto>>> GetLocatie()
         {
@@ -42,7 +42,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Locaties/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<LocatieDto>> GetLocatie(Guid id)
         {
@@ -61,7 +61,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Locaties/5
         [HttpPut("{id}")]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutLocatie(Guid id, LocatieDto locatieDto)
         {
             if (id != locatieDto.LocatieId)
@@ -93,7 +93,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Locaties
         [HttpPost]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<LocatieDto>> PostLocatie(LocatieDto locatieDto)
         {
             var locatie = _mapper.Map<Locatie>(locatieDto);
@@ -106,7 +106,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Locaties/5
         [HttpDelete("{id}")]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteLocatie(Guid id)
         {
             var locatie = await _context.Locatie.FindAsync(id);
