@@ -29,7 +29,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Fotos
         [HttpGet]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<FotoDto>>> GetFoto()
         {
@@ -43,7 +43,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Fotos/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<FotoDto>> GetFoto(Guid id)
         {
@@ -63,7 +63,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Fotos/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutFoto(Guid id, FotoDto fotoDto)
         {
             if (id != fotoDto.FotoId)
@@ -95,7 +95,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Fotos
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<FotoDto>> PostFoto(FotoDto fotoDto)
         {
             var foto = _mapper.Map<Foto>(fotoDto);
@@ -108,7 +108,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Fotos/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteFoto(Guid id)
         {
             var foto = await _context.Foto.FindAsync(id);

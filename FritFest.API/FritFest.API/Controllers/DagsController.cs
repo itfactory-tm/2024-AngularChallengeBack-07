@@ -29,7 +29,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Dags
         [HttpGet]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<DagDto>>> GetDag()
         {
@@ -39,7 +39,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Dags/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<DagDto>> GetDag(Guid id)
         {
@@ -56,7 +56,7 @@ namespace FritFest.API.Controllers
         // PUT: api/Dags/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutDag(Guid id, DagDto dagDto)
         {
             if (id != dagDto.DagId)
@@ -89,7 +89,7 @@ namespace FritFest.API.Controllers
         // POST: api/Dags
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<DagDto>> PostDag(DagDto dagDto)
         {
             var dag = _mapper.Map<Dag>(dagDto);
@@ -102,7 +102,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Dags/5
         [HttpDelete("{id}")]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteDag(Guid id)
         {
             var dag = await _context.Dag.FindAsync(id);

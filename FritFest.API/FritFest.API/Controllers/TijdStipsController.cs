@@ -29,7 +29,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/TijdStips
         [HttpGet]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<TijdStipDto>>> GetTijdStip()
         {
@@ -42,7 +41,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/TijdStips/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<TijdStipDto>> GetTijdStip(Guid id)
         {
@@ -61,6 +59,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/TijdStips/5
         [HttpPut("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutTijdStip(Guid id, TijdStipDto tijdStipDto)
         {
             if (id != tijdStipDto.ArtiestId)
@@ -92,6 +91,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/TijdStips
         [HttpPost]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<TijdStipDto>> PostTijdStip(TijdStipDto tijdStipDto)
         {
             var tijdStip = _mapper.Map<TijdStip>(tijdStipDto);
@@ -104,6 +104,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/TijdStips/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteTijdStip(Guid id)
         {
             var tijdStip = await _context.TijdStip.FindAsync(id);

@@ -29,7 +29,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Sponsors
         [HttpGet]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<SponsorDto>>> GetSponsor()
         {
@@ -41,7 +40,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Sponsors/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
 
         public async Task<ActionResult<SponsorDto>> GetSponsor(Guid id)
@@ -60,6 +58,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Sponsors/5
         [HttpPut("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutSponsor(Guid id, SponsorDto sponsorDto)
         {
             if (id != sponsorDto.SponsorId)
@@ -91,6 +90,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Sponsors
         [HttpPost]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<SponsorDto>> PostSponsor(SponsorDto sponsorDto)
         {
             var sponsor = _mapper.Map<Sponsor>(sponsorDto);
@@ -103,6 +103,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Sponsors/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteSponsor(Guid id)
         {
             var sponsor = await _context.Sponsor.FindAsync(id);

@@ -29,7 +29,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artiests
         [HttpGet]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<ArtiestDto>>> GetArtiests()
         {
@@ -86,7 +85,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artiests/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
+       
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<ArtiestDto>> GetArtiest(Guid id)
         {
@@ -144,7 +143,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Artiests
         [HttpPost]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<ArtiestDto>> PostArtiest(ArtiestDto artiestDto)
         {
             var spotifyCodePattern = @"artist\/(.*?)\?";
@@ -169,7 +168,7 @@ namespace FritFest.API.Controllers
         // PUT: api/Artiests/5
         // PUT: api/Artiests/5
         [HttpPut("{id}")]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutArtiest(Guid id, ArtiestDto artiestDto)
         {
             if (id != artiestDto.ArtiestId)
@@ -248,7 +247,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Artiests/5
         [HttpDelete("{id}")]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteArtiest(Guid id)
         {
             var artiest = await _context.Artiest.FindAsync(id);

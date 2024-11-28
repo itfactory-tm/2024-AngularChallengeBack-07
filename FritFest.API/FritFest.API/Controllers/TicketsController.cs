@@ -29,7 +29,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Tickets
         [HttpGet]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<TicketDto>>> GetTicket()
         {
@@ -43,7 +42,6 @@ namespace FritFest.API.Controllers
 
         // GET: api/Tickets/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
         [EnableRateLimiting("PublicLimiter")]
 
         public async Task<ActionResult<TicketDto>> GetTicket(Guid id)
@@ -64,6 +62,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Tickets/5
         [HttpPut("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutTicket(Guid id, TicketDto ticketDto)
         {
             if (id != ticketDto.TicketId)
@@ -95,6 +94,7 @@ namespace FritFest.API.Controllers
 
         // POST: api/Tickets
         [HttpPost]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<TicketDto>> PostTicket(TicketDto ticketDto)
         {
             var ticket = _mapper.Map<Ticket>(ticketDto);
@@ -107,6 +107,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Tickets/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteTicket(Guid id)
         {
             var ticket = await _context.Ticket.FindAsync(id);

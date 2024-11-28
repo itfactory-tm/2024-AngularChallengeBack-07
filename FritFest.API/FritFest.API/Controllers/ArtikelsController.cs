@@ -25,7 +25,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artikels
         [HttpGet]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<ArtikelDto>>> GetArtikels()
         {
@@ -37,7 +37,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artikels/5
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<ArtikelDto>> GetArtikel(Guid id)
         {
@@ -55,7 +55,8 @@ namespace FritFest.API.Controllers
 
         // POST: api/Artikels
         [HttpPost]
-        
+        [Authorize(Policy = "GetAccess")]
+
         public async Task<ActionResult<ArtikelDto>> PostArtikel(ArtikelDto artikelDto)
         {
             var artikel = _mapper.Map<Artikel>(artikelDto);
@@ -68,7 +69,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Artikels/5
         [HttpPut("{id}")]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutArtikel(Guid id, ArtikelDto artikelDto)
         {
             if (id != artikelDto.ArtikelId)
@@ -100,7 +101,7 @@ namespace FritFest.API.Controllers
 
         // DELETE: api/Artikels/5
         [HttpDelete("{id}")]
-        
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteArtikel(Guid id)
         {
             var artikel = await _context.Artikel.FindAsync(id);
