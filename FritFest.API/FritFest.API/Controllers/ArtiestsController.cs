@@ -15,7 +15,7 @@ namespace FritFest.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+
     public class ArtiestsController : ControllerBase
     {
         private readonly FestivalContext _context;
@@ -55,9 +55,9 @@ namespace FritFest.API.Controllers
                         var spotifyJson = JsonSerializer.Deserialize<JsonElement>(spotifyDetails);
 
                         artiestDto.Naam = spotifyJson.GetProperty("name").GetString();
-                        
-                        
-                        if(spotifyJson.TryGetProperty("genres",out var genresProperty))
+                        artiestDto.SpotifyLink = spotifyJson.GetProperty("uri").GetString();
+
+                        if (spotifyJson.TryGetProperty("genres", out var genresProperty))
                         {
                             var genres = genresProperty.EnumerateArray().Select(g => g.GetString()).ToList();
                             artiestDto.Genre = string.Join(",", genres);
@@ -85,7 +85,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artiests/5
         [HttpGet("{id}")]
-       
+
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<ArtiestDto>> GetArtiest(Guid id)
         {
@@ -117,7 +117,8 @@ namespace FritFest.API.Controllers
 
                     // Enrich DTO with Spotify data
                     artiestDto.Naam = spotifyJson.GetProperty("name").GetString();
-                   
+                    artiestDto.SpotifyLink = spotifyJson.GetProperty("uri").GetString();
+
 
                     if (spotifyJson.TryGetProperty("genres", out var genresProperty))
                     {
@@ -201,7 +202,7 @@ namespace FritFest.API.Controllers
 
                     // Update the ArtiestDto with Spotify data
                     artiestDto.Naam = spotifyJson.GetProperty("name").GetString();
-                   
+
 
                     if (spotifyJson.TryGetProperty("genres", out var genresProperty))
                     {

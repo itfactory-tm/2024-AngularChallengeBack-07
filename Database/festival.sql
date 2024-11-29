@@ -229,7 +229,7 @@ VALUES
 (UUID(), 'The Rockers', 'rockers@music.com', 'A famous rock band', 'spotify.com/therockers','22Wzsyh7moQAwSODsMF6w2' ,(SELECT genreId FROM Genre WHERE naam = 'Rock')),
 (UUID(), 'DJ Spin', 'djspin@beats.com', 'A well-known electronic DJ', 'spotify.com/djspin',' 22Wzsyh7moQAwSODsMF6w2',(SELECT genreId FROM Genre WHERE naam = 'Electronic')),
 (UUID(), 'PopStar', 'popstar@music.com', 'A pop music sensation', 'spotify.com/popstar','' ,(SELECT genreId FROM Genre WHERE naam = 'Pop')),
-(UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet',' ',(SELECT genreId FROM Genre WHERE naam = 'Jazz'));
+(UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet','',(SELECT genreId FROM Genre WHERE naam = 'Jazz'));
 
 -- Insert data into Locatie (Location)
 INSERT INTO Locatie (locatieId, naam, coordinaten)
