@@ -7,8 +7,8 @@ namespace FritFest.API.Entities
     {
         [Key]
         public Guid MenuItemId { get; set; }
-        public string Naam { get; set; }
-        public decimal Prijs { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
         [ForeignKey(nameof(FoodTruck))]
         public Guid FoodTruckId { get; set; }
         public FoodTruck FoodTruck { get; set; }

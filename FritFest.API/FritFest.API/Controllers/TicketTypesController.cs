@@ -30,7 +30,7 @@ namespace FritFest.API.Controllers
         // GET: api/TicketTypes
         [HttpGet]
         [EnableRateLimiting("PublicLimiter")]
-        public async Task<ActionResult<IEnumerable<TicketTypeDto>>> GetTicketType()
+        public async Task<ActionResult<IEnumerable<TicketTypeDto>>> GetTicketTypes()
         {
             var ticketTypes = await _context.TicketType
                 .ToListAsync();

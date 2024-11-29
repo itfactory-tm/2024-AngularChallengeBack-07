@@ -30,7 +30,7 @@ namespace FritFest.API.Controllers
         // GET: api/MenuItems
         [HttpGet]
         [EnableRateLimiting("PublicLimiter")]
-        public async Task<ActionResult<IEnumerable<MenuItemDto>>> GetMenuItem()
+        public async Task<ActionResult<IEnumerable<MenuItemDto>>> GetMenuItems()
         {
             var menuItems = await _context.MenuItem
                 .Include(mi => mi.FoodTruck)

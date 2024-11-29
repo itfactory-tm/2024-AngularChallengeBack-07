@@ -27,57 +27,57 @@ namespace FritFest.API.Controllers
         [HttpGet]
         
         [EnableRateLimiting("PublicLimiter")]
-        public async Task<ActionResult<IEnumerable<ArtikelDto>>> GetArtikels()
+        public async Task<ActionResult<IEnumerable<ArticleDto>>> GetArticles()
         {
-            var artikels = await _context.Artikel
-                .Include(a => a.Editie)  // Include Editie to map Editie.Titel
+            var articles = await _context.Article
+                .Include(a => a.Edition)  // Include Editie to map Editie.Titel
                 .ToListAsync();
-            return Ok(_mapper.Map<IEnumerable<ArtikelDto>>(artikels));
+            return Ok(_mapper.Map<IEnumerable<ArticleDto>>(articles));
         }
 
         // GET: api/Artikels/5
         [HttpGet("{id}")]
         
         [EnableRateLimiting("PublicLimiter")]
-        public async Task<ActionResult<ArtikelDto>> GetArtikel(Guid id)
+        public async Task<ActionResult<ArticleDto>> GetArticle(Guid id)
         {
-            var artikel = await _context.Artikel
-                .Include(a => a.Editie)  // Include Editie to map Editie.Titel
-                .FirstOrDefaultAsync(a => a.ArtikelId == id);
+            var article = await _context.Article
+                .Include(a => a.Edition)  // Include Editie to map Editie.Titel
+                .FirstOrDefaultAsync(a => a.ArticleId == id);
 
-            if (artikel == null)
+            if (article == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<ArtikelDto>(artikel));
+            return Ok(_mapper.Map<ArticleDto>(article));
         }
 
         // POST: api/Artikels
         [HttpPost]
         [Authorize(Policy = "GetAccess")]
 
-        public async Task<ActionResult<ArtikelDto>> PostArtikel(ArtikelDto artikelDto)
+        public async Task<ActionResult<ArticleDto>> PostArticle(ArticleDto articleDto)
         {
-            var artikel = _mapper.Map<Artikel>(artikelDto);
-            artikel.ArtikelId = Guid.NewGuid();
-            _context.Artikel.Add(artikel);
+            var article = _mapper.Map<Article>(articleDto);
+            article.ArticleId = Guid.NewGuid();
+            _context.Article.Add(article);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetArtikel), new { id = artikel.ArtikelId }, _mapper.Map<ArtikelDto>(artikel));
+            return CreatedAtAction(nameof(GetArticle), new { id = article.ArticleId }, _mapper.Map<ArticleDto>(article));
         }
 
         // PUT: api/Artikels/5
         [HttpPut("{id}")]
         [Authorize(Policy = "GetAccess")]
-        public async Task<IActionResult> PutArtikel(Guid id, ArtikelDto artikelDto)
+        public async Task<IActionResult> PutArticle(Guid id, ArticleDto articleDto)
         {
-            if (id != artikelDto.ArtikelId)
+            if (id != articleDto.ArticleId)
             {
                 return BadRequest();
             }
 
-            var artikel = _mapper.Map<Artikel>(artikelDto);
+            var artikel = _mapper.Map<Article>(articleDto);
             _context.Entry(artikel).State = EntityState.Modified;
 
             try
@@ -86,7 +86,7 @@ namespace FritFest.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ArtikelExists(id))
+                if (!ArticleExists(id))
                 {
                     return NotFound();
                 }
@@ -102,23 +102,23 @@ namespace FritFest.API.Controllers
         // DELETE: api/Artikels/5
         [HttpDelete("{id}")]
         [Authorize(Policy = "GetAccess")]
-        public async Task<IActionResult> DeleteArtikel(Guid id)
+        public async Task<IActionResult> DeleteArticle(Guid id)
         {
-            var artikel = await _context.Artikel.FindAsync(id);
-            if (artikel == null)
+            var article = await _context.Article.FindAsync(id);
+            if (article == null)
             {
                 return NotFound();
             }
 
-            _context.Artikel.Remove(artikel);
+            _context.Article.Remove(article);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ArtikelExists(Guid id)
+        private bool ArticleExists(Guid id)
         {
-            return _context.Artikel.Any(e => e.ArtikelId == id);
+            return _context.Article.Any(e => e.ArticleId == id);
         }
     }
 }

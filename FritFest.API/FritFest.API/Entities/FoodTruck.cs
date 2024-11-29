@@ -7,12 +7,12 @@ namespace FritFest.API.Entities
     {
         [Key]
         public Guid FoodTruckId { get; set; }
-        public string Naam { get; set; }
-        [ForeignKey(nameof(Locatie))]
-        public Guid LocatieId { get; set; }
-        public Locatie Locatie { get; set; }
+        public string Name { get; set; }
+        [ForeignKey(nameof(Location))]
+        public Guid LocationId { get; set; }
+        public Location Location { get; set; }
 
-        public ICollection<Editie> Edities { get; set; }
+        public ICollection<Edition> Editions { get; set; }
         public ICollection<MenuItem> MenuItems { get; set; }
     }
 }

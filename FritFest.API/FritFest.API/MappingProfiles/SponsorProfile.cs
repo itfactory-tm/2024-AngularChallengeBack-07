@@ -10,11 +10,11 @@ namespace FritFest.API.Profiles
         {
             // Map from Sponsor to SponsorDto
             CreateMap<Sponsor, SponsorDto>()
-                .ForMember(dest => dest.Edities, opt => opt.MapFrom(src => src.Editie.Select(e => e.EditieNaam).ToList()));
+                .ForMember(dest => dest.Editions, opt => opt.MapFrom(src => src.Editions.Select(e => e.EditionName).ToList()));
 
             // Map from SponsorDto to Sponsor
             CreateMap<SponsorDto, Sponsor>()
-                .ForMember(dest => dest.Editie, opt => opt.Ignore()); // Ignore the Editie collection on reverse mapping
+                .ForMember(dest => dest.Editions, opt => opt.Ignore()); // Ignore the Editie collection on reverse mapping
         }
     }
 }

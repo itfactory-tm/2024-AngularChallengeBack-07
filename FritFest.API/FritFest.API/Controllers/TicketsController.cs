@@ -30,12 +30,12 @@ namespace FritFest.API.Controllers
         // GET: api/Tickets
         [HttpGet]
         [EnableRateLimiting("PublicLimiter")]
-        public async Task<ActionResult<IEnumerable<TicketDto>>> GetTicket()
+        public async Task<ActionResult<IEnumerable<TicketDto>>> GetTickets()
         {
             var tickets = await _context.Ticket
-                .Include(t => t.Editie)
+                .Include(t => t.Edition)
                 .Include(t => t.TicketType)
-                .Include(t => t.Dag)
+                .Include(t => t.Day)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<TicketDto>>(tickets));
         }
@@ -48,8 +48,8 @@ namespace FritFest.API.Controllers
         {
             var ticket = await _context.Ticket
                 .Include(t => t.TicketType)
-                .Include(t => t.Editie)
-                .Include(t => t.Dag)
+                .Include(t => t.Edition)
+                .Include(t => t.Day)
                 .FirstOrDefaultAsync(t => t.TicketId == id);
 
             if (ticket == null)

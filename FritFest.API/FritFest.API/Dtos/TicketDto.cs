@@ -6,12 +6,12 @@ namespace FritFest.API.Dtos
     {
         public Guid TicketId { get; set; }
 
-        public Guid EditieId { get; set; }
-        public string EditieNaam { get; set; } // Editie.Name field to display the name in the DTO
+        public Guid EditionId { get; set; }
+        public string EditionName { get; set; } // Editie.Name field to display the name in the DTO
 
         public Guid TicketTypeId { get; set; }
-        public double TicketPrijs { get; set; }
-        public Guid DagId { get; set; }
-        public string DagNaam { get; set; } // Dag.Name field to display the name in the DTO
+        public double TicketPrice { get; set; }
+        public Guid DayId { get; set; }
+        public string DayName { get; set; } // Dag.Name field to display the name in the DTO
     }
 }

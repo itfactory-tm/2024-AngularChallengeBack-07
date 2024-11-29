@@ -6,10 +6,10 @@ namespace FritFest.API.Entities
     {
         [Key]
         public Guid SponsorId { get; set; }
-        public string SponsorNaam { get; set; }
-        public int Hoeveelheid { get; set; }
-        public string GesponsordeItem { get; set; }
+        public string SponsorName { get; set; }
+        public int Amount { get; set; }
+        public string SponsoredItem { get; set; }
 
-        public ICollection<Editie> Editie { get; set; }
+        public ICollection<Edition> Editions { get; set; }
     }
 }

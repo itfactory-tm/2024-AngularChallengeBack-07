@@ -10,12 +10,12 @@ namespace FritFest.API.Profiles
         public GenreProfile()
         {
             // Map from Genre to GenreDto
-            CreateMap<Genre, GenreDto>()
-                .ForMember(dest => dest.ArtiestNamen, opt => opt.MapFrom(src => src.Artiesten.Select(a => a.Naam).ToList()));
+            CreateMap<Genre, GenreDto>();
+                /*.ForMember(dest => dest.ArtistsNames, opt => opt.MapFrom(src => src.Artists.Select(a => a.Name).ToList()))*/;
 
             // Reverse map from GenreDto to Genre
-            CreateMap<GenreDto, Genre>()
-                .ForMember(dest => dest.Artiesten, opt => opt.Ignore()); // Ignore Artiesten to avoid overwriting navigation property
+            CreateMap<GenreDto, Genre>();
+                /*.ForMember(dest => dest.Artists, opt => opt.Ignore());*/ // Ignore Artiesten to avoid overwriting navigation property
         }
     }
 }
