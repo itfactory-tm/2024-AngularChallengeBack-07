@@ -166,6 +166,7 @@ CREATE TABLE MenuItem (
 CREATE TABLE Sponsor (
     sponsorId CHAR(36) PRIMARY KEY,           -- GUID as the primary key for SponsorId
     sponsorName VARCHAR(255) NOT NULL,        -- Name of the sponsor (not nullable)
+    sponsorLogo VARCHAR(255),
     amount INT,                          -- Amount contributed by the sponsor
     sponsoredItem VARCHAR(255)            -- Sponsored item description
 );
@@ -302,11 +303,11 @@ VALUES
 (UUID(), 'Chocolate Ice Cream', 3.50, (SELECT foodTruckId FROM FoodTruck WHERE name = 'Ice Cream Truck'));
 
 -- Insert data into Sponsor
-INSERT INTO Sponsor (sponsorId, sponsorName, amount, sponsoredItem)
+INSERT INTO Sponsor (sponsorId, sponsorName, sponsorLogo,amount, sponsoredItem)
 VALUES
-(UUID(), 'TechCo', 50000, 'Stage Equipment'),
-(UUID(), 'DrinkCorp', 20000, 'Refreshments'),
-(UUID(), 'Foodies Ltd', 30000, 'Food Stalls');
+(UUID(), 'TechCo', '',50000, 'Stage Equipment'),
+(UUID(), 'DrinkCorp','', 20000, 'Refreshments'),
+(UUID(), 'Foodies Ltd','', 30000, 'Food Stalls');
 
 -- Insert data into SponsorLijst (Sponsor List)
 INSERT INTO SponsorList (sponsorId, editionId)
