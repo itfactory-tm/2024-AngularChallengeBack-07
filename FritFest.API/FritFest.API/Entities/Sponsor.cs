@@ -10,6 +10,9 @@ namespace FritFest.API.Entities
         public int Amount { get; set; }
         public string SponsoredItem { get; set; }
 
+        public string SponsorMail { get; set; }
+        public string SponsorLogo { get; set; }
+
         public ICollection<Edition> Editions { get; set; }
     }
 }

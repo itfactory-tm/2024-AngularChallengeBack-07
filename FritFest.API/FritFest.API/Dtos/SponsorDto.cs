@@ -9,6 +9,8 @@ namespace FritFest.API.Dtos
         public string SponsorName { get; set; }
         public int Amount { get; set; }
         public string SponsoredItem { get; set; }
+        public string SponsorMail {  get; set; }
+        public string SponsorLogo { get; set; }
         public List<string> Editions { get; set; } // Assuming EditieDto exists
     }
 }
