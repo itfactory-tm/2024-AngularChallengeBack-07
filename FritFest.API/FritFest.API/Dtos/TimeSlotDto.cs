@@ -1,0 +1,15 @@
+﻿using System;
+
+namespace FritFest.API.Dtos
+{
+    public class TimeSlotDto
+    {
+        public Guid TimeSlotId { get; set; }
+        public DateTime Time { get; set; }
+        public Guid ArtistId { get; set; }
+        public string ArtistName { get; set; } // The name of the artist (Artiest)
+
+        public Guid StageId { get; set; }
+        public string StageName { get; set; } // The name of the podium (Podium)
+    }
+}

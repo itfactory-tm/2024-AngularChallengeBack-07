@@ -8,16 +8,16 @@ namespace FritFest.API.Entities
         [Key]
         public Guid TicketId { get; set; }
 
-        public Editie Editie { get; set; }
+        public Edition Edition { get; set; }
         public TicketType TicketType { get; set; }
 
-        [ForeignKey(nameof(Editie))]
-        public Guid EditieId { get; set; }
+        [ForeignKey(nameof(Edition))]
+        public Guid EditionId { get; set; }
         [ForeignKey(nameof(TicketType))]
         public Guid TicketTypeId { get; set; }
 
-        public Dag Dag { get; set; }
-        [ForeignKey(nameof(Dag))]
-        public Guid DagId { get; set; }
+        public Day Day { get; set; }
+        [ForeignKey(nameof(Day))]
+        public Guid DayId { get; set; }
     }
 }

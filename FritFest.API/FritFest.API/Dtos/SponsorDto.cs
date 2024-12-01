@@ -6,9 +6,11 @@ namespace FritFest.API.Dtos
     public class SponsorDto
     {
         public Guid SponsorId { get; set; }
-        public string SponsorNaam { get; set; }
-        public int Hoeveelheid { get; set; }
-        public string GesponsordeItem { get; set; }
-        public List<string> Edities { get; set; } // Assuming EditieDto exists
+        public string SponsorName { get; set; }
+        public int Amount { get; set; }
+        public string SponsoredItem { get; set; }
+        public string SponsorMail {  get; set; }
+        public string SponsorLogo { get; set; }
+        public List<string> Editions { get; set; } // Assuming EditieDto exists
     }
 }

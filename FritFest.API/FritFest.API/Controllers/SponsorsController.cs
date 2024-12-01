@@ -30,10 +30,10 @@ namespace FritFest.API.Controllers
         // GET: api/Sponsors
         [HttpGet]
         [EnableRateLimiting("PublicLimiter")]
-        public async Task<ActionResult<IEnumerable<SponsorDto>>> GetSponsor()
+        public async Task<ActionResult<IEnumerable<SponsorDto>>> GetSponsors()
         {
             var sponsors = await _context.Sponsor
-                .Include(s => s.Editie)
+                .Include(s => s.Editions)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<SponsorDto>>(sponsors));
         }
@@ -45,7 +45,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<SponsorDto>> GetSponsor(Guid id)
         {
             var sponsor = await _context.Sponsor
-                .Include(s => s.Editie)
+                .Include(s => s.Editions)
                 .FirstOrDefaultAsync(s => s.SponsorId == id);
 
             if (sponsor == null)

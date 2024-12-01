@@ -30,10 +30,10 @@ namespace FritFest.API.Controllers
         // GET: api/Genres
         [HttpGet]
         [EnableRateLimiting("PublicLimiter")]
-        public async Task<ActionResult<IEnumerable<GenreDto>>> GetGenre()
+        public async Task<ActionResult<IEnumerable<GenreDto>>> GetGenres()
         {
             var genres = await _context.Genre
-                .Include(g => g.Artiesten)
+                //.Include(g => g.Artists)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<GenreDto>>(genres));
         }
@@ -45,7 +45,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<GenreDto>> GetGenre(Guid id)
         {
             var genre = await _context.Genre
-                .Include(g => g.Artiesten)
+                //.Include(g => g.Artists)
                 .FirstOrDefaultAsync(g => g.GenreId == id);
 
             if (genre == null)
