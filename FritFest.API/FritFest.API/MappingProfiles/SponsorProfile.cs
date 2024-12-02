@@ -10,7 +10,7 @@ namespace FritFest.API.Profiles
         {
             // Map from Sponsor to SponsorDto
             CreateMap<Sponsor, SponsorDto>()
-                .ForMember(dest => dest.Editions, opt => opt.MapFrom(src => src.Editions.Select(e => e.EditionName).ToList()));
+                /*.ForMember(dest => dest.Editions, opt => opt.MapFrom(src => src.Editions.Select(e => e.EditionName).ToList()))*/;
 
             // Map from SponsorDto to Sponsor
             CreateMap<SponsorDto, Sponsor>()

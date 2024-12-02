@@ -31,7 +31,7 @@ namespace FritFest.API.DbContexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<TimeSlot>().HasKey(ts => new {ts.ArtistId, ts.StageId });
-            
+
             //Association between Artiest and Editie
             //modelBuilder.Entity<Artist>()
             //    .HasMany(a => a.Edition)
