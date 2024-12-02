@@ -12,18 +12,18 @@ namespace FritFest.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     
-    public class ArtikelsController : ControllerBase
+    public class ArticlesController : ControllerBase
     {
         private readonly FestivalContext _context;
         private readonly IMapper _mapper;
 
-        public ArtikelsController(FestivalContext context, IMapper mapper)
+        public ArticlesController(FestivalContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        // GET: api/Artikels
+        // GET: api/Articles
         [HttpGet]
         
         [EnableRateLimiting("PublicLimiter")]
@@ -35,7 +35,7 @@ namespace FritFest.API.Controllers
             return Ok(_mapper.Map<IEnumerable<ArticleDto>>(articles));
         }
 
-        // GET: api/Artikels/5
+        // GET: api/Articles/5
         [HttpGet("{id}")]
         
         [EnableRateLimiting("PublicLimiter")]
@@ -53,7 +53,7 @@ namespace FritFest.API.Controllers
             return Ok(_mapper.Map<ArticleDto>(article));
         }
 
-        // POST: api/Artikels
+        // POST: api/Articles
         [HttpPost]
         [Authorize(Policy = "GetAccess")]
 
@@ -67,7 +67,7 @@ namespace FritFest.API.Controllers
             return CreatedAtAction(nameof(GetArticle), new { id = article.ArticleId }, _mapper.Map<ArticleDto>(article));
         }
 
-        // PUT: api/Artikels/5
+        // PUT: api/Articles/5
         [HttpPut("{id}")]
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutArticle(Guid id, ArticleDto articleDto)
@@ -99,7 +99,7 @@ namespace FritFest.API.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Artikels/5
+        // DELETE: api/Articles/5
         [HttpDelete("{id}")]
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteArticle(Guid id)
