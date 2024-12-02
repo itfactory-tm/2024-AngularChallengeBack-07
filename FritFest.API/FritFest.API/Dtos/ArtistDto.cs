@@ -9,8 +9,8 @@
         public string SpotifyLink { get; set; }
         public string ApiCode { get; set; }
         public string SpotifyPhoto { get; set; } // New - Spotify photo URL
-        //public Guid GenreId { get; set; }
+        ////public Guid GenreId { get; set; }
         public string Genre { get; set; } // Optional, if you want to include genre name
-        public List<string> Editions { get; set; }
+        //public List<string> Editions { get; set; }
     }
 }

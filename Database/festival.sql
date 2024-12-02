@@ -49,27 +49,28 @@ CREATE TABLE Genre (
 CREATE TABLE Artist (
     artistId CHAR(36) PRIMARY KEY,             -- GUID for ArtiestId
     name VARCHAR(255) NOT NULL,                 -- Name of the artist
-    mail VARCHAR(255) NOT NULL,                -- Email of the artist
-    description VARCHAR(255) NOT NULL,         -- Description of the artist
-    spotifyLink VARCHAR(255),                    -- Spotify API link (nullable)
+    mail VARCHAR(255) ,                -- Email of the artist
+    description VARCHAR(255) ,         -- Description of the artist
+    spotifyLink VARCHAR(255) ,                   -- Spotify API link (nullable)
     apiCode VARCHAR(255),
     genre VARCHAR(255), -- Foreign key to Genre table
     spotifyPhoto VARCHAR(255)
 );
 
-CREATE TABLE ArtistList(
-                               artistId CHAR(36),                      -- Foreign key to Sponsor table
-                               editionId CHAR(36),                       -- Foreign key to Editie table
-                               PRIMARY KEY (artistId, editionId),       -- Composite primary key
-                               FOREIGN KEY (artistId) REFERENCES Artist(artistId),  -- Foreign key constraint to Sponsor
-                               FOREIGN KEY (editionId) REFERENCES Edition(editionId)
-);
+-- CREATE TABLE ArtistList(
+--                                artistId CHAR(36),                      -- Foreign key to Sponsor table
+--                                editionId CHAR(36),                       -- Foreign key to Editie table
+--                                PRIMARY KEY (artistId, editionId),       -- Composite primary key
+--                                FOREIGN KEY (artistId) REFERENCES Artist(artistId),  -- Foreign key constraint to Sponsor
+--                                FOREIGN KEY (editionId) REFERENCES Edition(editionId)
+-- );
 
 -- Create Locatie table
 CREATE TABLE Location (
     locationId CHAR(36) PRIMARY KEY,         -- GUID as primary key
     name VARCHAR(255) NOT NULL,             -- Location name (not nullable)
-    coordinates VARCHAR(255) NOT NULL      -- Coordinates (not nullable)
+    longitude double NOT NULL,      -- Coordinates (not nullable)
+    latitude double NOT NULL
 );
 
 -- Create Podium table
@@ -232,11 +233,11 @@ VALUES
 (UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet','','','');
 
 -- Insert data into Locatie (Location)
-INSERT INTO Location (locationId, name, coordinates)
+INSERT INTO Location (locationId, name, longitude, latitude)
 VALUES
-(UUID(), 'Main Stage', '52.366, 4.904'),
-(UUID(), 'Beach Arena', '51.922, 4.481'),
-(UUID(), 'Jazz Lounge', '52.364, 4.903');
+(UUID(), 'Main Stage', 52.366, 4.904),
+(UUID(), 'Beach Arena', 51.922, 4.481),
+(UUID(), 'Jazz Lounge', 52.364, 4.903);
 
 INSERT INTO Stage (stageId,name, locationId) 
 VALUES 
@@ -329,9 +330,9 @@ VALUES
 ((SELECT sponsorId FROM Sponsor WHERE sponsorName = 'DrinkCorp'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
 ((SELECT sponsorId FROM Sponsor WHERE sponsorName = 'Foodies Ltd'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'));
 
-INSERT INTO ArtistList(artistId, editionId) VALUES 
-((SELECT artistId FROM Artist WHERE name = 'The Rockers'),(SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
-((SELECT artistId FROM Artist WHERE name = 'DJ Spin'),(SELECT editionId FROM Edition WHERE editionName = 'Fritfest'));
+-- INSERT INTO ArtistList(artistId, editionId) VALUES 
+-- ((SELECT artistId FROM Artist WHERE name = 'The Rockers'),(SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
+-- ((SELECT artistId FROM Artist WHERE name = 'DJ Spin'),(SELECT editionId FROM Edition WHERE editionName = 'Fritfest'));
 -- Insert data into Artikel (Article)
 INSERT INTO Article (articleId, title, description, date, editionId)
 VALUES

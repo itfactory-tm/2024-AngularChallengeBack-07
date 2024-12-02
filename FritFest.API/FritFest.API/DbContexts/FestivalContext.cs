@@ -33,14 +33,14 @@ namespace FritFest.API.DbContexts
             modelBuilder.Entity<TimeSlot>().HasKey(ts => new {ts.ArtistId, ts.StageId });
             
             //Association between Artiest and Editie
-            modelBuilder.Entity<Artist>()
-                .HasMany(a => a.Edition)
-                .WithMany(e => e.Artists)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ArtistList",
-                    join => join.HasOne<Edition>().WithMany().HasForeignKey("editionId"),
-                    join => join.HasOne<Artist>().WithMany().HasForeignKey("artistId")
-                );
+            //modelBuilder.Entity<Artist>()
+            //    .HasMany(a => a.Edition)
+            //    .WithMany(e => e.Artists)
+            //    .UsingEntity<Dictionary<string, object>>(
+            //        "ArtistList",
+            //        join => join.HasOne<Edition>().WithMany().HasForeignKey("editionId"),
+            //        join => join.HasOne<Artist>().WithMany().HasForeignKey("artistId")
+            //    );
 
             //Association between Sponsor and Editie
             modelBuilder.Entity<Sponsor>()

@@ -29,7 +29,7 @@ namespace FritFest.API.Controllers
         {
             var editions = await _context.Edition
                 .Include(e => e.Tickets)
-                .Include(e => e.Artists)
+                //.Include(e => e.Artists)
                 .Include(e => e.Photos)
                 .Include(e => e.Articles)
                 .Include(e => e.Sponsors)
@@ -45,7 +45,7 @@ namespace FritFest.API.Controllers
         {
             var edition = await _context.Edition
                 .Include(e => e.Tickets)
-                .Include(e => e.Artists)
+                //.Include(e => e.Artists)
                 .Include(e => e.Photos)
                 .Include(e => e.Articles)
                 .Include(e => e.Sponsors)
