@@ -122,9 +122,13 @@ CREATE TABLE BoughtTicket (
     buyerMail CHAR(50),
     holderName CHAR(50),
     holderMail CHAR(50),   
+    editionId CHAR(36),
     ticketId CHAR(36),
+    
     payed boolean,
+    FOREIGN KEY (editionId) REFERENCES Edition(editionId),
     FOREIGN KEY (ticketId) REFERENCES Ticket(ticketId)
+    
 );
 
 -- Create DagList (Day List) table
@@ -244,9 +248,9 @@ VALUES
 -- Insert data into Dag (Day)
 INSERT INTO Day (dayId, name, startDate, endDate)
 VALUES
-(UUID(), 'Day 1', '2024-07-01 10:00:00', '2024-07-01 22:00:00'),
-(UUID(), 'Day 2', '2024-07-02 10:00:00', '2024-07-02 22:00:00');
-
+(UUID(), 'Friday', '2024-07-01 10:00:00', '2024-07-01 22:00:00'),
+(UUID(), 'Saturday', '2024-07-02 10:00:00', '2024-07-02 22:00:00'),
+(UUID(), 'Sunday', '2024-07-03 10:00:00', '2024-07-03 22:00:00');
 -- Insert data into TijdStip (Time Slot)
 INSERT INTO TimeSlot (timeSlotId, time, artistId, stageId)
 VALUES
@@ -259,19 +263,27 @@ VALUES
 INSERT INTO TicketType (ticketTypeId, name,price)
 VALUES
 (UUID(), 'General Admission',10.00),
-(UUID(), 'VIP',12.00);
+(UUID(), 'Super',12.00),
+(UUID(), 'VIP',15.00);
 
 -- Insert data into Ticket
 INSERT INTO Ticket (ticketId, editionId, ticketTypeId, dayId)
 VALUES
-(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'General Admission'), (SELECT dayId FROM Day WHERE name = 'Day 1')),
-(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name = 'VIP'), (SELECT dayId FROM Day WHERE name = 'Day 2'));
+(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'General Admission'), (SELECT dayId FROM Day WHERE name = 'Friday')),
+(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'Super'), (SELECT dayId FROM Day WHERE name = 'Friday')),
+(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'VIP'), (SELECT dayId FROM Day WHERE name = 'Friday')),
+(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'General Admission'), (SELECT dayId FROM Day WHERE name = 'Saturday')),
+(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'Super'), (SELECT dayId FROM Day WHERE name = 'Saturday')),
+(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'VIP'), (SELECT dayId FROM Day WHERE name = 'Saturday')),
+(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'General Admission'), (SELECT dayId FROM Day WHERE name = 'Sunday')),
+(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'Super'), (SELECT dayId FROM Day WHERE name = 'Sunday')),
+(UUID(), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'), (SELECT ticketTypeId FROM TicketType WHERE name= 'VIP'), (SELECT dayId FROM Day WHERE name = 'Sunday'));
 
-Insert Into BoughtTicket (boughtTicketId, buyerName, buyerMail, holderName, holderMail, ticketId, payed)
+Insert Into BoughtTicket (boughtTicketId, buyerName, buyerMail, holderName, holderMail,editionId ,ticketId, payed)
 Values
-(uuid(), "Headmaster", "headmaster@chocoprins.cp", "Headmaster", "headmaster@chocoprins.cp", (Select ticketId From Ticket Where ticketTypeId = (SELECT ticketTypeId FROM TicketType WHERE name = 'General Admission')), true),
-(uuid(), "Headmaster", "headmaster@chocoprins.cp", "Arnould van Heacke", "arnouldvanheacke@chocoprins.cp", (Select ticketId From Ticket Where ticketTypeId = (SELECT ticketTypeId FROM TicketType WHERE name = 'General Admission')), true),
-(uuid(), "Headmaster", "headmaster@chocoprins.cp", "Chocoprins Joris", "chocoprinsJoris@chocoprins.cp", (Select ticketId From Ticket Where ticketTypeId = (SELECT ticketTypeId FROM TicketType WHERE name = 'General Admission')), true);
+(uuid(), "Headmaster", "headmaster@chocoprins.cp", "Headmaster", "headmaster@chocoprins.cp", (select editionId from Edition where editionName = 'Fritfest'),(Select ticketId From Ticket Where ticketTypeId = (SELECT ticketTypeId FROM TicketType WHERE name = 'General Admission') And DayId = (SELECT dayId FROM Day WHERE name = 'Friday')),false),
+(uuid(), "Headmaster", "headmaster@chocoprins.cp", "Arnould van Heacke", "arnouldvanheacke@chocoprins.cp",(select editionId from Edition where editionName = 'Fritfest'),(Select ticketId From Ticket Where ticketTypeId = (SELECT ticketTypeId FROM TicketType WHERE name = 'General Admission') And DayId = (SELECT dayId FROM Day WHERE name = 'Friday')),false),
+(uuid(), "Headmaster", "headmaster@chocoprins.cp", "Chocoprins Joris", "chocoprinsJoris@chocoprins.cp", (select editionId from Edition where editionName = 'Fritfest'),(Select ticketId From Ticket Where ticketTypeId = (SELECT ticketTypeId FROM TicketType WHERE name = 'General Admission') And DayId = (SELECT dayId FROM Day WHERE name = 'Friday')),false);
 
 -- Insert data into DagList (Day List)
 -- INSERT INTO DayList (ticketId, dayId)
