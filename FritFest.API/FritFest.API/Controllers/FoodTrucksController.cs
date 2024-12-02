@@ -34,8 +34,8 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<IEnumerable<FoodTruckDto>>> GetFoodTrucks()
         {
             var foodTrucks = await _context.FoodTruck
-                .Include(ft => ft.Editions)
-                .Include(ft => ft.MenuItems)
+                .Include(ft => ft.Edition)
+                //.Include(ft => ft.MenuItems)
                 .Include(ft => ft.Location)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<FoodTruckDto>>(foodTrucks));
@@ -48,8 +48,8 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<FoodTruckDto>> GetFoodTruck(Guid id)
         {
             var foodTruck = await _context.FoodTruck
-                .Include(ft => ft.Editions)
-                .Include(ft => ft.MenuItems)
+                .Include(ft => ft.Edition)
+                //.Include(ft => ft.MenuItems)
                 .Include(ft => ft.Location)
                 .FirstOrDefaultAsync(ft => ft.FoodTruckId == id);
 

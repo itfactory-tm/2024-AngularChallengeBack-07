@@ -43,24 +43,24 @@ namespace FritFest.API.DbContexts
             //    );
 
             //Association between Sponsor and Editie
-            modelBuilder.Entity<Sponsor>()
-                .HasMany(a => a.Editions)
-                .WithMany(e => e.Sponsors)
-                .UsingEntity<Dictionary<string, object>>(
-                    "SponsorList",
-                    join => join.HasOne<Edition>().WithMany().HasForeignKey("editionId"),
-                    join => join.HasOne<Sponsor>().WithMany().HasForeignKey("sponsorId")
-                );
+            //modelBuilder.Entity<Sponsor>()
+            //    .HasMany(a => a.Edition)
+            //    .WithMany(e => e.Sponsors)
+            //    .UsingEntity<Dictionary<string, object>>(
+            //        "SponsorList",
+            //        join => join.HasOne<Edition>().WithMany().HasForeignKey("editionId"),
+            //        join => join.HasOne<Sponsor>().WithMany().HasForeignKey("sponsorId")
+            //    );
 
             //Association between Foodtruck and Editie
-            modelBuilder.Entity<FoodTruck>()
-                .HasMany(a => a.Editions)
-                .WithMany(e => e.Foodtrucks)
-                .UsingEntity<Dictionary<string, object>>(
-                    "TruckList",
-                    join => join.HasOne<Edition>().WithMany().HasForeignKey("editionId"),
-                    join => join.HasOne<FoodTruck>().WithMany().HasForeignKey("foodTruckId")
-                );
+            //modelBuilder.Entity<FoodTruck>()
+            //    .HasMany(a => a.Editions)
+            //    .WithMany(e => e.Foodtrucks)
+            //    .UsingEntity<Dictionary<string, object>>(
+            //        "TruckList",
+            //        join => join.HasOne<Edition>().WithMany().HasForeignKey("editionId"),
+            //        join => join.HasOne<FoodTruck>().WithMany().HasForeignKey("foodTruckId")
+            //    );
 
         }
     }

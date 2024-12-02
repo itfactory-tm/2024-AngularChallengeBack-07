@@ -144,19 +144,21 @@ CREATE TABLE DayList (
 -- Create FoodTruck table
 CREATE TABLE FoodTruck (
     foodTruckId CHAR(36) PRIMARY KEY,      -- GUID type as CHAR(36)
-    name VARCHAR(255) NOT NULL,            -- Naam as a string (not nullable)
+    name VARCHAR(255) NOT NULL,  
+    editionId VARCHAR(255),
+    FOREIGN KEY (editionId) REFERENCES Edition(editionId),-- Naam as a string (not nullable)
     locationId CHAR(36) NOT NULL,           -- LocatieId as a GUID (foreign key)
     FOREIGN KEY (locationId) REFERENCES Location(locationId)  -- Foreign key reference to Locatie table
 );
 
 -- Create TruckList table
-CREATE TABLE TruckList (
-    foodTruckId CHAR(36),              -- Foreign key to FoodTruck
-    editionId CHAR(36),                 -- Foreign key to Editie
-    PRIMARY KEY (foodTruckId, editionId),  -- Composite primary key
-    FOREIGN KEY (foodTruckId) REFERENCES FoodTruck(foodTruckId),  -- Foreign key reference to FoodTruck
-    FOREIGN KEY (editionId) REFERENCES Edition(editionId)             -- Foreign key reference to Editie
-);
+-- CREATE TABLE TruckList (
+--     foodTruckId CHAR(36),              -- Foreign key to FoodTruck
+--     editionId CHAR(36),                 -- Foreign key to Editie
+--     PRIMARY KEY (foodTruckId, editionId),  -- Composite primary key
+--     FOREIGN KEY (foodTruckId) REFERENCES FoodTruck(foodTruckId),  -- Foreign key reference to FoodTruck
+--     FOREIGN KEY (editionId) REFERENCES Edition(editionId)             -- Foreign key reference to Editie
+-- );
 
 -- Create MenuItem table
 CREATE TABLE MenuItem (
@@ -174,17 +176,19 @@ CREATE TABLE Sponsor (
     sponsorLogo VARCHAR(255),
     sponsorMail VARCHAR(255),
     amount INT,                          -- Amount contributed by the sponsor
-    sponsoredItem VARCHAR(255)            -- Sponsored item description
+    sponsoredItem VARCHAR(255),            -- Sponsored item description
+    editionId VARCHAR(255),
+    FOREIGN KEY (editionId) REFERENCES Edition(editionId)
 );
 
 -- Create SponsorLijst (Sponsor List) table
-CREATE TABLE SponsorList (
-    sponsorId CHAR(36),                      -- Foreign key to Sponsor table
-    editionId CHAR(36),                       -- Foreign key to Editie table
-    PRIMARY KEY (sponsorId, editionId),       -- Composite primary key
-    FOREIGN KEY (sponsorId) REFERENCES Sponsor(sponsorId),  -- Foreign key constraint to Sponsor
-    FOREIGN KEY (editionId) REFERENCES Edition(editionId)       -- Foreign key constraint to Editie
-);
+-- CREATE TABLE SponsorList (
+--     sponsorId CHAR(36),                      -- Foreign key to Sponsor table
+--     editionId CHAR(36),                       -- Foreign key to Editie table
+--     PRIMARY KEY (sponsorId, editionId),       -- Composite primary key
+--     FOREIGN KEY (sponsorId) REFERENCES Sponsor(sponsorId),  -- Foreign key constraint to Sponsor
+--     FOREIGN KEY (editionId) REFERENCES Edition(editionId)       -- Foreign key constraint to Editie
+-- );
 
 -- Create Artikel (News Article) table
 CREATE TABLE Article (
@@ -230,7 +234,8 @@ VALUES
 (UUID(), 'The Rockers', 'rockers@music.com', 'A famous rock band', 'spotify.com/therockers','22Wzsyh7moQAwSODsMF6w2' ,'',''),
 (UUID(), 'DJ Spin', 'djspin@beats.com', 'A well-known electronic DJ', 'spotify.com/djspin',' 22Wzsyh7moQAwSODsMF6w2','',''),
 (UUID(), 'PopStar', 'popstar@music.com', 'A pop music sensation', 'spotify.com/popstar','' ,'',''),
-(UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet','','','');
+(UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet','','',''),
+(UUID(), 'SPINALL','','','https://open.spotify.com/artist/2NtQA3PY9chI8l65ejZLTP?si=61d672e3af404c55','2NtQA3PY9chI8l65ejZLTP','','');
 
 -- Insert data into Locatie (Location)
 INSERT INTO Location (locationId, name, longitude, latitude)
@@ -293,18 +298,18 @@ Values
 -- ((SELECT ticketId FROM Ticket WHERE firstName = 'Jane' AND lastName = 'Smith'), (SELECT dayId FROM Day WHERE name = 'Day 2'));
 
 -- Insert data into FoodTruck
-INSERT INTO FoodTruck (foodTruckId, name, locationId)
+INSERT INTO FoodTruck (foodTruckId, name, locationId,editionId)
 VALUES
-(UUID(), 'Burger Truck', (SELECT locationId FROM Location WHERE name = 'Main Stage')),
-(UUID(), 'Pizza Truck', (SELECT locationId FROM Location WHERE name = 'Beach Arena')),
-(UUID(), 'Ice Cream Truck', (SELECT locationId FROM Location WHERE name = 'Jazz Lounge'));
+(UUID(), 'Burger Truck', (SELECT locationId FROM Location WHERE name = 'Main Stage'),(SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
+(UUID(), 'Pizza Truck', (SELECT locationId FROM Location WHERE name = 'Beach Arena'),(SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
+(UUID(), 'Ice Cream Truck', (SELECT locationId FROM Location WHERE name = 'Jazz Lounge'),(SELECT editionId FROM Edition WHERE editionName = 'Fritfest'));
 
 -- Insert data into TruckList (Food Truck List)
-INSERT INTO TruckList (foodTruckId, editionId)
-VALUES
-((SELECT foodTruckId FROM FoodTruck WHERE name = 'Burger Truck'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
-((SELECT foodTruckId FROM FoodTruck WHERE name ='Pizza Truck'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
-((SELECT foodTruckId FROM FoodTruck WHERE name = 'Ice Cream Truck'), (SELECT editionId FROM Edition WHERE editionName ='Fritfest'));
+-- INSERT INTO TruckList (foodTruckId, editionId)
+-- VALUES
+-- ((SELECT foodTruckId FROM FoodTruck WHERE name = 'Burger Truck'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
+-- ((SELECT foodTruckId FROM FoodTruck WHERE name ='Pizza Truck'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
+-- ((SELECT foodTruckId FROM FoodTruck WHERE name = 'Ice Cream Truck'), (SELECT editionId FROM Edition WHERE editionName ='Fritfest'));
 
 -- Insert data into MenuItem (Menu Items)
 INSERT INTO MenuItem (menuItemId, name, price, foodTruckId)
@@ -317,18 +322,18 @@ VALUES
 (UUID(), 'Chocolate Ice Cream', 3.50, (SELECT foodTruckId FROM FoodTruck WHERE name = 'Ice Cream Truck'));
 
 -- Insert data into Sponsor
-INSERT INTO Sponsor (sponsorId, sponsorName, sponsorMail,sponsorLogo,amount, sponsoredItem)
+INSERT INTO Sponsor (sponsorId, sponsorName, sponsorMail,sponsorLogo,amount, sponsoredItem,editionId)
 VALUES
-(UUID(), 'TechCo', '','',50000, 'Stage Equipment'),
-(UUID(), 'DrinkCorp','','', 20000, 'Refreshments'),
-(UUID(), 'Foodies Ltd','','', 30000, 'Food Stalls');
+(UUID(), 'TechCo', '','',50000, 'Stage Equipment',(SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
+(UUID(), 'DrinkCorp','','', 20000, 'Refreshments',(SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
+(UUID(), 'Foodies Ltd','','', 30000, 'Food Stalls',(SELECT editionId FROM Edition WHERE editionName = 'Fritfest'));
 
 -- Insert data into SponsorLijst (Sponsor List)
-INSERT INTO SponsorList (sponsorId, editionId)
-VALUES
-((SELECT sponsorId FROM Sponsor WHERE sponsorName = 'TechCo'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
-((SELECT sponsorId FROM Sponsor WHERE sponsorName = 'DrinkCorp'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
-((SELECT sponsorId FROM Sponsor WHERE sponsorName = 'Foodies Ltd'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'));
+-- INSERT INTO SponsorList (sponsorId, editionId)
+-- VALUES
+-- ((SELECT sponsorId FROM Sponsor WHERE sponsorName = 'TechCo'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
+-- ((SELECT sponsorId FROM Sponsor WHERE sponsorName = 'DrinkCorp'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),
+-- ((SELECT sponsorId FROM Sponsor WHERE sponsorName = 'Foodies Ltd'), (SELECT editionId FROM Edition WHERE editionName = 'Fritfest'));
 
 -- INSERT INTO ArtistList(artistId, editionId) VALUES 
 -- ((SELECT artistId FROM Artist WHERE name = 'The Rockers'),(SELECT editionId FROM Edition WHERE editionName = 'Fritfest')),

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FritFest.API.Entities
 {
@@ -13,6 +14,9 @@ namespace FritFest.API.Entities
         public string SponsorMail { get; set; }
         public string SponsorLogo { get; set; }
 
-        public ICollection<Edition> Editions { get; set; }
+        public Edition Edition { get; set; }
+        [ForeignKey(nameof(Edition))]  
+        public Guid EditionId { get; set; }
+
     }
 }
