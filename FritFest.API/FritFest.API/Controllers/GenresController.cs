@@ -32,7 +32,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<GenreDto>>> GetGenres()
         {
-            var genres = await _context.Genre
+            var genres = await _context.Genres
                 //.Include(g => g.Artists)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<GenreDto>>(genres));
@@ -44,7 +44,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<GenreDto>> GetGenre(Guid id)
         {
-            var genre = await _context.Genre
+            var genre = await _context.Genres
                 //.Include(g => g.Artists)
                 .FirstOrDefaultAsync(g => g.GenreId == id);
 
@@ -95,7 +95,7 @@ namespace FritFest.API.Controllers
         {
             var genre = _mapper.Map<Genre>(genreDto);
             genre.GenreId = Guid.NewGuid();
-            _context.Genre.Add(genre);
+            _context.Genres.Add(genre);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetGenre), new { id = genre.GenreId }, _mapper.Map<GenreDto>(genre));
@@ -106,13 +106,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteGenre(Guid id)
         {
-            var genre = await _context.Genre.FindAsync(id);
+            var genre = await _context.Genres.FindAsync(id);
             if (genre == null)
             {
                 return NotFound();
             }
 
-            _context.Genre.Remove(genre);
+            _context.Genres.Remove(genre);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -120,7 +120,7 @@ namespace FritFest.API.Controllers
 
         private bool GenreExists(Guid id)
         {
-            return _context.Genre.Any(e => e.GenreId == id);
+            return _context.Genres.Any(e => e.GenreId == id);
         }
     }
 }

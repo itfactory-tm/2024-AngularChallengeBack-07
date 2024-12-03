@@ -32,7 +32,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<StageDto>>> GetStages()
         {
-            var stages = await _context.Stage
+            var stages = await _context.Stages
                 .Include(p => p.TimeSlots)
                 .Include(p => p.Photos)
                 .Include(p => p.Location)
@@ -45,7 +45,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<StageDto>> GetStage(Guid id)
         {
-            var stage = await _context.Stage.FindAsync(id);
+            var stage = await _context.Stages.FindAsync(id);
 
             if (stage == null)
             {
@@ -94,7 +94,7 @@ namespace FritFest.API.Controllers
         {
             var stage = _mapper.Map<Stage>(dto);
             stage.StageId = Guid.NewGuid();
-            _context.Stage.Add(stage);
+            _context.Stages.Add(stage);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetStage), new { id = stage.StageId }, _mapper.Map<StageDto>(stage));
@@ -105,13 +105,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteStage(Guid id)
         {
-            var stage = await _context.Stage.FindAsync(id);
+            var stage = await _context.Stages.FindAsync(id);
             if (stage == null)
             {
                 return NotFound();
             }
 
-            _context.Stage.Remove(stage);
+            _context.Stages.Remove(stage);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -119,7 +119,7 @@ namespace FritFest.API.Controllers
 
         private bool StageExists(Guid id)
         {
-            return _context.Stage.Any(e => e.StageId == id);
+            return _context.Stages.Any(e => e.StageId == id);
         }
     }
 }

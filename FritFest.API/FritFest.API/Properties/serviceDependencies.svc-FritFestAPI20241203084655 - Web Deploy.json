@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "apis1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/svc-FritFestAPIapi/apis/svc-FritFestAPI",
+      "type": "apis.azure"
+    },
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/svc-FritFestAPI20241203084655/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsDatabaseConnection_5E94B4C5EF",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/svc-sqldatabaseserver/databases/fritFestDatabase",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:DatabaseConnection",
+      "dynamicId": null
+    }
+  }
+}

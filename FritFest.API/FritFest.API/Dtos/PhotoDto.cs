@@ -12,7 +12,7 @@ namespace FritFest.API.Dtos
         public string EditionName { get; set; }   // Mapped from Editie.EditieNaam
 
         public Guid ArticleId { get; set; }
-        public string ArticleTitle { get; set; } // Mapped from Article.Titel
+        public string ArticleTitle { get; set; } // Mapped from Articles.Titel
 
         public Guid StageId { get; set; }
         public string StageName { get; set; }   // Mapped from Podium.Naam
