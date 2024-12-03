@@ -12,9 +12,11 @@ namespace FritFest.API.Entities
         public Guid LocationId { get; set; }
         public Location Location { get; set; }
 
+
         public Edition Edition { get; set; }
+
         [ForeignKey(nameof(Edition))]
         public Guid EditionId { get; set; }
-        //public ICollection<MenuItem> MenuItems { get; set; }
+        public ICollection<MenuItem> MenuItems { get; set; }
     }
 }

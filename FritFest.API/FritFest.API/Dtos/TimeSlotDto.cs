@@ -5,7 +5,8 @@ namespace FritFest.API.Dtos
     public class TimeSlotDto
     {
         public Guid TimeSlotId { get; set; }
-        public DateTime Time { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public Guid ArtistId { get; set; }
         public string ArtistName { get; set; } // The name of the artist (Artiest)
 

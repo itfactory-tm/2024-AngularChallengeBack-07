@@ -33,8 +33,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<IEnumerable<ArtistDto>>> GetArtists()
         {
             var artists = await _context.Artist
-                //.Include(a => a.Genre)
-                //.Include(a => a.Edition)
+                .Include(a => a.Edition)
                 .ToListAsync();
 
 
