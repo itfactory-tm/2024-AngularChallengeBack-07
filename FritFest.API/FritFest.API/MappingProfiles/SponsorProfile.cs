@@ -8,11 +8,11 @@ namespace FritFest.API.Profiles
     {
         public SponsorProfile()
         {
-            // Map from Sponsor to SponsorDto
+            // Map from Sponsors to SponsorDto
             CreateMap<Sponsor, SponsorDto>()
                 .ForMember(dest => dest.EditionName, opt => opt.MapFrom(src => src.Edition.EditionName));
 
-            // Map from SponsorDto to Sponsor
+            // Map from SponsorDto to Sponsors
             CreateMap<SponsorDto, Sponsor>()
                 .ForMember(dest => dest.Edition, opt => opt.Ignore()); // Ignore the Editie collection on reverse mapping
         }

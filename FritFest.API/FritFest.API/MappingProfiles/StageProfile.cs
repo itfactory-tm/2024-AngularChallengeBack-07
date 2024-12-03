@@ -11,7 +11,8 @@ namespace FritFest.API.Profiles
             // Map from Podium to PodiumDto
             CreateMap<Stage, StageDto>()
                 .ForMember(dest => dest.LocationName, opt => opt.MapFrom(src => src.Location.Name))
-                .ForMember(dest => dest.TimeSlots, opt => opt.MapFrom(src => src.TimeSlots.Select(ts => ts.Time).ToList()))
+                .ForMember(dest => dest.TimeSlotRanges, opt => opt.MapFrom(src => 
+                    src.TimeSlots.Select(ts => $"{ts.StartTime:HH:mm} - {ts.EndTime:HH:mm}").ToList()))
                 .ForMember(dest => dest.Photos, opt => opt.MapFrom(src => src.Photos.Select(f => f.File).ToList()))
                 ;
 

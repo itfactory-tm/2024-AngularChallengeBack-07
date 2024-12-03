@@ -11,7 +11,7 @@ using Pomelo.EntityFrameworkCore.MySql;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FestivalContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -39,46 +39,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 // Add Swagger services
 builder.Services.AddSwaggerService();
-//builder.Services.AddSwaggerGen(c =>
-//{
-//    // Set up Swagger to use OAuth2 for authentication
-//    c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-//    {
-//        Type = SecuritySchemeType.OAuth2,
-//        Scheme = "bearer",
-//        BearerFormat = "jwt",
-//        Description = "Auth0 JWT Bearer token",
-//        Flows = new OpenApiOAuthFlows
-//        {
-//            AuthorizationCode = new OpenApiOAuthFlow
-//            {
-//                AuthorizationUrl = new Uri($"https://{builder.Configuration["Auth0:Domain"]}/authorize"),
-//                TokenUrl =  new Uri($"https://{builder.Configuration["Auth0:Domain"]}/oauth/token"),
-//                Scopes = new Dictionary<string, string>
-//                {
-//                    { "read:all", "Read access" },
-//                    { "write:all", "Write access" }
-//                }
-//            }
-//        }
-//    });
-
-//    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-//    {
-//        {
-//            new OpenApiSecurityScheme
-//            {
-//                Reference = new OpenApiReference
-//                {
-//                    Type = ReferenceType.SecurityScheme,
-//                    Id = "oauth2"
-//                }
-//            },
-//            new List<string> { "read:all", "write:all" }
-//        }
-//    });
-//});
-
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -105,5 +66,13 @@ app.UseRateLimiter();
 
 
 app.MapControllers();
+
+// Ensure the database is seeded
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<FestivalContext>();
+    DbInitializer.Initialize(context);
+}
+
 
 app.Run();
