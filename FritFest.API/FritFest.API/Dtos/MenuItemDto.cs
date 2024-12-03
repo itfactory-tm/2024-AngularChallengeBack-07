@@ -8,6 +8,6 @@ namespace FritFest.API.Dtos
         public string Name { get; set; }
         public decimal Price { get; set; }
         public Guid FoodTruckId { get; set; }
-        public string FoodTruckName { get; set; } // Maps FoodTruck.Naam
+        public string FoodTruckName { get; set; } // Maps FoodTrucks.Naam
     }
 }

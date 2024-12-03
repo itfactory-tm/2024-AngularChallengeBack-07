@@ -15,7 +15,7 @@ namespace FritFest.API.Entities
         public string SponsorLogo { get; set; }
 
         public Edition Edition { get; set; }
-        [ForeignKey(nameof(Edition))]  
+        [ForeignKey(nameof(Edition))]
         public Guid EditionId { get; set; }
 
     }

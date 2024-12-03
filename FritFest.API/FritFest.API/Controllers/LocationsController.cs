@@ -33,7 +33,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<LocationDto>>> GetLocations()
         {
-            var locations = await _context.Location
+            var locations = await _context.Locations
                 .Include(l => l.FoodTrucks)
                 .Include(l => l.Stages)
                 .ToListAsync();
@@ -46,7 +46,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<LocationDto>> GetLocation(Guid id)
         {
-            var location = await _context.Location
+            var location = await _context.Locations
                 .Include(l => l.FoodTrucks)
                 .Include(l => l.Stages)
                 .FirstOrDefaultAsync(l => l.LocationId== id);
@@ -98,7 +98,7 @@ namespace FritFest.API.Controllers
         {
             var location = _mapper.Map<Location>(locationDto);
             location.LocationId = Guid.NewGuid(); // Ensure a new GUID is assigned
-            _context.Location.Add(location);
+            _context.Locations.Add(location);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetLocation), new { id = location.LocationId }, _mapper.Map<LocationDto>(location));
@@ -109,13 +109,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteLocation(Guid id)
         {
-            var location = await _context.Location.FindAsync(id);
+            var location = await _context.Locations.FindAsync(id);
             if (location == null)
             {
                 return NotFound();
             }
 
-            _context.Location.Remove(location);
+            _context.Locations.Remove(location);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -123,7 +123,7 @@ namespace FritFest.API.Controllers
 
         private bool LocationExists(Guid id)
         {
-            return _context.Location.Any(e => e.LocationId == id);
+            return _context.Locations.Any(e => e.LocationId == id);
         }
     }
 }

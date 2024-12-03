@@ -32,7 +32,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<TimeSlotDto>>> GetTimeSlots()
         {
-            var timeSlots = await _context.TimeSlot
+            var timeSlots = await _context.TimeSlots
                 .Include(ts => ts.Artist)
                 .Include(ts => ts.Stage)
                 .ToListAsync();
@@ -44,7 +44,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<TimeSlotDto>> GetTimeSlot(Guid id)
         {
-            var timeSlot = await _context.TimeSlot
+            var timeSlot = await _context.TimeSlots
                 .Include(ts => ts.Artist)
                 .Include(ts => ts.Stage)
                 .FirstOrDefaultAsync(ts => ts.TimeSlotId == id);
@@ -96,7 +96,7 @@ namespace FritFest.API.Controllers
         {
             var timeSlot = _mapper.Map<TimeSlot>(dto);
             timeSlot.TimeSlotId = Guid.NewGuid();
-            _context.TimeSlot.Add(timeSlot);
+            _context.TimeSlots.Add(timeSlot);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetTimeSlot), new { id = timeSlot.ArtistId }, _mapper.Map<TimeSlotDto>(timeSlot));
@@ -107,13 +107,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteTimeSlot(Guid id)
         {
-            var timeSlot = await _context.TimeSlot.FindAsync(id);
+            var timeSlot = await _context.TimeSlots.FindAsync(id);
             if (timeSlot == null)
             {
                 return NotFound();
             }
 
-            _context.TimeSlot.Remove(timeSlot);
+            _context.TimeSlots.Remove(timeSlot);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -121,7 +121,7 @@ namespace FritFest.API.Controllers
 
         private bool TimeSlotExists(Guid id)
         {
-            return _context.TimeSlot.Any(e => e.ArtistId == id);
+            return _context.TimeSlots.Any(e => e.ArtistId == id);
         }
     }
 }
