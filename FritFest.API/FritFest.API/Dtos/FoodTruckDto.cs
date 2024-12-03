@@ -10,7 +10,8 @@ namespace FritFest.API.Dtos
         public string Name { get; set; }
         public Guid LocationId { get; set; }
         public string LocationName { get; set; } // Maps from Locatie.Naam if available
-        public List<string> Editions { get; set; } // Number of related editions
-        public int MenuItemCount { get; set; }  // Number of related menu items
+        public Guid EditionId { get; set; }
+        public string EditionName { get; set; }
+        /*public int MenuItemCount { get; set; } */ // Number of related menu items
     }
 }

@@ -8,11 +8,11 @@ namespace FritFest.API.MappingProfiles
     {
         public ArtistProfile()
         {
-            CreateMap<Artist, ArtistDto>()
-                .ForMember(dest => dest.Editions, opt => opt.MapFrom(src => src.Edition.Select(e => e.EditionName).ToList()));
+            CreateMap<Artist, ArtistDto>();
+
             //.ForMember(dest => dest.GenreNaam, opt => opt.MapFrom(src => src.Genre.Naam));
-            CreateMap<ArtistDto, Artist>()
-                .ForMember(dest => dest.Edition, opt => opt.Ignore());
+            CreateMap<ArtistDto, Artist>();
+               
                 //.ForMember(dest => dest.Genre,opt=>opt.Ignore()).ForMember(dest => dest.GenreId, opt => opt.MapFrom(src => src.GenreId));
 
         }

@@ -11,7 +11,7 @@ namespace FritFest.API.Profiles
             // Main Editie mapping
             CreateMap<Edition, EditionDto>()
                 .ForMember(dest => dest.TicketCount, opt => opt.MapFrom(src => src.Tickets != null ? src.Tickets.Count : 0))
-                .ForMember(dest => dest.ArticleNames, opt => opt.MapFrom(src => src.Artists.Select(a => a.Name).ToList()))
+                //.ForMember(dest => dest.ArtistsNames, opt => opt.MapFrom(src => src.Artists.Select(a => a.Name).ToList()))
                 .ForMember(dest => dest.Photos, opt => opt.MapFrom(src => src.Photos.Select(p => p.File).ToList()))
                 .ForMember(dest => dest.ArticleNames, opt => opt.MapFrom(src => src.Articles.Select(a => a.Title).ToList()))
                 .ForMember(dest => dest.SponsorNames, opt => opt.MapFrom(src => src.Sponsors.Select(s => s.SponsorName).ToList()))
@@ -19,7 +19,7 @@ namespace FritFest.API.Profiles
 
             CreateMap<EditionDto, Edition>()
                 .ForMember(dest => dest.Tickets, opt => opt.Ignore())
-                .ForMember(dest => dest.Artists, opt => opt.Ignore())
+                //.ForMember(dest => dest.Artists, opt => opt.Ignore())
                 .ForMember(dest => dest.Photos, opt => opt.Ignore())
                 .ForMember(dest => dest.Sponsors, opt => opt.Ignore())
                 .ForMember(dest => dest.Foodtrucks, opt => opt.Ignore())

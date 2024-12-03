@@ -7,7 +7,8 @@ namespace FritFest.API.Dtos
     {
         public Guid LocationId { get; set; }
         public string Name { get; set; }
-        public string Coordinates { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
 
         // Lists to hold names of related entities for easier readability
         public List<string> FoodTruckNames { get; set; }

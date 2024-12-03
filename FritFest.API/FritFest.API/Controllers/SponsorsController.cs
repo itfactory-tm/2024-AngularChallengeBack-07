@@ -33,7 +33,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<IEnumerable<SponsorDto>>> GetSponsors()
         {
             var sponsors = await _context.Sponsor
-                .Include(s => s.Editions)
+                .Include(s => s.Edition)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<SponsorDto>>(sponsors));
         }
@@ -45,7 +45,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<SponsorDto>> GetSponsor(Guid id)
         {
             var sponsor = await _context.Sponsor
-                .Include(s => s.Editions)
+                .Include(s => s.Edition)
                 .FirstOrDefaultAsync(s => s.SponsorId == id);
 
             if (sponsor == null)

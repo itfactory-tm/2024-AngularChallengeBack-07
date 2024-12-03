@@ -23,7 +23,7 @@ namespace FritFest.API.Entities
         //public Guid GenreId { get; set; }
         //public Genre Genre { get; set; }
 
-        public ICollection<Edition> Edition { get; set; }
-       
+        //public ICollection<Edition> Edition { get; set; }
+
     }
 }

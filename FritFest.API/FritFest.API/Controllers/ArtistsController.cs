@@ -29,12 +29,12 @@ namespace FritFest.API.Controllers
 
         // GET: api/Artiests
         [HttpGet]
-        //[EnableRateLimiting("PublicLimiter")]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<ArtistDto>>> GetArtists()
         {
             var artists = await _context.Artist
                 //.Include(a => a.Genre)
-                .Include(a => a.Edition)
+                //.Include(a => a.Edition)
                 .ToListAsync();
 
 
@@ -50,7 +50,7 @@ namespace FritFest.API.Controllers
             // Fetch the artist from the database with related data
             var artist = await _context.Artist
                 //.Include(a => a.Genre)  // Include Genre to map 
-                .Include(a => a.Edition)
+                //.Include(a => a.Edition)
                 .FirstOrDefaultAsync(a => a.ArtistId == id);
 
             if (artist == null)
@@ -65,7 +65,7 @@ namespace FritFest.API.Controllers
 
 
         [HttpPost]
-        //[Authorize(Policy = "GetAccess")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<ArtistDto>> PostArtist(ArtistDto artistDto)
         {
             var spotifyCodePattern = @"artist\/(.*?)\?";
@@ -123,7 +123,7 @@ namespace FritFest.API.Controllers
 
         // PUT: api/Artiests/5
         [HttpPut("{id}")]
-        //[Authorize(Policy = "GetAccess")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> PutArtist(Guid id, ArtistDto artistDto)
         {
             if (id != artistDto.ArtistId)
@@ -138,7 +138,7 @@ namespace FritFest.API.Controllers
                 return NotFound();
             }
 
-            // Check if the SpotifyLink is different
+            //// Check if the SpotifyLink is different
             if (!string.IsNullOrEmpty(artistDto.SpotifyLink) && artistDto.SpotifyLink != artist.SpotifyLink)
             {
                 // Extract ApiCode from the new SpotifyLink
@@ -163,17 +163,17 @@ namespace FritFest.API.Controllers
                         artistDto.Name = spotifyJson.GetProperty("name").GetString();
                         artistDto.SpotifyLink = spotifyJson.GetProperty("uri").GetString();
 
-                        if (spotifyJson.TryGetProperty("genres", out var genresProperty))
-                        {
-                            var genres = genresProperty.EnumerateArray().Select(g => g.GetString()).ToList();
-                            artistDto.Genre = string.Join(",", genres);
-                        }
+                        //if (spotifyJson.TryGetProperty("genres", out var genresProperty))
+                        //{
+                        //    var genres = genresProperty.EnumerateArray().Select(g => g.GetString()).ToList();
+                        //    artistDto.Genre = string.Join(",", genres);
+                        //}
 
-                        var images = spotifyJson.GetProperty("images");
-                        if (images.GetArrayLength() > 0)
-                        {
-                            artistDto.SpotifyPhoto = images[0].GetProperty("url").GetString();
-                        }
+                        //var images = spotifyJson.GetProperty("images");
+                        //if (images.GetArrayLength() > 0)
+                        //{
+                        //    artistDto.SpotifyPhoto = images[0].GetProperty("url").GetString();
+                        //}
                     }
                     catch (Exception ex)
                     {

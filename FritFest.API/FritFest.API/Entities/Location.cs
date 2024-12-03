@@ -7,7 +7,8 @@ namespace FritFest.API.Entities
         [Key]
         public Guid LocationId { get; set; }
         public string Name { get; set; }
-        public string Coordinates { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
 
         public ICollection<FoodTruck> FoodTrucks { get; set; }
         public ICollection<Stage> Stages { get; set; }
