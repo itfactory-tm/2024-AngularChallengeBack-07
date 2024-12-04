@@ -16,7 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 //    options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<FestivalContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 21))));
+        new MySqlServerVersion(new Version(8, 0, 21)))); 
+
 
 builder.Services.AddAutoMapper(typeof(Program));
 
