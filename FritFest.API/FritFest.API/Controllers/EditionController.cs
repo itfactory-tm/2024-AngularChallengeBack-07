@@ -27,7 +27,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<EditionDto>>> GetEditions()
         {
-            var editions = await _context.Edition
+            var editions = await _context.Editions
                 .Include(e => e.Tickets)
                 .Include(e => e.Artists)
                 .Include(e => e.Photos)
@@ -43,7 +43,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<EditionDto>> GetEdition(Guid id)
         {
-            var edition = await _context.Edition
+            var edition = await _context.Editions
                 .Include(e => e.Tickets)
                 //.Include(e => e.Artists)
                 .Include(e => e.Photos)
@@ -67,7 +67,7 @@ namespace FritFest.API.Controllers
         {
             var edition = _mapper.Map<Edition>(editionDto);
             edition.EditionId = Guid.NewGuid(); // Ensure a new GUID is assigned
-            _context.Edition.Add(edition);
+            _context.Editions.Add(edition);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetEdition), new { id = edition.EditionId }, _mapper.Map<EditionDto>(edition));
@@ -92,7 +92,7 @@ namespace FritFest.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_context.Edition.Any(e => e.EditionId == id))
+                if (!_context.Editions.Any(e => e.EditionId == id))
                 {
                     return NotFound();
                 }
@@ -110,13 +110,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteEdition(Guid id)
         {
-            var edition = await _context.Edition.FindAsync(id);
+            var edition = await _context.Editions.FindAsync(id);
             if (edition == null)
             {
                 return NotFound();
             }
 
-            _context.Edition.Remove(edition);
+            _context.Editions.Remove(edition);
              await _context.SaveChangesAsync();
 
             return NoContent();
@@ -124,7 +124,7 @@ namespace FritFest.API.Controllers
         
         private bool EditionExists(Guid id)
         {
-            return _context.Edition.Any(e => e.EditionId == id);
+            return _context.Editions.Any(e => e.EditionId == id);
         }
     }
 

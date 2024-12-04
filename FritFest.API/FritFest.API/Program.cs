@@ -11,13 +11,9 @@ using Pomelo.EntityFrameworkCore.MySql;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-//builder.Services.AddDbContext<FestivalContext>(options =>
-//    options.UseSqlServer(connectionString));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FestivalContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 21)))); 
-
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -43,18 +39,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 // Add Swagger services
 builder.Services.AddSwaggerService();
-//builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 app.UseCors(options =>
 {
-    options.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://fritfest.com");
     options.AllowAnyHeader();
-    options.SetIsOriginAllowed((host) => true);
-    options.AllowCredentials();
     options.AllowAnyMethod();
+    options.AllowAnyHeader();
+    options.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://fritfest.com");
 });
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -65,17 +61,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
 app.UseRateLimiter();
 
-// Ensure the database is seeded
-//using (var scope = app.Services.CreateScope())
-//{
-//    var context = scope.ServiceProvider.GetRequiredService<FestivalContext>();
-//    DbInitializer.Initialize(context);
-//}
-
-app.UseCors();
 
 app.MapControllers();
+
+// Ensure the database is seeded
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<FestivalContext>();
+    DbInitializer.Initialize(context);
+}
+
 
 app.Run();

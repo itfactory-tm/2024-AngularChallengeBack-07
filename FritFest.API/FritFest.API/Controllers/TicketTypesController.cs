@@ -32,7 +32,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<TicketTypeDto>>> GetTicketTypes()
         {
-            var ticketTypes = await _context.TicketType
+            var ticketTypes = await _context.TicketTypes
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<TicketTypeDto>>(ticketTypes));
         }
@@ -42,7 +42,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<TicketTypeDto>> GetTicketType(Guid id)
         {
-            var ticketType = await _context.TicketType
+            var ticketType = await _context.TicketTypes
                 .FirstOrDefaultAsync(tt => tt.TicketTypeId == id);
 
             if (ticketType == null)
@@ -92,7 +92,7 @@ namespace FritFest.API.Controllers
         {
             var ticketType = _mapper.Map<TicketType>(ticketTypeDto);
             ticketType.TicketTypeId = Guid.NewGuid(); // Ensure a new GUID is assigned
-            _context.TicketType.Add(ticketType);
+            _context.TicketTypes.Add(ticketType);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetTicketType), new { id = ticketType.TicketTypeId }, _mapper.Map<TicketTypeDto>(ticketType));
@@ -103,13 +103,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteTicketType(Guid id)
         {
-            var ticketType = await _context.TicketType.FindAsync(id);
+            var ticketType = await _context.TicketTypes.FindAsync(id);
             if (ticketType == null)
             {
                 return NotFound();
             }
 
-            _context.TicketType.Remove(ticketType);
+            _context.TicketTypes.Remove(ticketType);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -117,7 +117,7 @@ namespace FritFest.API.Controllers
 
         private bool TicketTypeExists(Guid id)
         {
-            return _context.TicketType.Any(e => e.TicketTypeId == id);
+            return _context.TicketTypes.Any(e => e.TicketTypeId == id);
         }
     }
 }

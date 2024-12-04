@@ -29,10 +29,10 @@ namespace FritFest.API.Controllers
 
         // GET: api/Tickets
         [HttpGet]
-        //[EnableRateLimiting("PublicLimiter")]
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<TicketDto>>> GetTickets()
         {
-            var tickets = await _context.Ticket
+            var tickets = await _context.Tickets
                 .Include(t => t.Edition)
                 .Include(t => t.TicketType)
                 .Include(t => t.Day)
@@ -42,11 +42,11 @@ namespace FritFest.API.Controllers
 
         // GET: api/Tickets/5
         [HttpGet("{id}")]
-        //[EnableRateLimiting("PublicLimiter")]
+        [EnableRateLimiting("PublicLimiter")]
 
         public async Task<ActionResult<TicketDto>> GetTicket(Guid id)
         {
-            var ticket = await _context.Ticket
+            var ticket = await _context.Tickets
                 .Include(t => t.TicketType)
                 .Include(t => t.Edition)
                 .Include(t => t.Day)
@@ -99,7 +99,7 @@ namespace FritFest.API.Controllers
         {
             var ticket = _mapper.Map<Ticket>(ticketDto);
             ticket.TicketId = Guid.NewGuid();
-            _context.Ticket.Add(ticket);
+            _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetTicket), new { id = ticket.TicketId }, _mapper.Map<TicketDto>(ticket));
@@ -110,13 +110,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteTicket(Guid id)
         {
-            var ticket = await _context.Ticket.FindAsync(id);
+            var ticket = await _context.Tickets.FindAsync(id);
             if (ticket == null)
             {
                 return NotFound();
             }
 
-            _context.Ticket.Remove(ticket);
+            _context.Tickets.Remove(ticket);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -124,7 +124,7 @@ namespace FritFest.API.Controllers
 
         private bool TicketExists(Guid id)
         {
-            return _context.Ticket.Any(e => e.TicketId == id);
+            return _context.Tickets.Any(e => e.TicketId == id);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<MenuItemDto>>> GetMenuItems()
         {
-            var menuItems = await _context.MenuItem
+            var menuItems = await _context.MenuItems
                 .Include(mi => mi.FoodTruck)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<MenuItemDto>>(menuItems));
@@ -43,7 +43,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<MenuItemDto>> GetMenuItem(Guid id)
         {
-            var menuItem = await _context.MenuItem
+            var menuItem = await _context.MenuItems
                 .Include(mi => mi.FoodTruck)
                 .FirstOrDefaultAsync(mi => mi.MenuItemId == id);
 
@@ -94,7 +94,7 @@ namespace FritFest.API.Controllers
         {
             var menuItem = _mapper.Map<MenuItem>(menuItemDto);
             menuItem.MenuItemId = Guid.NewGuid(); // Ensure a new GUID is assigned
-            _context.MenuItem.Add(menuItem);
+            _context.MenuItems.Add(menuItem);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetMenuItem), new { id = menuItem.MenuItemId }, _mapper.Map<MenuItemDto>(menuItem));
@@ -105,13 +105,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteMenuItem(Guid id)
         {
-            var menuItem = await _context.MenuItem.FindAsync(id);
+            var menuItem = await _context.MenuItems.FindAsync(id);
             if (menuItem == null)
             {
                 return NotFound();
             }
 
-            _context.MenuItem.Remove(menuItem);
+            _context.MenuItems.Remove(menuItem);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -119,7 +119,7 @@ namespace FritFest.API.Controllers
 
         private bool MenuItemExists(Guid id)
         {
-            return _context.MenuItem.Any(e => e.MenuItemId == id);
+            return _context.MenuItems.Any(e => e.MenuItemId == id);
         }
     }
 }
