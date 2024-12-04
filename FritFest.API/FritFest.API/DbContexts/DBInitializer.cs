@@ -399,7 +399,6 @@ namespace FritFest.API
                         BoughtTicketId = Guid.NewGuid(), BuyerName = "Headmaster",
                         BuyerMail = "headmaster@chocoprins.cp", HolderName = "Headmaster",
                         HolderMail = "headmaster@chocoprins.cp",
-                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId,
                         TicketId = context.Tickets.First(t =>
                             t.TicketTypeId == context.TicketTypes.First(tt => tt.Name == "General Admission")
                                 .TicketTypeId && t.DayId == context.Days.First(d => d.Name == "Friday").DayId).TicketId,
@@ -410,7 +409,6 @@ namespace FritFest.API
                         BoughtTicketId = Guid.NewGuid(), BuyerName = "Headmaster",
                         BuyerMail = "headmaster@chocoprins.cp", HolderName = "Arnould van Heacke",
                         HolderMail = "arnouldvanheacke@chocoprins.cp",
-                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId,
                         TicketId = context.Tickets.First(t =>
                             t.TicketTypeId == context.TicketTypes.First(tt => tt.Name == "General Admission")
                                 .TicketTypeId && t.DayId == context.Days.First(d => d.Name == "Friday").DayId).TicketId,
@@ -421,7 +419,6 @@ namespace FritFest.API
                         BoughtTicketId = Guid.NewGuid(), BuyerName = "Headmaster",
                         BuyerMail = "headmaster@chocoprins.cp", HolderName = "Chocoprins Joris",
                         HolderMail = "chocoprinsJoris@chocoprins.cp",
-                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId,
                         TicketId = context.Tickets.First(t =>
                             t.TicketTypeId == context.TicketTypes.First(tt => tt.Name == "General Admission")
                                 .TicketTypeId && t.DayId == context.Days.First(d => d.Name == "Friday").DayId).TicketId,

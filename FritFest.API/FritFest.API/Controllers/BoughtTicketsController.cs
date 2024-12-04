@@ -46,6 +46,7 @@ namespace FritFest.API.Controllers
             var boughtTicket = await _context.BoughtTickets
                 .Include(gt => gt.Ticket)
                 .ThenInclude(t => t.TicketType)
+                .Include(gt => gt.Ticket).ThenInclude(e => e.Edition)
                 .FirstOrDefaultAsync(t => t.BoughtTicketId == id);
 
             if (boughtTicket == null)
@@ -97,11 +98,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<BoughtTicketDto>> PostBoughtTicket(BoughtTicketDto dto)
         {
             var ticket = _mapper.Map<BoughtTicket>(dto);
-            ticket.TicketId = Guid.NewGuid();
+            ticket.BoughtTicketId = Guid.NewGuid();
             _context.BoughtTickets.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetBoughtTicket), new { id = ticket.BoughtTicketId}, _mapper.Map<TicketDto>(ticket));
+            return CreatedAtAction(nameof(GetBoughtTicket), new { id = ticket.BoughtTicketId}, _mapper.Map<BoughtTicketDto>(ticket));
         }
 
         // DELETE: api/GekochteTickets/5

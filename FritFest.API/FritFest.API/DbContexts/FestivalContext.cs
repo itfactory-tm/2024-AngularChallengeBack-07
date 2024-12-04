@@ -194,9 +194,9 @@ namespace FritFest.API.DbContexts
     .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<BoughtTicket>()
-                .HasOne(b => b.Edition)
-                .WithMany(e => e.Tickets)
-                .HasForeignKey(b => b.EditionId)
+                .HasOne(b => b.Ticket)
+                .WithMany()
+                .HasForeignKey(b => b.TicketId)
                 .OnDelete(DeleteBehavior.NoAction); 
 
 
