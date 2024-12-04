@@ -29,7 +29,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<ArticleDto>>> GetArticles()
         {
-            var articles = await _context.Article
+            var articles = await _context.Articles
                 .Include(a => a.Edition)  // Include Editie to map Editie.Titel
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<ArticleDto>>(articles));
@@ -41,7 +41,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<ArticleDto>> GetArticle(Guid id)
         {
-            var article = await _context.Article
+            var article = await _context.Articles
                 .Include(a => a.Edition)  // Include Editie to map Editie.Titel
                 .FirstOrDefaultAsync(a => a.ArticleId == id);
 
@@ -61,7 +61,7 @@ namespace FritFest.API.Controllers
         {
             var article = _mapper.Map<Article>(articleDto);
             article.ArticleId = Guid.NewGuid();
-            _context.Article.Add(article);
+            _context.Articles.Add(article);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetArticle), new { id = article.ArticleId }, _mapper.Map<ArticleDto>(article));
@@ -104,13 +104,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteArticle(Guid id)
         {
-            var article = await _context.Article.FindAsync(id);
+            var article = await _context.Articles.FindAsync(id);
             if (article == null)
             {
                 return NotFound();
             }
 
-            _context.Article.Remove(article);
+            _context.Articles.Remove(article);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -118,7 +118,7 @@ namespace FritFest.API.Controllers
 
         private bool ArticleExists(Guid id)
         {
-            return _context.Article.Any(e => e.ArticleId == id);
+            return _context.Articles.Any(e => e.ArticleId == id);
         }
     }
 }

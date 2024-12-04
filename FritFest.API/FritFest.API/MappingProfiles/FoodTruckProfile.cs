@@ -9,7 +9,7 @@ namespace FritFest.API.Profiles
     {
         public FoodTruckProfile()
         {
-
+            // Map from FoodTrucks to FoodTruckDto
             CreateMap<FoodTruck, FoodTruckDto>()
                 .ForMember(dest => dest.LocationName,
                     opt => opt.MapFrom(src => src.Location != null ? src.Location.Name : null))

@@ -32,9 +32,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<ArtistDto>>> GetArtists()
         {
-
-            var artists = await _context.Artist
-
+            var artists = await _context.Artists
                 .Include(a => a.Edition)
                 .ToListAsync();
 
@@ -49,7 +47,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<ArtistDto>> GetArtists(Guid id)
         {
             // Fetch the artist from the database with related data
-            var artist = await _context.Artist
+            var artist = await _context.Artists
                 //.Include(a => a.Genres)  // Include Genres to map 
                 //.Include(a => a.Editions)
                 .FirstOrDefaultAsync(a => a.ArtistId == id);
@@ -116,7 +114,7 @@ namespace FritFest.API.Controllers
             // Map DTO to entity and save to database
             var artiest = _mapper.Map<Artist>(artistDto);
             artiest.ArtistId = Guid.NewGuid();
-            _context.Artist.Add(artiest);
+            _context.Artists.Add(artiest);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetArtists), new { id = artiest.ArtistId }, _mapper.Map<ArtistDto>(artiest));
@@ -133,7 +131,7 @@ namespace FritFest.API.Controllers
             }
 
             // Fetch existing artist from the database
-            var artist = await _context.Artist.FindAsync(id);
+            var artist = await _context.Artists.FindAsync(id);
             if (artist == null)
             {
                 return NotFound();
@@ -213,13 +211,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteArtist(Guid id)
         {
-            var artiest = await _context.Artist.FindAsync(id);
+            var artiest = await _context.Artists.FindAsync(id);
             if (artiest == null)
             {
                 return NotFound();
             }
 
-            _context.Artist.Remove(artiest);
+            _context.Artists.Remove(artiest);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -227,7 +225,7 @@ namespace FritFest.API.Controllers
 
         private bool ArtistExists(Guid id)
         {
-            return _context.Artist.Any(e => e.ArtistId == id);
+            return _context.Artists.Any(e => e.ArtistId == id);
         }
     }
 }
