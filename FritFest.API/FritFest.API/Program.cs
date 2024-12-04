@@ -39,16 +39,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 // Add Swagger services
 builder.Services.AddSwaggerService();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 app.UseCors(options =>
 {
-    options.AllowAnyHeader();
-    options.AllowAnyMethod();
-    options.AllowAnyHeader();
-    options.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://fritfest.com");
+    options.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://fritfest.com")
+           .AllowAnyHeader()
+           .AllowAnyMethod()
+           .AllowCredentials();
 });
 
 
@@ -59,13 +59,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthorization().UseAuthorization();
+
 app.UseHttpsRedirection();
 
 
 app.UseRateLimiter();
 
 
-app.MapControllers();
+app.MapControllers().RequireCors();
 
 // Ensure the database is seeded
 using (var scope = app.Services.CreateScope())
