@@ -14,6 +14,7 @@ namespace FritFest.API.Profiles
 
             CreateMap<BoughtTicketDto, BoughtTicket>()
                 .ForMember(dest => dest.Ticket, opt => opt.Ignore());
+                
         }
     }
 }
