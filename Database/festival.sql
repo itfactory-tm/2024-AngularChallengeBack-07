@@ -54,7 +54,10 @@ CREATE TABLE Artist (
     spotifyLink VARCHAR(255) ,                   -- Spotify API link (nullable)
     apiCode VARCHAR(255),
     genre VARCHAR(255), -- Foreign key to Genre table
-    spotifyPhoto VARCHAR(255)
+    spotifyPhoto VARCHAR(255),
+    editionId CHAR(36),
+    FOREIGN KEY (editionId) REFERENCES Edition(editionId)
+    
 );
 
 -- CREATE TABLE ArtistList(
@@ -92,7 +95,8 @@ CREATE TABLE Day (
 -- Create TijdStip table
 CREATE TABLE TimeSlot (
     timeSlotId CHAR(36) PRIMARY KEY,            -- Primary Key for TijdStip
-    time DATETIME NOT NULL,                     -- The date and time of the event
+    startTime DATETIME NOT NULL,                     -- The date and time of the event
+    endTime DATETIME NOT NULL,                     -- The date and time of the event
     artistId CHAR(36),                         -- Foreign Key to Artiest (Artist)
     stageId CHAR(36),                          -- Foreign Key to Podium (Stage)
     FOREIGN KEY (artistId) REFERENCES Artist(artistId),  -- Foreign Key constraint to Artiest
@@ -229,13 +233,13 @@ VALUES
 (UUID(), 'Electronic');
 
 -- Insert data into Artiest (Artist)
-INSERT INTO Artist (artistId, name, mail, description, spotifyLink,apiCode ,genre, spotifyPhoto)
+INSERT INTO Artist (artistId, name, mail, description, spotifyLink,apiCode ,genre, spotifyPhoto,editionId)
 VALUES 
-(UUID(), 'The Rockers', 'rockers@music.com', 'A famous rock band', 'spotify.com/therockers','22Wzsyh7moQAwSODsMF6w2' ,'',''),
-(UUID(), 'DJ Spin', 'djspin@beats.com', 'A well-known electronic DJ', 'spotify.com/djspin',' 22Wzsyh7moQAwSODsMF6w2','',''),
-(UUID(), 'PopStar', 'popstar@music.com', 'A pop music sensation', 'spotify.com/popstar','' ,'',''),
-(UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet','','',''),
-(UUID(), 'SPINALL','','','https://open.spotify.com/artist/2NtQA3PY9chI8l65ejZLTP?si=61d672e3af404c55','2NtQA3PY9chI8l65ejZLTP','','');
+(UUID(), 'The Rockers', 'rockers@music.com', 'A famous rock band', 'spotify.com/therockers','22Wzsyh7moQAwSODsMF6w2' ,'','',(select editionId FROM Edition WHERE editionName = "Fritfest")),
+(UUID(), 'DJ Spin', 'djspin@beats.com', 'A well-known electronic DJ', 'spotify.com/djspin',' 22Wzsyh7moQAwSODsMF6w2','','',(select editionId FROM Edition WHERE editionName = "Fritfest")),
+(UUID(), 'PopStar', 'popstar@music.com', 'A pop music sensation', 'spotify.com/popstar','' ,'','',(select editionId FROM Edition WHERE editionName = "Fritfest")),
+(UUID(), 'Jazz Quartet', 'jazzquartet@jazz.com', 'A group of jazz musicians', 'spotify.com/jazzquartet','','','',(select editionId FROM Edition WHERE editionName = "Fritfest")),
+(UUID(), 'SPINALL','','','https://open.spotify.com/artist/2NtQA3PY9chI8l65ejZLTP?si=61d672e3af404c55','2NtQA3PY9chI8l65ejZLTP','','',(select editionId FROM Edition WHERE editionName = "Fritfest"));
 
 -- Insert data into Locatie (Location)
 INSERT INTO Location (locationId, name, longitude, latitude)
@@ -258,12 +262,12 @@ VALUES
 (UUID(), 'Saturday', '2024-07-02 10:00:00', '2024-07-02 22:00:00'),
 (UUID(), 'Sunday', '2024-07-03 10:00:00', '2024-07-03 22:00:00');
 -- Insert data into TijdStip (Time Slot)
-INSERT INTO TimeSlot (timeSlotId, time, artistId, stageId)
+INSERT INTO TimeSlot (timeSlotId, startTime,endTime, artistId, stageId)
 VALUES
-(UUID(), '2024-07-01 12:00:00', (SELECT artistId FROM Artist WHERE name = 'The Rockers'), (SELECT stageId FROM Stage WHERE name = 'Test1')),
-(UUID(), '2024-07-01 14:00:00', (SELECT artistId FROM Artist WHERE name = 'DJ Spin'), (SELECT stageId FROM Stage WHERE name = 'Test2')),
-(UUID(), '2024-07-02 16:00:00', (SELECT artistId FROM Artist WHERE name = 'PopStar'), (SELECT stageId FROM Stage WHERE name = 'Test1')),
-(UUID(), '2024-07-02 18:00:00', (SELECT artistId FROM Artist WHERE name = 'Jazz Quartet'), (SELECT stageId FROM Stage WHERE name = 'Test3'));
+(UUID(), '2024-07-01 12:00:00','2024-07-01 12:30:00', (SELECT artistId FROM Artist WHERE name = 'The Rockers'), (SELECT stageId FROM Stage WHERE name = 'Test1')),
+(UUID(), '2024-07-01 14:00:00','2024-07-01 14:30:00', (SELECT artistId FROM Artist WHERE name = 'DJ Spin'), (SELECT stageId FROM Stage WHERE name = 'Test2')),
+(UUID(), '2024-07-02 16:00:00','2024-07-02 16:30:00' ,(SELECT artistId FROM Artist WHERE name = 'PopStar'), (SELECT stageId FROM Stage WHERE name = 'Test1')),
+(UUID(), '2024-07-02 18:00:00','2024-07-02 18:00:00' ,(SELECT artistId FROM Artist WHERE name = 'Jazz Quartet'), (SELECT stageId FROM Stage WHERE name = 'Test3'));
 
 -- Insert data into TicketType
 INSERT INTO TicketType (ticketTypeId, name,price)

@@ -12,8 +12,10 @@
 
         public Guid TicketId { get; set; }
 
-        public Guid TicketTypeId { get; set; }
-        public string Name {  get; set; }
+        //public Guid TicketTypeId { get; set; }
+        //public Guid EditionId { get; set; }
+        public string TicketTypeName { get; set; }
+        public string EditionName { get; set; }
 
         public bool Payed { get; set; }
     }

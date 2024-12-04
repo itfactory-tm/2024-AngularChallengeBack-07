@@ -11,9 +11,13 @@ using Pomelo.EntityFrameworkCore.MySql;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//builder.Services.AddDbContext<FestivalContext>(options =>
+//    options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<FestivalContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 21)))); 
+
 
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -64,11 +68,11 @@ app.UseHttpsRedirection();
 app.UseRateLimiter();
 
 // Ensure the database is seeded
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<FestivalContext>();
-    DbInitializer.Initialize(context);
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var context = scope.ServiceProvider.GetRequiredService<FestivalContext>();
+//    DbInitializer.Initialize(context);
+//}
 
 app.UseCors();
 
