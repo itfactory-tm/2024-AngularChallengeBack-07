@@ -33,8 +33,10 @@ namespace FritFest.API.Controllers
         {
             var boughtTickets = await _context.BoughtTicket
                 .Include(gt => gt.Ticket)
+                .ThenInclude(t => t.Edition)
+                .Include(gt => gt.Ticket)
                 .ThenInclude(t => t.TicketType)
-                .Include(gt => gt.Edition)
+                
                 .ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<BoughtTicketDto>>(boughtTickets));
