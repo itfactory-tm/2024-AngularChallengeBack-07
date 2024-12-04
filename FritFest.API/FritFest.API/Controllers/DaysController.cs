@@ -33,7 +33,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<DayDto>>> GetDays()
         {
-            var days = await _context.Days.ToListAsync();
+            var days = await _context.Day.ToListAsync();
             return Ok(_mapper.Map<IEnumerable<DayDto>>(days));
         }
 
@@ -43,7 +43,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<DayDto>> GetDay(Guid id)
         {
-            var day = await _context.Days.FindAsync(id);
+            var day = await _context.Day.FindAsync(id);
 
             if (day == null)
             {
@@ -94,7 +94,7 @@ namespace FritFest.API.Controllers
         {
             var day = _mapper.Map<Day>(dayDto);
             day.DayId = Guid.NewGuid();
-            _context.Days.Add(day);
+            _context.Day.Add(day);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetDay), new { id = day.DayId }, _mapper.Map<DayDto>(day));
@@ -105,13 +105,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteDay(Guid id)
         {
-            var day = await _context.Days.FindAsync(id);
+            var day = await _context.Day.FindAsync(id);
             if (day == null)
             {
                 return NotFound();
             }
 
-            _context.Days.Remove(day);
+            _context.Day.Remove(day);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -119,7 +119,7 @@ namespace FritFest.API.Controllers
 
         private bool DayExists(Guid id)
         {
-            return _context.Days.Any(e => e.DayId == id);
+            return _context.Day.Any(e => e.DayId == id);
         }
     }
 }

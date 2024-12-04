@@ -119,6 +119,9 @@ _NCrunch_*
 .*crunch*.local.xml
 nCrunchTemp_*
 
+# Document
+FritFest.API/.vs/FritFest.API/v17/DocumentLayout.json
+
 # MightyMoose
 *.mm.*
 AutoTest.Net/

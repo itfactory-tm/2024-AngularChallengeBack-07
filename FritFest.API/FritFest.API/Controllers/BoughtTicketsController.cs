@@ -31,9 +31,12 @@ namespace FritFest.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BoughtTicketDto>>> GetBoughtTickets()
         {
-            var boughtTickets = await _context.BoughtTickets
+            var boughtTickets = await _context.BoughtTicket
+                .Include(gt => gt.Ticket)
+                .ThenInclude(t => t.Edition)
                 .Include(gt => gt.Ticket)
                 .ThenInclude(t => t.TicketType)
+                .Include(gt => gt.Ticket).ThenInclude(e => e.Edition)
                 .ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<BoughtTicketDto>>(boughtTickets));
@@ -43,7 +46,7 @@ namespace FritFest.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<BoughtTicketDto>> GetBoughtTicket(Guid id)
         {
-            var boughtTicket = await _context.BoughtTickets
+            var boughtTicket = await _context.BoughtTicket
                 .Include(gt => gt.Ticket)
                 .ThenInclude(t => t.TicketType)
                 .FirstOrDefaultAsync(t => t.BoughtTicketId == id);
@@ -97,11 +100,11 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<BoughtTicketDto>> PostBoughtTicket(BoughtTicketDto dto)
         {
             var ticket = _mapper.Map<BoughtTicket>(dto);
-            ticket.TicketId = Guid.NewGuid();
-            _context.BoughtTickets.Add(ticket);
+            ticket.BoughtTicketId = Guid.NewGuid();
+            _context.BoughtTicket.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetBoughtTicket), new { id = ticket.BoughtTicketId}, _mapper.Map<TicketDto>(ticket));
+            return CreatedAtAction(nameof(GetBoughtTicket), new { id = ticket.BoughtTicketId}, _mapper.Map<BoughtTicketDto>(ticket));
         }
 
         // DELETE: api/GekochteTickets/5
@@ -109,13 +112,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteBoughtTicket(Guid id)
         {
-            var ticket = await _context.BoughtTickets.FindAsync(id);
+            var ticket = await _context.BoughtTicket.FindAsync(id);
             if (ticket == null)
             {
                 return NotFound();
             }
 
-            _context.BoughtTickets.Remove(ticket);
+            _context.BoughtTicket.Remove(ticket);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -123,7 +126,7 @@ namespace FritFest.API.Controllers
 
         private bool BoughtTicketExists(Guid id)
         {
-            return _context.BoughtTickets.Any(e => e.BoughtTicketId == id);
+            return _context.BoughtTicket.Any(e => e.BoughtTicketId == id);
         }
     }
 }
