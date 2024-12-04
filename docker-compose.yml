@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
@@ -14,11 +12,14 @@ services:
       - ./Database/festival.sql:/docker-entrypoint-initdb.d/festival.sql  # Initialize DB
     command: --default-authentication-plugin=mysql_native_password
     restart: always  # Restart on failure
+    networks:
+      - default
 
   web:
     build:
       context: ./FritFest.API  # Path to your .NET Core API project
       dockerfile: Dockerfile
+    container_name: fritfest-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=db;Database=festivaldb;User=root;Password=1234;
@@ -29,6 +30,13 @@ services:
     depends_on:
       - db  # Ensure the database service starts first
     restart: always  # Restart on failure
+    networks:
+      - default
+      - wlinetwork
+
+networks:
+  wlinetwork:
+    external: true
 
 volumes:
   db_data:  # Named volume for persistent MySQL storage
