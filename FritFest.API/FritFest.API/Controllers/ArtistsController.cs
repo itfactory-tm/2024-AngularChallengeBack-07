@@ -32,9 +32,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<ArtistDto>>> GetArtists()
         {
-
-            var artists = await _context.Artist
-
+            var artists = await _context.Artists
                 .Include(a => a.Edition)
                 .ToListAsync();
 
