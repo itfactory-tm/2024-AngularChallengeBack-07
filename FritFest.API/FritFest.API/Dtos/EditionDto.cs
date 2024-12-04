@@ -20,5 +20,6 @@ namespace FritFest.API.Dtos
         public List<string> ArticleNames { get; set; }
         public List<string> SponsorNames { get; set; }
         public List<string> FoodtruckNames { get; set; }
+        
     }
 }
