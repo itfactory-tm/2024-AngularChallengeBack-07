@@ -34,7 +34,7 @@ namespace FritFest.API.Controllers
             var boughtTickets = await _context.BoughtTicket
                 .Include(gt => gt.Ticket)
                 .ThenInclude(t => t.TicketType)
-                .Include(gt => gt.Edition)
+                .Include(gt => gt.Ticket).ThenInclude(e => e.Edition)
                 .ToListAsync();
 
             return Ok(_mapper.Map<IEnumerable<BoughtTicketDto>>(boughtTickets));
@@ -102,7 +102,7 @@ namespace FritFest.API.Controllers
             _context.BoughtTicket.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetBoughtTicket), new { id = ticket.BoughtTicketId}, _mapper.Map<TicketDto>(ticket));
+            return CreatedAtAction(nameof(GetBoughtTicket), new { id = ticket.BoughtTicketId}, _mapper.Map<BoughtTicketDto>(ticket));
         }
 
         // DELETE: api/GekochteTickets/5

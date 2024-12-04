@@ -29,7 +29,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Tickets
         [HttpGet]
-        [EnableRateLimiting("PublicLimiter")]
+        //[EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<TicketDto>>> GetTickets()
         {
             var tickets = await _context.Ticket
@@ -42,7 +42,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/Tickets/5
         [HttpGet("{id}")]
-        [EnableRateLimiting("PublicLimiter")]
+        //[EnableRateLimiting("PublicLimiter")]
 
         public async Task<ActionResult<TicketDto>> GetTicket(Guid id)
         {
