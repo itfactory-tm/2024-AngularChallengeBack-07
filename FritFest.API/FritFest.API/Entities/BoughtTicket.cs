@@ -13,7 +13,7 @@ namespace FritFest.API.Entities
         [ForeignKey(nameof(Ticket))]
         public Guid TicketId { get; set; }
         public Ticket Ticket { get; set; }
-        
+
         public bool Payed { get; set; }
     }
 }
