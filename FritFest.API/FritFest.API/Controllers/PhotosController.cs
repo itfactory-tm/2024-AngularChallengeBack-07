@@ -33,7 +33,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<PhotoDto>>> GetPhotos()
         {
-            var photos = await _context.Photos
+            var photos = await _context.Photo
                 .Include(f => f.Edition)
                 .Include(f => f.Article)
                 .Include(f => f.Stage)
@@ -47,7 +47,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<PhotoDto>> GetPhoto(Guid id)
         {
-            var photo = await _context.Photos
+            var photo = await _context.Photo
                 .Include(f => f.Edition)
                 .Include(f => f.Article)
                 .Include(f => f.Stage)
@@ -100,7 +100,7 @@ namespace FritFest.API.Controllers
         {
             var photo = _mapper.Map<Photo>(photoDto);
             photo.PhotoId = Guid.NewGuid(); // Ensure a new GUID is assigned
-            _context.Photos.Add(photo);
+            _context.Photo.Add(photo);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetPhoto), new { id = photo.PhotoId }, _mapper.Map<PhotoDto>(photo));
@@ -111,13 +111,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeletePhoto(Guid id)
         {
-            var photo = await _context.Photos.FindAsync(id);
+            var photo = await _context.Photo.FindAsync(id);
             if (photo == null)
             {
                 return NotFound();
             }
 
-            _context.Photos.Remove(photo);
+            _context.Photo.Remove(photo);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -125,7 +125,7 @@ namespace FritFest.API.Controllers
 
         private bool PhotoExists(Guid id)
         {
-            return _context.Photos.Any(e => e.PhotoId == id);
+            return _context.Photo.Any(e => e.PhotoId == id);
         }
     }
 }

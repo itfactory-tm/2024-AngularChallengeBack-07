@@ -33,7 +33,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<FoodTruckDto>>> GetFoodTrucks()
         {
-            var foodTrucks = await _context.FoodTrucks
+            var foodTrucks = await _context.FoodTruck
                 .Include(ft => ft.Edition)
                 .Include(ft => ft.MenuItems)
                 .Include(ft => ft.Location)
@@ -47,7 +47,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<FoodTruckDto>> GetFoodTruck(Guid id)
         {
-            var foodTruck = await _context.FoodTrucks
+            var foodTruck = await _context.FoodTruck
                 .Include(ft => ft.Edition)
                 //.Include(ft => ft.MenuItems)
                 .Include(ft => ft.Location)
@@ -102,7 +102,7 @@ namespace FritFest.API.Controllers
         {
             var foodTruck = _mapper.Map<FoodTruck>(foodTruckDto);
             foodTruck.FoodTruckId = Guid.NewGuid(); // Ensure a new GUID is assigned
-            _context.FoodTrucks.Add(foodTruck);
+            _context.FoodTruck.Add(foodTruck);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetFoodTruck), new { id = foodTruck.FoodTruckId }, _mapper.Map<FoodTruckDto>(foodTruck));
@@ -113,13 +113,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteFoodTruck(Guid id)
         {
-            var foodTruck = await _context.FoodTrucks.FindAsync(id);
+            var foodTruck = await _context.FoodTruck.FindAsync(id);
             if (foodTruck == null)
             {
                 return NotFound();
             }
 
-            _context.FoodTrucks.Remove(foodTruck);
+            _context.FoodTruck.Remove(foodTruck);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -127,7 +127,7 @@ namespace FritFest.API.Controllers
 
         private bool FoodTruckExists(Guid id)
         {
-            return _context.FoodTrucks.Any(e => e.FoodTruckId == id);
+            return _context.FoodTruck.Any(e => e.FoodTruckId == id);
         }
     }
 }
