@@ -8,6 +8,6 @@ namespace FritFest.API.Entities
         public Guid GenreId { get; set; }
         public string Name { get; set; }
 
-        //public ICollection<Artist> Artists { get; set; }
+        //public ICollection<Artists> Artists { get; set; }
     }
 }

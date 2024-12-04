@@ -21,14 +21,17 @@
     {
       "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|f:\\thomas_more\\24-25\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\mappingprofiles\\artistprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\mappingprofiles\\artistprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+
     },
     {
       "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|f:\\thomas_more\\24-25\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\dbcontexts\\festivalcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\dbcontexts\\festivalcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+
       "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|f:\\thomas_more\\24-25\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\dtos\\boughtticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\dtos\\boughtticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+
     },
     {
       "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|f:\\thomas_more\\24-25\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\entities\\boughtticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -83,6 +86,7 @@
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\mappingprofiles\\foodtruckprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+
       "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|f:\\thomas_more\\24-25\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\entities\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\entities\\artist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -123,6 +127,10 @@
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\mappingprofiles\\sponsorprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|f:\\thomas_more\\24-25\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\mappingprofiles\\stageprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\mappingprofiles\\stageprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|f:\\thomas_more\\24-25\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\controllers\\sponsorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\controllers\\sponsorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -147,6 +155,7 @@
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\dtos\\daydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+
       "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|f:\\thomas_more\\24-25\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -278,7 +287,9 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+
           "SelectedChildIndex": 8,
+
           "Children": [
             {
               "$type": "Bookmark",
@@ -296,13 +307,16 @@
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\ArticlesController.cs",
               "ToolTip": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\ArticlesController.cs",
               "RelativeToolTip": "FritFest.API\\Controllers\\ArticlesController.cs",
+
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-03T22:01:14.213Z",
+
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 5,
               "Title": "FestivalContext.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\DbContexts\\FestivalContext.cs",
@@ -416,10 +430,12 @@
               "ViewState": "AgIAAAUAAAAAAAAAAAAAwBIAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-29T19:47:08.489Z",
+
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 3,
               "Title": "MenuItem.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\MenuItem.cs",
@@ -538,6 +554,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 19,
+
               "Title": "FoodTruckProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\FoodTruckProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\FoodTruckProfile.cs",
@@ -545,11 +562,11 @@
               "RelativeToolTip": "FritFest.API\\MappingProfiles\\FoodTruckProfile.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-25T09:45:47.887Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T09:45:47.887Z"
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 20,
               "Title": "Artist.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Artist.cs",
@@ -570,25 +587,31 @@
               "ToolTip": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\ArtistDto.cs",
               "RelativeToolTip": "FritFest.API\\Dtos\\ArtistDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAvAAAAAAAAAA==",
+
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-25T09:01:04.537Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 22,
+
               "Title": "FoodTruckDto.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\FoodTruckDto.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Dtos\\FoodTruckDto.cs",
               "ToolTip": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\FoodTruckDto.cs",
               "RelativeToolTip": "FritFest.API\\Dtos\\FoodTruckDto.cs",
+
               "ViewState": "AgIAAAMAAAAAAAAAAAAgwA4AAABUAAAAAAAAAA==",
+
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-25T09:44:31.224Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 23,
               "Title": "FoodTruck.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\FoodTruck.cs",
@@ -627,6 +650,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 27,
+
               "Title": "Sponsor.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Sponsor.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Entities\\Sponsor.cs",
@@ -638,7 +662,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 29,
+
               "Title": "SponsorProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\SponsorProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\SponsorProfile.cs",
@@ -650,7 +676,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 28,
+
               "Title": "Location.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Location.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Entities\\Location.cs",
@@ -662,7 +690,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 26,
+
               "Title": "SponsorDto.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\SponsorDto.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Dtos\\SponsorDto.cs",
@@ -674,7 +704,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 34,
+
               "Title": "TicketTypeDto.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\TicketTypeDto.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Dtos\\TicketTypeDto.cs",
@@ -686,7 +718,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 33,
+
               "Title": "TicketDto.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\TicketDto.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Dtos\\TicketDto.cs",
@@ -698,7 +732,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 30,
+
               "Title": "SponsorsController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\SponsorsController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\SponsorsController.cs",
@@ -710,7 +746,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 31,
+
               "Title": "TicketProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\TicketProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\TicketProfile.cs",
@@ -722,7 +760,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 32,
+
               "Title": "Ticket.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Ticket.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Entities\\Ticket.cs",
@@ -731,10 +771,12 @@
               "ViewState": "AgIAAAUAAAAAAAAAAAAAwA4AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-25T10:43:54.109Z"
+
             },
             {
               "$type": "Document",
               "DocumentIndex": 35,
+
               "Title": "DayDto.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\DayDto.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Dtos\\DayDto.cs",
@@ -743,10 +785,12 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-29T19:38:11.972Z"
+
             },
             {
               "$type": "Document",
               "DocumentIndex": 40,
+
               "Title": "SpotifyService.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Services\\SpotifyService.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Services\\SpotifyService.cs",
@@ -758,6 +802,7 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 36,
               "Title": "Program.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Program.cs",
@@ -771,6 +816,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 37,
+
               "Title": "ArticleDto.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\ArticleDto.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Dtos\\ArticleDto.cs",
@@ -782,7 +828,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 39,
+
               "Title": "Article.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Article.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Entities\\Article.cs",
@@ -794,7 +842,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 38,
+
               "Title": "EditionController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\EditionController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\EditionController.cs",
@@ -806,7 +856,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 41,
+
               "Title": "BoughtTicketProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\BoughtTicketProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\BoughtTicketProfile.cs",
@@ -818,7 +870,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 42,
+
               "Title": "TicketsController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\TicketsController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\TicketsController.cs",
@@ -830,7 +884,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 43,
+
               "Title": "TicketTypesController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\TicketTypesController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\TicketTypesController.cs",
@@ -842,7 +898,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 44,
+
               "Title": "StagesController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\StagesController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\StagesController.cs",
@@ -854,7 +912,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 45,
+
               "Title": "GenresController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\GenresController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\GenresController.cs",
@@ -866,7 +926,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 46,
+
               "Title": "GenreProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\GenreProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\GenreProfile.cs",
@@ -878,6 +940,7 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 47,
               "Title": "Genre.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Genre.cs",
@@ -890,7 +953,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 48,
+
               "Title": "TicketTypeProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\TicketTypeProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\TicketTypeProfile.cs",
@@ -902,7 +967,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 49,
+
               "Title": "PhotoProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\PhotoProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\PhotoProfile.cs",
@@ -914,7 +981,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 50,
+
               "Title": "LocationProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\LocationProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\LocationProfile.cs",
@@ -926,7 +995,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 51,
+
               "Title": "DayProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\DayProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\DayProfile.cs",
@@ -938,7 +1009,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 52,
+
               "Title": "ArticleProfile.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\ArticleProfile.cs",
               "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\ArticleProfile.cs",
@@ -950,7 +1023,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 53,
+
               "Title": "TimeSlotsController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\TimeSlotsController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\TimeSlotsController.cs",
@@ -962,7 +1037,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 54,
+
               "Title": "PhotosController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\PhotosController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\PhotosController.cs",
@@ -974,7 +1051,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 55,
+
               "Title": "MenuItemsController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\MenuItemsController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\MenuItemsController.cs",
@@ -986,7 +1065,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 56,
+
               "Title": "LocationsController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\LocationsController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\LocationsController.cs",
@@ -998,7 +1079,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 57,
+
               "Title": "DaysController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\DaysController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\DaysController.cs",
@@ -1010,7 +1093,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 58,
+
               "Title": "PhotoDto.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\PhotoDto.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Dtos\\PhotoDto.cs",
@@ -1022,7 +1107,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 59,
+
               "Title": "MenuItemDto.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\MenuItemDto.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Dtos\\MenuItemDto.cs",
@@ -1034,7 +1121,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 60,
+
               "Title": "GenreDto.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\GenreDto.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Dtos\\GenreDto.cs",
@@ -1046,7 +1135,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 61,
+
               "Title": "TicketType.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\TicketType.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Entities\\TicketType.cs",
@@ -1058,6 +1149,20 @@
             },
             {
               "$type": "Document",
+
+              "DocumentIndex": 61,
+              "Title": "Stage.cs",
+              "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Stage.cs",
+              "RelativeDocumentMoniker": "FritFest.API\\Entities\\Stage.cs",
+              "ToolTip": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Stage.cs",
+              "RelativeToolTip": "FritFest.API\\Entities\\Stage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T19:35:14.362Z"
+            },
+            {
+              "$type": "Document",
+
               "DocumentIndex": 62,
               "Title": "Photo.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Photo.cs",
@@ -1071,6 +1176,20 @@
             {
               "$type": "Document",
               "DocumentIndex": 63,
+
+              "Title": "MenuItem.cs",
+              "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\MenuItem.cs",
+              "RelativeDocumentMoniker": "FritFest.API\\Entities\\MenuItem.cs",
+              "ToolTip": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\MenuItem.cs",
+              "RelativeToolTip": "FritFest.API\\Entities\\MenuItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T19:49:03.207Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+
               "Title": "Day.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Day.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Entities\\Day.cs",
@@ -1082,7 +1201,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 64,
+
               "Title": "SwaggerExtensions.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\SwaggerExtensions.cs",
               "RelativeDocumentMoniker": "FritFest.API\\SwaggerExtensions.cs",
@@ -1094,7 +1215,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 66,
+
               "Title": "appsettings.json",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\appsettings.json",
               "RelativeDocumentMoniker": "FritFest.API\\appsettings.json",
@@ -1106,7 +1229,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 65,
+
               "Title": "WeatherForecastController.cs",
               "DocumentMoniker": "F:\\Thomas_More\\24-25\\Angular\\project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Controllers\\WeatherForecastController.cs",

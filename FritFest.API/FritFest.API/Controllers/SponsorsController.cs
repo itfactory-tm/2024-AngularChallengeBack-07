@@ -32,7 +32,7 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<IEnumerable<SponsorDto>>> GetSponsors()
         {
-            var sponsors = await _context.Sponsor
+            var sponsors = await _context.Sponsors
                 .Include(s => s.Edition)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<SponsorDto>>(sponsors));
@@ -44,7 +44,7 @@ namespace FritFest.API.Controllers
 
         public async Task<ActionResult<SponsorDto>> GetSponsor(Guid id)
         {
-            var sponsor = await _context.Sponsor
+            var sponsor = await _context.Sponsors
                 .Include(s => s.Edition)
                 .FirstOrDefaultAsync(s => s.SponsorId == id);
 
@@ -95,7 +95,7 @@ namespace FritFest.API.Controllers
         {
             var sponsor = _mapper.Map<Sponsor>(sponsorDto);
             sponsor.SponsorId = Guid.NewGuid(); // Ensure a new GUID is assigned
-            _context.Sponsor.Add(sponsor);
+            _context.Sponsors.Add(sponsor);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetSponsor), new { id = sponsor.SponsorId }, _mapper.Map<SponsorDto>(sponsor));
@@ -106,13 +106,13 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<IActionResult> DeleteSponsor(Guid id)
         {
-            var sponsor = await _context.Sponsor.FindAsync(id);
+            var sponsor = await _context.Sponsors.FindAsync(id);
             if (sponsor == null)
             {
                 return NotFound();
             }
 
-            _context.Sponsor.Remove(sponsor);
+            _context.Sponsors.Remove(sponsor);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -120,7 +120,7 @@ namespace FritFest.API.Controllers
 
         private bool SponsorExists(Guid id)
         {
-            return _context.Sponsor.Any(e => e.SponsorId == id);
+            return _context.Sponsors.Any(e => e.SponsorId == id);
         }
     }
 }

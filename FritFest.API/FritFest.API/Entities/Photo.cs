@@ -13,8 +13,8 @@ namespace FritFest.API.Entities
         [ForeignKey(nameof(Edition))]
         public Guid EditionId { get; set; }
         public Edition Edition { get; set; }
-
         [ForeignKey(nameof(Article))]
+
         public Guid ArticleId { get; set; }
         public Article Article { get; set; }
 
