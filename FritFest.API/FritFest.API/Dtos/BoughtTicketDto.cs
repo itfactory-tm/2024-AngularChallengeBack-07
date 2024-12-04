@@ -12,8 +12,8 @@
 
         public Guid TicketId { get; set; }
 
-        public Guid TicketTypeId { get; set; }
-        public string Name { get; set; }
+        public Guid? TicketTypeId { get; set; }
+        public string? Name { get; set; }
 
         public bool Payed { get; set; }
     }

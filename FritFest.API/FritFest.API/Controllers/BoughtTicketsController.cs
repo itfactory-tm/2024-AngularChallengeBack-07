@@ -98,7 +98,7 @@ namespace FritFest.API.Controllers
         public async Task<ActionResult<BoughtTicketDto>> PostBoughtTicket(BoughtTicketDto dto)
         {
             var ticket = _mapper.Map<BoughtTicket>(dto);
-            ticket.TicketId = Guid.NewGuid();
+            ticket.BoughtTicketId = Guid.NewGuid();
             _context.BoughtTicket.Add(ticket);
             await _context.SaveChangesAsync();
 
