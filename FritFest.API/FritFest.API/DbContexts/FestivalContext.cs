@@ -174,18 +174,6 @@ namespace FritFest.API.DbContexts
                 .HasForeignKey(dl => dl.DayId)
                 .OnDelete(DeleteBehavior.NoAction);  // Restrict deletion if related DayLists records exist
 
-            modelBuilder.Entity<Stage>()
-    .HasMany(s => s.TimeSlots)
-    .WithOne(ts => ts.Stage)
-    .HasForeignKey(ts => ts.StageId)
-    .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<BoughtTicket>()
-                .HasOne(b => b.Ticket)
-                .WithMany()
-                .HasForeignKey(b => b.TicketId)
-                .OnDelete(DeleteBehavior.NoAction); 
-
 
 
             modelBuilder.Entity<DayList>()

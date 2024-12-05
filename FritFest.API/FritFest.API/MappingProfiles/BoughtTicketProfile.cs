@@ -9,7 +9,7 @@ namespace FritFest.API.Profiles
         public BoughtTicketProfile()
         {
             CreateMap<BoughtTicket, BoughtTicketDto>()
-                
+                .ForMember(dest => dest.TicketId, opt => opt.MapFrom(src => src.TicketId))
                 .ForMember(dest => dest.TicketTypeName, opt => opt.MapFrom(src => src.Ticket.TicketType.Name))
                 .ForMember(dest => dest.EditionName, opt => opt.MapFrom(src => src.Ticket.Edition.EditionName));
 
