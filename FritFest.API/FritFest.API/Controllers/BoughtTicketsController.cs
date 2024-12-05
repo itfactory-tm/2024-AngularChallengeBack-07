@@ -11,6 +11,7 @@ using FritFest.API.Dtos;
 using AutoMapper;
 using System.Net.Sockets;
 using Microsoft.AspNetCore.Authorization;
+using System.Text.Json;
 
 namespace FritFest.API.Controllers
 {
@@ -106,23 +107,23 @@ namespace FritFest.API.Controllers
 
             var emailContent = new
             {
-                NameReceiver = ticket.HolderName,
-                EmailReceiver = ticket.HolderMail,
+                NameReceiver = "ticket.HolderName",
+                EmailReceiver = "joppiegeurts@gmail.com",
                 Subject = "Your ticket Order",
                 Body = ""
             };
 
-            var response = await _httpClient.PostAsJsonAsync("https://localhost:7005/api/Mail", emailContent);
+            var response = await _httpClient.PostAsJsonAsync("https://fritfestapi20241203213221.azurewebsites.net/api/Mail", emailContent);
 
             if (response.IsSuccessStatusCode)
             {
                 // Email sent successfully, return the ticket
                 return CreatedAtAction(nameof(GetBoughtTicket), new { id = ticket.BoughtTicketId }, _mapper.Map<BoughtTicketDto>(ticket));
             }
-            else
             {
-                // Handle failure to send email
-                return StatusCode(500, new { message = "Ticket purchased, but email notification failed." });
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                // Log or return the error response to get more details
+                return StatusCode(500, new { message = "Ticket purchased, but email notification failed.", details = errorMessage });
             }
         }
 
