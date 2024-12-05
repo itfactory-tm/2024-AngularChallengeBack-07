@@ -20,7 +20,7 @@ namespace FritFest.API.Controllers
         public async Task<IActionResult> SendMail([FromBody] MailData emailRequest)
         {
 
-            string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "MailTemplates", "BoughtTicketsMail.html");
+            string templatePath = "https://raw.githubusercontent.com/itfactory-tm/2024-AngularChallengeBack-07/refs/heads/main/FritFest.API/FritFest.API/MailTemplates/BoughtTicketsMail.html?token=GHSAT0AAAAAAC3BJ36QC5LKEBWT5HDX34KUZ2SAWUQ";
 
             var result = await _mailService.SendMailAsync(emailRequest.NameReceiver, emailRequest.EmailReceiver, emailRequest.Subject, templatePath);
             if (result)
