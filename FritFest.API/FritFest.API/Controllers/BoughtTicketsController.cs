@@ -11,6 +11,7 @@ using FritFest.API.Dtos;
 using AutoMapper;
 using System.Net.Sockets;
 using Microsoft.AspNetCore.Authorization;
+using System.Text.Json;
 
 namespace FritFest.API.Controllers
 {
@@ -20,11 +21,13 @@ namespace FritFest.API.Controllers
     {
         private readonly FestivalContext _context;
         private readonly IMapper _mapper;
+        private readonly HttpClient _httpClient;
 
-        public BoughtTicketsController(FestivalContext context, IMapper mapper)
+        public BoughtTicketsController(FestivalContext context, IMapper mapper, HttpClient httpClient)
         {
             _context = context;
             _mapper = mapper;
+            _httpClient = httpClient;
         }
 
         // GET: api/GekochteTickets
@@ -102,7 +105,26 @@ namespace FritFest.API.Controllers
             _context.BoughtTickets.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetBoughtTicket), new { id = ticket.BoughtTicketId}, _mapper.Map<BoughtTicketDto>(ticket));
+            var emailContent = new
+            {
+                NameReceiver = "ticket.HolderName",
+                EmailReceiver = "joppiegeurts@gmail.com",
+                Subject = "Your ticket Order",
+                Body = ""
+            };
+
+            var response = await _httpClient.PostAsJsonAsync("https://fritfestapi20241203213221.azurewebsites.net/api/Mail", emailContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Email sent successfully, return the ticket
+                return CreatedAtAction(nameof(GetBoughtTicket), new { id = ticket.BoughtTicketId }, _mapper.Map<BoughtTicketDto>(ticket));
+            }
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                // Log or return the error response to get more details
+                return StatusCode(500, new { message = "Ticket purchased, but email notification failed.", details = errorMessage });
+            }
         }
 
         // DELETE: api/GekochteTickets/5
