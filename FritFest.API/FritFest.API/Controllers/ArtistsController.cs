@@ -162,17 +162,17 @@ namespace FritFest.API.Controllers
                         artistDto.Name = spotifyJson.GetProperty("name").GetString();
                         artistDto.SpotifyLink = spotifyJson.GetProperty("uri").GetString();
 
-                        //if (spotifyJson.TryGetProperty("genres", out var genresProperty))
-                        //{
-                        //    var genres = genresProperty.EnumerateArray().Select(g => g.GetString()).ToList();
-                        //    artistDto.Genres = string.Join(",", genres);
-                        //}
+                        if (spotifyJson.TryGetProperty("genres", out var genresProperty))
+                        {
+                            var genres = genresProperty.EnumerateArray().Select(g => g.GetString()).ToList();
+                            artistDto.Genre = string.Join(",", genres);
+                        }
 
-                        //var images = spotifyJson.GetProperty("images");
-                        //if (images.GetArrayLength() > 0)
-                        //{
-                        //    artistDto.SpotifyPhoto = images[0].GetProperty("url").GetString();
-                        //}
+                        var images = spotifyJson.GetProperty("images");
+                        if (images.GetArrayLength() > 0)
+                        {
+                            artistDto.SpotifyPhoto = images[0].GetProperty("url").GetString();
+                        }
                     }
                     catch (Exception ex)
                     {

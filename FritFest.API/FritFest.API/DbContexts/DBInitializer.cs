@@ -231,19 +231,19 @@ namespace FritFest.API
                     new Sponsor
                     {
                         SponsorId = Guid.NewGuid(), SponsorName = "TechCo", Amount = 50000,
-                        SponsoredItem = "Stages Equipment", SponsorLogo = "",
+                        SponsoredItem = "Stages Equipment", SponsorLogo = new byte[0],
                         EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId, SponsorMail = ""
                     },
                     new Sponsor
                     {
                         SponsorId = Guid.NewGuid(), SponsorName = "DrinkCorp", Amount = 20000,
-                        SponsoredItem = "Refreshments", SponsorLogo = "",
+                        SponsoredItem = "Refreshments", SponsorLogo = new byte[0],
                         EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId, SponsorMail = ""
                     },
                     new Sponsor
                     {
                         SponsorId = Guid.NewGuid(), SponsorName = "Foodies Ltd", Amount = 30000,
-                        SponsoredItem = "Food Stalls", SponsorLogo = "",
+                        SponsoredItem = "Food Stalls", SponsorLogo = new byte[0],
                         EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId, SponsorMail = ""
                     }
                 );
