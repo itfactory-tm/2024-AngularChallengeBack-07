@@ -19,7 +19,10 @@ namespace FritFest.API.Controllers
         [HttpPost]
         public async Task<IActionResult> SendMail([FromBody] MailData emailRequest)
         {
-            var result = await _mailService.SendMailAsync(emailRequest.NameReceiver, emailRequest.EmailReceiver, emailRequest.Subject, emailRequest.Body);
+
+            string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "MailTemplates", "BoughtTicketsMail.html");
+
+            var result = await _mailService.SendMailAsync(emailRequest.NameReceiver, emailRequest.EmailReceiver, emailRequest.Subject, templatePath);
             if (result)
             {
                 return Ok(new { message = "Email sent successfully!" });

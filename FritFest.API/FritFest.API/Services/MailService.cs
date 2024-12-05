@@ -14,13 +14,17 @@ namespace FritFest.API.Services
             _configuration = configuration;
         }
 
-        public async Task<bool> SendMailAsync(string toName, string toEmail, string subject, string body)
+        public async Task<bool> SendMailAsync(string toName, string toEmail, string subject, string templatePath)
         {
+            string body = PopulateTemplate(templatePath);
+
             var email = new MimeMessage();
             email.From.Add(new MailboxAddress("FritFest Tickets", _configuration["SMTP:FromEmail"]));
             email.To.Add(new MailboxAddress(toName, toEmail));
             email.Subject = subject;
-            email.Body = new TextPart("plain") { Text= body };
+
+            //Body generated via HTML
+            email.Body = new TextPart("html") { Text= body };
 
 
             try
@@ -42,5 +46,18 @@ namespace FritFest.API.Services
                 return false;
             }
         }
+
+        public string PopulateTemplate(string templatePath)
+        {
+            string templateContent = File.ReadAllText(templatePath);
+
+            /*foreach (var placeholder in placeholders)
+            {
+                templateContent = templateContent.Replace($"{{{{{placeholder.Key}}}}}", placeholder.Value);
+            }*/
+
+            return templateContent;
+        }
+
     }
 }

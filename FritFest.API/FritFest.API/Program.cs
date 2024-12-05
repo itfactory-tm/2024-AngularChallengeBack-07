@@ -43,6 +43,7 @@ builder.Services.AddSwaggerService();
 //builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<MailService>();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
