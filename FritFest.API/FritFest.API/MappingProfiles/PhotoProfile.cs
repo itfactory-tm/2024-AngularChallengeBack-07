@@ -10,6 +10,7 @@ namespace FritFest.API.Profiles
         {
             // Map from Foto to FotoDto
             CreateMap<Photo, PhotoDto>()
+                .ForMember(dest => dest.EditionId, opt => opt.MapFrom(src => src.Edition.EditionId))
                 .ForMember(dest => dest.EditionName, opt => opt.MapFrom(src => src.Edition.EditionName))
                 .ForMember(dest => dest.ArticleTitle, opt => opt.MapFrom(src => src.Article.Title))
                 .ForMember(dest => dest.StageName, opt => opt.MapFrom(src => src.Stage.Name));

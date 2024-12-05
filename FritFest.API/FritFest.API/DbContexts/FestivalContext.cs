@@ -156,23 +156,10 @@ namespace FritFest.API.DbContexts
 
 
             // // Disable cascading delete on the EditionId foreign key
-            modelBuilder.Entity<Photo>()
-                .HasOne(p => p.Edition)   // Navigation property
-                .WithMany(e => e.Photos)                // Editions does not have a navigation property for Photos
-                .HasForeignKey(p => p.EditionId)
-                .OnDelete(DeleteBehavior.NoAction);  // Disable cascading delete for Editions
-
-            modelBuilder.Entity<MenuItem>()
-                .HasOne(mi => mi.FoodTruck)
-                .WithMany(f => f.MenuItems)
-                .HasForeignKey(mi => mi.FoodTruckId)
-                .OnDelete(DeleteBehavior.NoAction);
             
-            modelBuilder.Entity<Artist>()
-                .HasOne(a => a.Edition)
-                .WithMany(e => e.Artists)
-                .HasForeignKey(a => a.EditionId)
-                .OnDelete(DeleteBehavior.NoAction);
+
+            
+            
            
 
 
