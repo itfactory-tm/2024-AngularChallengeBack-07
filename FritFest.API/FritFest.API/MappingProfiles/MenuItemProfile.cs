@@ -10,6 +10,7 @@ namespace FritFest.API.Profiles
         {
             // Map from MenuItems to MenuItemDto
             CreateMap<MenuItem, MenuItemDto>()
+                .ForMember(dest => dest.FoodTruckId, opt => opt.MapFrom(src => src.FoodTruck.FoodTruckId))
                 .ForMember(dest => dest.FoodTruckName, opt => opt.MapFrom(src => src.FoodTruck.Name));
 
             // Map from MenuItemDto to MenuItems, ignoring navigation property

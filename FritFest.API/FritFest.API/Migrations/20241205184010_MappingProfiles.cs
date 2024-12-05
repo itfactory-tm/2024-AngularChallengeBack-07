@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FritFest.API.Migrations
 {
     /// <inheritdoc />
-    public partial class LogoUpdate : Migration
+    public partial class MappingProfiles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -124,7 +124,8 @@ namespace FritFest.API.Migrations
                         name: "FK_Artist_Edition_EditionId",
                         column: x => x.EditionId,
                         principalTable: "Edition",
-                        principalColumn: "EditionId");
+                        principalColumn: "EditionId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -243,7 +244,8 @@ namespace FritFest.API.Migrations
                         name: "FK_MenuItem_FoodTruck_FoodTruckId",
                         column: x => x.FoodTruckId,
                         principalTable: "FoodTruck",
-                        principalColumn: "FoodTruckId");
+                        principalColumn: "FoodTruckId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -270,7 +272,8 @@ namespace FritFest.API.Migrations
                         name: "FK_Photo_Edition_EditionId",
                         column: x => x.EditionId,
                         principalTable: "Edition",
-                        principalColumn: "EditionId");
+                        principalColumn: "EditionId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Photo_Stage_StageId",
                         column: x => x.StageId,
@@ -302,7 +305,8 @@ namespace FritFest.API.Migrations
                         name: "FK_TimeSlot_Stage_StageId",
                         column: x => x.StageId,
                         principalTable: "Stage",
-                        principalColumn: "StageId");
+                        principalColumn: "StageId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -330,7 +334,8 @@ namespace FritFest.API.Migrations
                         name: "FK_BoughtTicket_Ticket_TicketId",
                         column: x => x.TicketId,
                         principalTable: "Ticket",
-                        principalColumn: "TicketId");
+                        principalColumn: "TicketId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

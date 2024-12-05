@@ -11,8 +11,11 @@ namespace FritFest.API.Profiles
         {
             // Map from FoodTrucks to FoodTruckDto
             CreateMap<FoodTruck, FoodTruckDto>()
+                .ForMember(dest => dest.LocationId,
+                    opt => opt.MapFrom(src => src.Location.LocationId))
                 .ForMember(dest => dest.LocationName,
-                    opt => opt.MapFrom(src => src.Location != null ? src.Location.Name : null))
+                    opt => opt.MapFrom(src => src.Location.Name))
+                .ForMember(dest => dest.EditionId, opt => opt.MapFrom(src => src.Edition.EditionId))
                 .ForMember(dest => dest.EditionName, opt => opt.MapFrom(src => src.Edition.EditionName))
                 .ForMember(dest => dest.MenuItems,
                     opt => opt.MapFrom(src => src.MenuItems.Select(mi => mi.Name).ToList()));

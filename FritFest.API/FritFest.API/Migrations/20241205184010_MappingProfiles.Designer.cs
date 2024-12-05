@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FritFest.API.Migrations
 {
     [DbContext(typeof(FestivalContext))]
-    [Migration("20241205125604_Logo")]
-    partial class Logo
+    [Migration("20241205184010_MappingProfiles")]
+    partial class MappingProfiles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -464,7 +464,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.Edition", "Edition")
                         .WithMany("Artists")
                         .HasForeignKey("EditionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Edition");
@@ -479,7 +479,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.Ticket", "Ticket")
                         .WithMany()
                         .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Ticket");
@@ -528,7 +528,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.FoodTruck", "FoodTruck")
                         .WithMany("MenuItems")
                         .HasForeignKey("FoodTruckId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("FoodTruck");
@@ -545,7 +545,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.Edition", "Edition")
                         .WithMany("Photos")
                         .HasForeignKey("EditionId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FritFest.API.Entities.Stage", "Stage")
@@ -621,7 +621,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.Stage", "Stage")
                         .WithMany("TimeSlots")
                         .HasForeignKey("StageId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Artist");
