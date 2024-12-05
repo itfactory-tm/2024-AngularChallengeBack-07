@@ -12,7 +12,9 @@ namespace FritFest.API.Profiles
             CreateMap<Photo, PhotoDto>()
                 .ForMember(dest => dest.EditionId, opt => opt.MapFrom(src => src.Edition.EditionId))
                 .ForMember(dest => dest.EditionName, opt => opt.MapFrom(src => src.Edition.EditionName))
+                .ForMember(dest => dest.ArticleId, opt => opt.MapFrom(src => src.Article.ArticleId))
                 .ForMember(dest => dest.ArticleTitle, opt => opt.MapFrom(src => src.Article.Title))
+                .ForMember(dest => dest.StageId, opt => opt.MapFrom(src => src.Stage.StageId))
                 .ForMember(dest => dest.StageName, opt => opt.MapFrom(src => src.Stage.Name));
 
             // Reverse map from FotoDto to Foto

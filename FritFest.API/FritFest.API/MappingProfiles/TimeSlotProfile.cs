@@ -10,7 +10,9 @@ namespace FritFest.API.Profiles
         {
             // Map from TijdStip to TijdStipDto
             CreateMap<TimeSlot, TimeSlotDto>()
-                .ForMember(dest => dest.ArtistName, opt => opt.MapFrom(src => src.Artist.Name)) // Map Artiest Naam
+                .ForMember(dest => dest.ArtistId, opt => opt.MapFrom(src => src.Artist.ArtistId)) // Map Artiest Naam
+                .ForMember(dest => dest.ArtistName, opt => opt.MapFrom(src => src.Artist.Name))
+                .ForMember(dest => dest.StageId, opt => opt.MapFrom(src => src.Stage.StageId)) // Map Artiest Naam// Map Artiest Naam
                 .ForMember(dest => dest.StageName, opt => opt.MapFrom(src => src.Stage.Name)); // Map Podium Naam
 
             // Map from TijdStipDto to TijdStip (if you need reverse mapping)
