@@ -7,56 +7,28 @@
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\controllers\\boughtticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\controllers\\boughtticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\entities\\boughtticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\entities\\boughtticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\dtos\\boughtticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\dtos\\boughtticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\dbcontexts\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\dbcontexts\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\dbcontexts\\festivalcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\dbcontexts\\festivalcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\mappingprofiles\\boughtticketprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\mappingprofiles\\boughtticketprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\controllers\\mailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\controllers\\mailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\dtos\\ticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\dtos\\ticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\entities\\mailentities\\mailsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\entities\\mailentities\\mailsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\entities\\ticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\entities\\ticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\entities\\mailentities\\maildata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\entities\\mailentities\\maildata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\controllers\\artistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\controllers\\artistscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\services\\mailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\services\\mailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\swaggerextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\swaggerextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\controllers\\sponsorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\controllers\\sponsorscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|c:\\users\\jorrit geurts\\documents\\school\\jaar3\\semester1\\angular\\project\\2024-angularchallengeback-07\\fritfest.api\\fritfest.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6CD8D591-E355-4337-8086-56BA58738C6D}|FritFest.API\\FritFest.API.csproj|solutionrelative:fritfest.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,75 +46,81 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BoughtTicketsController.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\BoughtTicketsController.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\Controllers\\BoughtTicketsController.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\BoughtTicketsController.cs",
-              "RelativeToolTip": "FritFest.API\\Controllers\\BoughtTicketsController.cs",
-              "ViewState": "AQIAAFAAAAAAAAAAAAAIwGgAAAB6AAAA",
+              "DocumentIndex": 1,
+              "Title": "FestivalContext.cs",
+              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\DbContexts\\FestivalContext.cs",
+              "RelativeDocumentMoniker": "FritFest.API\\DbContexts\\FestivalContext.cs",
+              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\DbContexts\\FestivalContext.cs",
+              "RelativeToolTip": "FritFest.API\\DbContexts\\FestivalContext.cs",
+              "ViewState": "AQIAAMIAAAAAAAAAAAAjwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T14:53:49.667Z"
+              "WhenOpened": "2024-12-05T12:33:56.93Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TicketDto.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\TicketDto.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\Dtos\\TicketDto.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\TicketDto.cs",
-              "RelativeToolTip": "FritFest.API\\Dtos\\TicketDto.cs",
+              "DocumentIndex": 2,
+              "Title": "MailController.cs",
+              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\MailController.cs",
+              "RelativeDocumentMoniker": "FritFest.API\\Controllers\\MailController.cs",
+              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\MailController.cs",
+              "RelativeToolTip": "FritFest.API\\Controllers\\MailController.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAxwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-05T12:28:10.179Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MailSettings.cs",
+              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\MailEntities\\MailSettings.cs",
+              "RelativeDocumentMoniker": "FritFest.API\\Entities\\MailEntities\\MailSettings.cs",
+              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\MailEntities\\MailSettings.cs",
+              "RelativeToolTip": "FritFest.API\\Entities\\MailEntities\\MailSettings.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T10:55:06.389Z"
+              "WhenOpened": "2024-12-05T12:28:03.385Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "BoughtTicketProfile.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\BoughtTicketProfile.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\MappingProfiles\\BoughtTicketProfile.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\MappingProfiles\\BoughtTicketProfile.cs",
-              "RelativeToolTip": "FritFest.API\\MappingProfiles\\BoughtTicketProfile.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABwAAAA",
+              "DocumentIndex": 4,
+              "Title": "MailData.cs",
+              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\MailEntities\\MailData.cs",
+              "RelativeDocumentMoniker": "FritFest.API\\Entities\\MailEntities\\MailData.cs",
+              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\MailEntities\\MailData.cs",
+              "RelativeToolTip": "FritFest.API\\Entities\\MailEntities\\MailData.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T12:26:06.006Z"
+              "WhenOpened": "2024-12-05T12:28:02.869Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
+              "Title": "MailService.cs",
+              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Services\\MailService.cs",
+              "RelativeDocumentMoniker": "FritFest.API\\Services\\MailService.cs",
+              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Services\\MailService.cs",
+              "RelativeToolTip": "FritFest.API\\Services\\MailService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-05T12:28:00.035Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Program.cs",
               "RelativeDocumentMoniker": "FritFest.API\\Program.cs",
               "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Program.cs",
               "RelativeToolTip": "FritFest.API\\Program.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAAAD0AAAAqAAAA",
+              "ViewState": "AQIAABYAAAAAAAAAAAAAAC4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T11:27:22.96Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "BoughtTicket.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\BoughtTicket.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\Entities\\BoughtTicket.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\BoughtTicket.cs",
-              "RelativeToolTip": "FritFest.API\\Entities\\BoughtTicket.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T12:25:41.474Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DBInitializer.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\DbContexts\\DBInitializer.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\DbContexts\\DBInitializer.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\DbContexts\\DBInitializer.cs",
-              "RelativeToolTip": "FritFest.API\\DbContexts\\DBInitializer.cs",
-              "ViewState": "AQIAAJABAAAAAAAAAAAjwJMBAABtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T14:30:40.087Z"
+              "WhenOpened": "2024-12-05T12:19:46.283Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -152,94 +130,10 @@
               "RelativeDocumentMoniker": "FritFest.API\\appsettings.json",
               "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\appsettings.json",
               "RelativeToolTip": "FritFest.API\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAACLAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAALAQAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-04T11:25:27.243Z",
+              "WhenOpened": "2024-12-05T11:59:04.383Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BoughtTicketDto.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\BoughtTicketDto.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\Dtos\\BoughtTicketDto.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Dtos\\BoughtTicketDto.cs",
-              "RelativeToolTip": "FritFest.API\\Dtos\\BoughtTicketDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T12:26:25.845Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "FestivalContext.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\DbContexts\\FestivalContext.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\DbContexts\\FestivalContext.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\DbContexts\\FestivalContext.cs",
-              "RelativeToolTip": "FritFest.API\\DbContexts\\FestivalContext.cs",
-              "ViewState": "AQIAALQAAAAAAAAAAADwv8YAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T12:08:07.101Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "SwaggerExtensions.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\SwaggerExtensions.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\SwaggerExtensions.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\SwaggerExtensions.cs",
-              "RelativeToolTip": "FritFest.API\\SwaggerExtensions.cs",
-              "ViewState": "AQIAACIAAAAAAAAAAAAgwC0AAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T11:29:00.238Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ArtistsController.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\ArtistsController.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\Controllers\\ArtistsController.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\ArtistsController.cs",
-              "RelativeToolTip": "FritFest.API\\Controllers\\ArtistsController.cs",
-              "ViewState": "AQIAAFoAAAAAAAAAAAAIwDUAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T14:53:36.455Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Ticket.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Ticket.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\Entities\\Ticket.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Entities\\Ticket.cs",
-              "RelativeToolTip": "FritFest.API\\Entities\\Ticket.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T10:55:42.914Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "SponsorsController.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\SponsorsController.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\Controllers\\SponsorsController.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\SponsorsController.cs",
-              "RelativeToolTip": "FritFest.API\\Controllers\\SponsorsController.cs",
-              "ViewState": "AQIAAFMAAAAAAAAAAAAIwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T13:46:29.128Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "TicketsController.cs",
-              "DocumentMoniker": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\TicketsController.cs",
-              "RelativeDocumentMoniker": "FritFest.API\\Controllers\\TicketsController.cs",
-              "ToolTip": "C:\\Users\\Jorrit Geurts\\Documents\\School\\Jaar3\\Semester1\\Angular\\Project\\2024-AngularChallengeBack-07\\FritFest.API\\FritFest.API\\Controllers\\TicketsController.cs",
-              "RelativeToolTip": "FritFest.API\\Controllers\\TicketsController.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAowCwAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-04T10:55:01.632Z"
             }
           ]
         }
