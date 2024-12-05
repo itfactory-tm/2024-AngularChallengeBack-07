@@ -1,5 +1,6 @@
 using FritFest.API;
 using FritFest.API.DbContexts;
+using FritFest.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.RateLimiting;
@@ -40,6 +41,8 @@ builder.Services.AddEndpointsApiExplorer();
 // Add Swagger services
 builder.Services.AddSwaggerService();
 //builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<MailService>();
 
 var app = builder.Build();
 
