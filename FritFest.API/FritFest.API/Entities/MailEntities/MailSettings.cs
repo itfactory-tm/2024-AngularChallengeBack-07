@@ -7,7 +7,6 @@
         public string Username { get; set; }
         public string Password { get; set; }
         public string FromMail { get; set; }
-        public string ReceiverMail { get; set; }
 
     }
 }

@@ -16,7 +16,7 @@ namespace FritFest.API.Services
 
         public async Task<bool> SendMailAsync(string toName, string toEmail, string subject, string templatePath)
         {
-            string body = PopulateTemplate(templatePath);
+            string body = await PopulateTemplateAsync(templatePath);
 
             var email = new MimeMessage();
             email.From.Add(new MailboxAddress("FritFest Tickets", _configuration["SMTP:FromEmail"]));
@@ -24,8 +24,7 @@ namespace FritFest.API.Services
             email.Subject = subject;
 
             //Body generated via HTML
-            email.Body = new TextPart("html") { Text= body };
-
+            email.Body = new TextPart("html") { Text = body };
 
             try
             {
@@ -47,17 +46,31 @@ namespace FritFest.API.Services
             }
         }
 
-        public string PopulateTemplate(string templatePath)
+        public async Task<string> PopulateTemplateAsync(string templateUrl)
         {
-            string templateContent = File.ReadAllText(templatePath);
-
-            /*foreach (var placeholder in placeholders)
+            try
             {
-                templateContent = templateContent.Replace($"{{{{{placeholder.Key}}}}}", placeholder.Value);
-            }*/
+                using (HttpClient client = new HttpClient())
+                {
+                    string templateContent = await client.GetStringAsync(templateUrl);
 
-            return templateContent;
+                    // Optionally, you can replace placeholders if needed (uncomment and customize)
+                    /*
+                    foreach (var placeholder in placeholders)
+                    {
+                        templateContent = templateContent.Replace($"{{{{{placeholder.Key}}}}}", placeholder.Value);
+                    }
+                    */
+
+                    return templateContent;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"Error fetching template: {ex.Message}");
+                return string.Empty;  
+            }
+
         }
-
     }
 }
