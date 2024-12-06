@@ -72,8 +72,8 @@ namespace FritFest.API.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    //string templateContent = await client.GetStringAsync(templateUrl);
-                    var templateContent = File.ReadAllText("MailTemplates/BoughtTicketsMail.html");
+                    string templateContent = await client.GetStringAsync(templateUrl);
+                    //var templateContent = File.ReadAllText("MailTemplates/BoughtTicketsMail.html");
 
                     // Optionally, you can replace placeholders if needed (uncomment and customize)
 
