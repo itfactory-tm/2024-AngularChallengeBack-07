@@ -1,55 +1,94 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fritfest Ticket</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f4f4f9;
+            color: #333;
         }
 
         .email-container {
             max-width: 600px;
-            margin: 20px auto;
+            margin: 30px auto;
             background: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         }
 
         .header {
             background-color: #4caf50;
-            color: #fff;
-            padding: 10px;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+            .header h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+
+        .content {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+            .content p {
+                margin: 10px 0;
+            }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #4caf50;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
             text-align: center;
         }
 
-        .content {
-            margin: 20px 0;
-        }
+            .cta-button:hover {
+                background-color: #45a049;
+            }
 
         .footer {
             text-align: center;
             font-size: 12px;
             color: #999;
-            margin-top: 20px;
+            margin-top: 30px;
         }
+
+            .footer a {
+                color: #4caf50;
+                text-decoration: none;
+            }
     </style>
 </head>
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>Title</h1>
+            <h1>Welcome to Fritfest!</h1>
         </div>
         <div class="content">
-            <p>Hi Name,</p>
-            <p>In the attachments you can find your tickets</p>
+            <p>Dear {{name}},</p>
+            <p>Thank you for purchasing your ticket for Fritfest! We're excited to have you join us for an unforgettable experience.</p>
+            <p>Your personal QR code, which you will need for event entry, is attached to this email. Please keep it handy for quick access on the day of the event.</p>
+            <p>We hope you're ready for a fantastic time filled with amazing music, food, and activities. If you have any questions, feel free to reach out to our support team at any time.</p>
+            <p>We can’t wait to see you at Fritfest!</p>
         </div>
         <div class="footer">
             <p>&copy; 2024 FritFest. All rights reserved.</p>
+            <p><a href="#">Unsubscribe</a> | <a href="#">Contact Us</a></p>
         </div>
     </div>
 </body>

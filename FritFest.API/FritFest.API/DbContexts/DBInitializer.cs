@@ -11,7 +11,7 @@ namespace FritFest.API
         public static void Initialize(FestivalContext context)
         {
             // Ensure database is created
-            context.Database.Migrate();
+            //context.Database.Migrate();
 
             if (context.Editions.Any())
             {
