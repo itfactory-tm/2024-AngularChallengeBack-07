@@ -1,6 +1,8 @@
 ﻿using MimeKit;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
+using PdfSharp.Pdf;
+using TheArtOfDev.HtmlRenderer.PdfSharp;
 
 namespace FritFest.API.Services
 {
@@ -14,17 +16,30 @@ namespace FritFest.API.Services
             _configuration = configuration;
         }
 
-        public async Task<bool> SendMailAsync(string toName, string toEmail, string subject, string templatePath)
+
+        public async Task<bool> SendMailAsync(string toName, string toEmail, string subject, string templatePath, string ticketTemplateUrl)
         {
             string body = await PopulateTemplateAsync(templatePath);
+
+            string ticketTemplate = await PopulateTemplateAsync(ticketTemplateUrl);
+            MemoryStream pdfStream = ConvertHtmlToPdf(ticketTemplate, ticketTemplateUrl);
 
             var email = new MimeMessage();
             email.From.Add(new MailboxAddress("FritFest Tickets", _configuration["SMTP:FromEmail"]));
             email.To.Add(new MailboxAddress(toName, toEmail));
             email.Subject = subject;
 
+            var bodyBuilder = new BodyBuilder
+            {
+                HtmlBody = body 
+            };
+
+            bodyBuilder.Attachments.Add("ticket.pdf", pdfStream, ContentType.Parse("application/pdf"));
+
+            email.Body = bodyBuilder.ToMessageBody();
+
             //Body generated via HTML
-            email.Body = new TextPart("html") { Text = body };
+            //email.Body = new TextPart("html") { Text = body };
 
             try
             {
@@ -72,5 +87,21 @@ namespace FritFest.API.Services
             }
 
         }
+
+        //Generating Tickets
+        public MemoryStream ConvertHtmlToPdf(string htmlContent, string outputFilePath)
+        {
+            // Generate PDF from HTML content
+            PdfDocument pdf = PdfGenerator.GeneratePdf(htmlContent, PdfSharp.PageSize.A4);
+            var memoryStream = new MemoryStream();
+            pdf.Save(memoryStream, true); // Save the PDF to the memory stream
+
+            // Reset the stream position to the beginning before returning
+            memoryStream.Position = 0;
+
+            return memoryStream;
+
+        }
+
     }
 }
