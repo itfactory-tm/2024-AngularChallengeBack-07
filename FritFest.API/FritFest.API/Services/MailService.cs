@@ -1,8 +1,8 @@
 ﻿using MimeKit;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
-using PdfSharp.Pdf;
-using TheArtOfDev.HtmlRenderer.PdfSharp;
+using System.Security.Cryptography;
+using DinkToPdf;
 
 namespace FritFest.API.Services
 {
@@ -22,12 +22,21 @@ namespace FritFest.API.Services
             string body = await PopulateTemplateAsync(templatePath);
 
             string ticketTemplate = await PopulateTemplateAsync(ticketTemplateUrl);
-            MemoryStream pdfStream = ConvertHtmlToPdf(ticketTemplate, ticketTemplateUrl);
+
+            var pdfStream = ConvertHtmlToPdf(ticketTemplate);
 
             var email = new MimeMessage();
             email.From.Add(new MailboxAddress("FritFest Tickets", _configuration["SMTP:FromEmail"]));
             email.To.Add(new MailboxAddress(toName, toEmail));
             email.Subject = subject;
+
+            var attachment = new MimePart("application", "pdf")
+            {
+                Content = new MimeContent(pdfStream),
+                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                ContentTransferEncoding = ContentEncoding.Base64,
+                FileName = "ticket.pdf"
+            };
 
             var bodyBuilder = new BodyBuilder
             {
@@ -89,19 +98,39 @@ namespace FritFest.API.Services
         }
 
         //Generating Tickets
-        public MemoryStream ConvertHtmlToPdf(string htmlContent, string outputFilePath)
+        public MemoryStream ConvertHtmlToPdf(string htmlContent)
         {
-            // Generate PDF from HTML content
-            PdfDocument pdf = PdfGenerator.GeneratePdf(htmlContent, PdfSharp.PageSize.A4);
-            var memoryStream = new MemoryStream();
-            pdf.Save(memoryStream, true); // Save the PDF to the memory stream
+            var converter = new BasicConverter(new PdfTools());
 
-            // Reset the stream position to the beginning before returning
-            memoryStream.Position = 0;
+            // Set the PDF generation options
+            var doc = new HtmlToPdfDocument()
+            {
+                GlobalSettings =
+                {
+                    ColorMode = ColorMode.Color,            // Set color mode (color or grayscale)
+                    Orientation = Orientation.Portrait,     // Set page orientation
+                    PaperSize = PaperKind.A4,               // Set paper size (e.g., A4)
+                },
+                        Objects =
+                {
+                    new ObjectSettings
+                    {
+                        HtmlContent = htmlContent,           // HTML content to be converted
+                        WebSettings =
+                        {
+                            DefaultEncoding = "utf-8",      // Set encoding to UTF-8
+                        }
+                    }
+                }
+            };
 
+            // Convert the HTML content to PDF and store it in a memory stream
+            byte[] pdfBytes = converter.Convert(doc);
+            var memoryStream = new MemoryStream(pdfBytes);
+
+            // Return the generated PDF as a MemoryStream
             return memoryStream;
 
         }
-
     }
 }

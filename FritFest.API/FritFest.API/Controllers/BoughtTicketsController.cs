@@ -113,7 +113,7 @@ namespace FritFest.API.Controllers
                 Body = ""
             };
 
-            var response = await _httpClient.PostAsJsonAsync("https://fritfestapi20241203213221.azurewebsites.net/api/Mail", emailContent);
+            var response = await _httpClient.PostAsJsonAsync("https://localhost:7005/api/Mail", emailContent);
 
             if (response.IsSuccessStatusCode)
             {
