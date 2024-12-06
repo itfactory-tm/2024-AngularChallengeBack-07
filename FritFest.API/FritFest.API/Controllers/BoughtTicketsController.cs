@@ -107,8 +107,8 @@ namespace FritFest.API.Controllers
 
             var emailContent = new
             {
-                NameReceiver = "ticket.HolderName",
-                EmailReceiver = "joppiegeurts@gmail.com",
+                NameReceiver = ticket.HolderName,
+                EmailReceiver = ticket.HolderMail,
                 Subject = "Your ticket Order",
                 Body = ""
             };
