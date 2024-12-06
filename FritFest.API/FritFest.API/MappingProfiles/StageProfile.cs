@@ -10,6 +10,7 @@ namespace FritFest.API.Profiles
         {
             // Map from Podium to PodiumDto
             CreateMap<Stage, StageDto>()
+                .ForMember(dest => dest.LocationId, opt => opt.MapFrom(src => src.Location.LocationId))
                 .ForMember(dest => dest.LocationName, opt => opt.MapFrom(src => src.Location.Name))
                 .ForMember(dest => dest.TimeSlotRanges, opt => opt.MapFrom(src => 
                     src.TimeSlots.Select(ts => $"{ts.StartTime:HH:mm} - {ts.EndTime:HH:mm}").ToList()))

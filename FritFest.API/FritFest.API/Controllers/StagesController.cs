@@ -45,7 +45,11 @@ namespace FritFest.API.Controllers
         [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<StageDto>> GetStage(Guid id)
         {
-            var stage = await _context.Stages.FindAsync(id);
+            var stage = await _context.Stages
+                .Include(p => p.TimeSlots)
+                .Include(p => p.Photos)
+                .Include(p => p.Location)
+                .FirstOrDefaultAsync(s => s.StageId == id);
 
             if (stage == null)
             {
