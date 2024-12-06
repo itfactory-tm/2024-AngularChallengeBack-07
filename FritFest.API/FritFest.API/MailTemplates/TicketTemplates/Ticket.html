@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .ticket {
+            background-color: #fff;
+            width: 500px;
+            height: 250px;
+            border-radius: 15px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .ticket-header h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .ticket-header .ticket-id {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .ticket-info {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .ticket-info div {
+            flex: 1;
+            padding: 0 10px;
+        }
+
+        .ticket-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .ticket-footer .price {
+            font-weight: bold;
+            font-size: 18px;
+            color: #ff7f50;
+        }
+
+        .ticket-footer .barcode {
+            height: 30px;
+            width: 100px;
+            background-color: #333;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <div class="ticket-header">
+            <h2>Concert Event</h2>
+            <div class="ticket-id">ID: 123456789</div>
+        </div>
+
+        <div class="ticket-info">
+            <div>
+                <strong>Date</strong>
+                <p>December 25, 2024</p>
+            </div>
+            <div>
+                <strong>Time</strong>
+                <p>8:00 PM</p>
+            </div>
+            <div>
+                <strong>Venue</strong>
+                <p>Madison Square Garden</p>
+            </div>
+        </div>
+
+        <div class="ticket-footer">
+            <div class="price">$50.00</div>
+            <div class="barcode"></div>
+        </div>
+    </div>
+</body>
+</html>
