@@ -461,7 +461,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.Edition", "Edition")
                         .WithMany("Artists")
                         .HasForeignKey("EditionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Edition");
@@ -476,7 +476,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.Ticket", "Ticket")
                         .WithMany()
                         .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Ticket");
@@ -525,7 +525,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.FoodTruck", "FoodTruck")
                         .WithMany("MenuItems")
                         .HasForeignKey("FoodTruckId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("FoodTruck");
@@ -542,7 +542,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.Edition", "Edition")
                         .WithMany("Photos")
                         .HasForeignKey("EditionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("FritFest.API.Entities.Stage", "Stage")
@@ -618,7 +618,7 @@ namespace FritFest.API.Migrations
                     b.HasOne("FritFest.API.Entities.Stage", "Stage")
                         .WithMany("TimeSlots")
                         .HasForeignKey("StageId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Artist");

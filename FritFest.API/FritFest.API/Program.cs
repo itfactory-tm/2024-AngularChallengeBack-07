@@ -73,12 +73,12 @@ app.UseRateLimiter();
 
 app.MapControllers().RequireCors();
 
-// // Ensure the database is seeded
-// using (var scope = app.Services.CreateScope())
-// {
-//     var context = scope.ServiceProvider.GetRequiredService<FestivalContext>();
-//     DbInitializer.Initialize(context);
-// }
+// Ensure the database is seeded
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<FestivalContext>();
+    DbInitializer.Initialize(context);
+}
 
 
 app.Run();
