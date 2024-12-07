@@ -48,7 +48,7 @@ namespace FritFest.API.Controllers
         {
             // Fetch the artist from the database with related data
             var artist = await _context.Artists
-                //.Include(a => a.Genres)  // Include Genres to map 
+                
                 .Include(a => a.Edition)
                 .FirstOrDefaultAsync(a => a.ArtistId == id);
 
