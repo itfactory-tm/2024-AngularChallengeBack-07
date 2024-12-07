@@ -9,7 +9,7 @@ namespace FritFest.API.DbContexts
     public class FestivalContext : DbContext
     {
         public DbSet<Edition> Editions { get; set; }
-        public DbSet<Genre> Genres { get; set; }
+        
         public DbSet<Artist> Artists { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Stage> Stages { get; set; }
@@ -23,7 +23,7 @@ namespace FritFest.API.DbContexts
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<Sponsor> Sponsors { get; set; }
         public DbSet<Article> Articles { get; set; }
-        public DbSet<Photo> Photos { get; set; }
+        
 
         // Constructor to pass options to the base class (DbContext)
         public FestivalContext(DbContextOptions<FestivalContext> options) : base(options) { }
@@ -42,10 +42,10 @@ namespace FritFest.API.DbContexts
             modelBuilder.Entity<BoughtTicket>().ToTable("BoughtTicket");
             modelBuilder.Entity<Day>().ToTable("Day");
             modelBuilder.Entity<DayList>().ToTable("DayList");
-            modelBuilder.Entity<Genre>().ToTable("Genre");
+            
             modelBuilder.Entity<Location>().ToTable("Location");
             modelBuilder.Entity<MenuItem>().ToTable("MenuItem");
-            modelBuilder.Entity<Photo>().ToTable("Photo");
+            
             modelBuilder.Entity<Stage>().ToTable("Stage");
             modelBuilder.Entity<Ticket>().ToTable("Ticket");
             modelBuilder.Entity<TicketType>().ToTable("TicketType");
@@ -156,11 +156,7 @@ namespace FritFest.API.DbContexts
 
 
             // // Disable cascading delete on the EditionId foreign key
-            modelBuilder.Entity<Photo>()
-                .HasOne(p => p.Edition)   // Navigation property
-                .WithMany(e => e.Photos)                // Editions does not have a navigation property for Photos
-                .HasForeignKey(p => p.EditionId)
-                .OnDelete(DeleteBehavior.NoAction);  // Disable cascading delete for Editions
+            
 
             modelBuilder.Entity<MenuItem>()
                 .HasOne(mi => mi.FoodTruck)

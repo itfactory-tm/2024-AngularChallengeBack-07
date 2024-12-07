@@ -227,21 +227,6 @@ namespace FritFest.API.Migrations
                     b.ToTable("FoodTruck", (string)null);
                 });
 
-            modelBuilder.Entity("FritFest.API.Entities.Genre", b =>
-                {
-                    b.Property<Guid>("GenreId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GenreId");
-
-                    b.ToTable("Genre", (string)null);
-                });
-
             modelBuilder.Entity("FritFest.API.Entities.Location", b =>
                 {
                     b.Property<Guid>("LocationId")
@@ -284,35 +269,6 @@ namespace FritFest.API.Migrations
                     b.HasIndex("FoodTruckId");
 
                     b.ToTable("MenuItem", (string)null);
-                });
-
-            modelBuilder.Entity("FritFest.API.Entities.Photo", b =>
-                {
-                    b.Property<Guid>("PhotoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("EditionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("File")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PhotoId");
-
-                    b.HasIndex("ArticleId");
-
-                    b.HasIndex("EditionId");
-
-                    b.ToTable("Photo", (string)null);
                 });
 
             modelBuilder.Entity("FritFest.API.Entities.Sponsor", b =>
@@ -526,25 +482,6 @@ namespace FritFest.API.Migrations
                     b.Navigation("FoodTruck");
                 });
 
-            modelBuilder.Entity("FritFest.API.Entities.Photo", b =>
-                {
-                    b.HasOne("FritFest.API.Entities.Article", "Article")
-                        .WithMany()
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FritFest.API.Entities.Edition", "Edition")
-                        .WithMany("Photos")
-                        .HasForeignKey("EditionId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Article");
-
-                    b.Navigation("Edition");
-                });
-
             modelBuilder.Entity("FritFest.API.Entities.Sponsor", b =>
                 {
                     b.HasOne("FritFest.API.Entities.Edition", "Edition")
@@ -625,8 +562,6 @@ namespace FritFest.API.Migrations
                     b.Navigation("Artists");
 
                     b.Navigation("Foodtrucks");
-
-                    b.Navigation("Photos");
 
                     b.Navigation("Sponsors");
 

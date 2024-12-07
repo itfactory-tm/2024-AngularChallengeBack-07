@@ -16,7 +16,7 @@ namespace FritFest.API.Dtos
 
         public int TicketCount { get; set; }
         public List<string> ArtistsNames { get; set; }
-        public List<string> Photos { get; set; }
+        
         public List<string> ArticleNames { get; set; }
         public List<string> SponsorNames { get; set; }
         public List<string> FoodtruckNames { get; set; }

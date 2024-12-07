@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FritFest.API.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateMigration : Migration
+    public partial class NewINitialsState : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -41,18 +41,6 @@ namespace FritFest.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Edition", x => x.EditionId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Genre",
-                columns: table => new
-                {
-                    GenreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Genre", x => x.GenreId);
                 });
 
             migrationBuilder.CreateTable(
@@ -247,39 +235,6 @@ namespace FritFest.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Photo",
-                columns: table => new
-                {
-                    PhotoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    File = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EditionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ArticleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Photo", x => x.PhotoId);
-                    table.ForeignKey(
-                        name: "FK_Photo_Article_ArticleId",
-                        column: x => x.ArticleId,
-                        principalTable: "Article",
-                        principalColumn: "ArticleId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Photo_Edition_EditionId",
-                        column: x => x.EditionId,
-                        principalTable: "Edition",
-                        principalColumn: "EditionId");
-                    table.ForeignKey(
-                        name: "FK_Photo_Stage_StageId",
-                        column: x => x.StageId,
-                        principalTable: "Stage",
-                        principalColumn: "StageId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TimeSlot",
                 columns: table => new
                 {
@@ -396,21 +351,6 @@ namespace FritFest.API.Migrations
                 column: "FoodTruckId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Photo_ArticleId",
-                table: "Photo",
-                column: "ArticleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Photo_EditionId",
-                table: "Photo",
-                column: "EditionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Photo_StageId",
-                table: "Photo",
-                column: "StageId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Sponsor_EditionId",
                 table: "Sponsor",
                 column: "EditionId");
@@ -450,19 +390,16 @@ namespace FritFest.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Article");
+
+            migrationBuilder.DropTable(
                 name: "BoughtTicket");
 
             migrationBuilder.DropTable(
                 name: "DayList");
 
             migrationBuilder.DropTable(
-                name: "Genre");
-
-            migrationBuilder.DropTable(
                 name: "MenuItem");
-
-            migrationBuilder.DropTable(
-                name: "Photo");
 
             migrationBuilder.DropTable(
                 name: "Sponsor");
@@ -475,9 +412,6 @@ namespace FritFest.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "FoodTruck");
-
-            migrationBuilder.DropTable(
-                name: "Article");
 
             migrationBuilder.DropTable(
                 name: "Artist");

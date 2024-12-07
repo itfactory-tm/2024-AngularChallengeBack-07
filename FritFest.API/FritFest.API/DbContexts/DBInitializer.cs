@@ -37,17 +37,7 @@ namespace FritFest.API
                 context.SaveChanges();
             }
 
-            if (!context.Genres.Any())
-            {
-                // Seed Genres
-                context.Genres.AddRange(
-                    new Genre { GenreId = Guid.NewGuid(), Name = "Rock" },
-                    new Genre { GenreId = Guid.NewGuid(), Name = "Pop" },
-                    new Genre { GenreId = Guid.NewGuid(), Name = "Jazz" },
-                    new Genre { GenreId = Guid.NewGuid(), Name = "Electronic" }
-                );
-                context.SaveChanges();
-            }
+            
 
             if (!context.Artists.Any())
             {
@@ -303,29 +293,7 @@ namespace FritFest.API
                 );
                 context.SaveChanges();
             }
-
-            if (!context.Photos.Any())
-            {
-                // Seed Photos
-                context.Photos.AddRange(
-                    new Photo
-                    {
-                        PhotoId = Guid.NewGuid(), File = "photo1.jpg", Description = "Main Stage Crowd",
-                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId,
-                        ArticleId = context.Articles.First(a => a.Title == "Fritfest 2024 Highlights").ArticleId,
-                        
-                    },
-                    new Photo
-                    {
-                        PhotoId = Guid.NewGuid(), File = "photo2.jpg", Description = "DJ Spin Performing",
-                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId,
-                        ArticleId = context.Articles.First(a => a.Title == "Fritfest 2024 Lineup")
-                            .ArticleId,
-                        
-                    }
-                );
-                context.SaveChanges();
-            }
+            
 
             if (!context.Days.Any())
             {
@@ -469,7 +437,7 @@ namespace FritFest.API
                         StartTime = DateTime.Parse("2024-07-01 10:00:00"),
                         EndTime = DateTime.Parse("2024-07-01 10:30:00"),
                         StageId = context.Stages.First(s => s.Name == "Test1").StageId,
-                        ArtistId = context.Artists.First(a => a.Name == "The Rockers").ArtistId
+                        ArtistId = context.Artists.First(a => a.Name == "The Weeknd").ArtistId
                     },
                     new TimeSlot
                     {
@@ -477,7 +445,7 @@ namespace FritFest.API
                         StartTime= DateTime.Parse("2024-07-01 10:00:00"),
                         EndTime = DateTime.Parse("2024-07-01 10:30:00"),
                         StageId = context.Stages.First(s => s.Name == "Test1").StageId,
-                        ArtistId = context.Artists.First(a => a.Name == "The Rockers").ArtistId
+                        ArtistId = context.Artists.First(a => a.Name == "The Weeknd").ArtistId
                     }
                 );
                 context.SaveChanges();

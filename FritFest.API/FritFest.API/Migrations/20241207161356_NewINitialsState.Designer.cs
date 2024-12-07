@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FritFest.API.Migrations
 {
     [DbContext(typeof(FestivalContext))]
-    [Migration("20241207142010_Data")]
-    partial class Data
+    [Migration("20241207161356_NewINitialsState")]
+    partial class NewINitialsState
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -230,21 +230,6 @@ namespace FritFest.API.Migrations
                     b.ToTable("FoodTruck", (string)null);
                 });
 
-            modelBuilder.Entity("FritFest.API.Entities.Genre", b =>
-                {
-                    b.Property<Guid>("GenreId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GenreId");
-
-                    b.ToTable("Genre", (string)null);
-                });
-
             modelBuilder.Entity("FritFest.API.Entities.Location", b =>
                 {
                     b.Property<Guid>("LocationId")
@@ -287,40 +272,6 @@ namespace FritFest.API.Migrations
                     b.HasIndex("FoodTruckId");
 
                     b.ToTable("MenuItem", (string)null);
-                });
-
-            modelBuilder.Entity("FritFest.API.Entities.Photo", b =>
-                {
-                    b.Property<Guid>("PhotoId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ArticleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("EditionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("File")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("StageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("PhotoId");
-
-                    b.HasIndex("ArticleId");
-
-                    b.HasIndex("EditionId");
-
-                    b.HasIndex("StageId");
-
-                    b.ToTable("Photo", (string)null);
                 });
 
             modelBuilder.Entity("FritFest.API.Entities.Sponsor", b =>
@@ -534,33 +485,6 @@ namespace FritFest.API.Migrations
                     b.Navigation("FoodTruck");
                 });
 
-            modelBuilder.Entity("FritFest.API.Entities.Photo", b =>
-                {
-                    b.HasOne("FritFest.API.Entities.Article", "Article")
-                        .WithMany()
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FritFest.API.Entities.Edition", "Edition")
-                        .WithMany("Photos")
-                        .HasForeignKey("EditionId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("FritFest.API.Entities.Stage", "Stage")
-                        .WithMany("Photos")
-                        .HasForeignKey("StageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Article");
-
-                    b.Navigation("Edition");
-
-                    b.Navigation("Stage");
-                });
-
             modelBuilder.Entity("FritFest.API.Entities.Sponsor", b =>
                 {
                     b.HasOne("FritFest.API.Entities.Edition", "Edition")
@@ -642,8 +566,6 @@ namespace FritFest.API.Migrations
 
                     b.Navigation("Foodtrucks");
 
-                    b.Navigation("Photos");
-
                     b.Navigation("Sponsors");
 
                     b.Navigation("Tickets");
@@ -663,8 +585,6 @@ namespace FritFest.API.Migrations
 
             modelBuilder.Entity("FritFest.API.Entities.Stage", b =>
                 {
-                    b.Navigation("Photos");
-
                     b.Navigation("TimeSlots");
                 });
 #pragma warning restore 612, 618
