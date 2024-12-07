@@ -11,9 +11,9 @@ namespace FritFest.API.Entities
 
         [ForeignKey(nameof(Location))]
         public Guid LocationId { get; set; }
-        public Location Location { get; set; }
 
+        public Location Location { get; set; }
         public ICollection<TimeSlot> TimeSlots { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        
     }
 }

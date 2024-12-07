@@ -18,8 +18,6 @@ namespace FritFest.API.Entities
         public Guid ArticleId { get; set; }
         public Article Article { get; set; }
 
-        [ForeignKey(nameof(Stage))]
-        public Guid StageId { get; set; }
-        public Stage Stage { get; set; }
+        
     }
 }

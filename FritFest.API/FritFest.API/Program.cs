@@ -1,13 +1,9 @@
 using FritFest.API;
 using FritFest.API.DbContexts;
 using FritFest.API.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using Pomelo.EntityFrameworkCore.MySql;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

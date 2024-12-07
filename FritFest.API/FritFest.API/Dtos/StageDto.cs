@@ -10,6 +10,6 @@ namespace FritFest.API.Dtos
         public Guid LocationId { get; set; }
         public string LocationName { get; set; } // Maps Locatie.Naam to this property
         public List<string> TimeSlotRanges { get; set; }
-        public List<string> Photos { get; set; } // Assuming FotoDto exists
+        
     }
 }
