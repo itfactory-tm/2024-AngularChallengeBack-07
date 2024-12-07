@@ -36,7 +36,7 @@ namespace FritFest.API.Controllers
             var photos = await _context.Photos
                 .Include(f => f.Edition)
                 .Include(f => f.Article)
-                .Include(f => f.Stage)
+                
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<PhotoDto>>(photos));
         }
@@ -50,7 +50,7 @@ namespace FritFest.API.Controllers
             var photo = await _context.Photos
                 .Include(f => f.Edition)
                 .Include(f => f.Article)
-                .Include(f => f.Stage)
+               
                 .FirstOrDefaultAsync(f => f.PhotoId == id);
 
             if (photo == null)

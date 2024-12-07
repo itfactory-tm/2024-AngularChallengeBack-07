@@ -56,36 +56,68 @@ namespace FritFest.API
                 context.Artists.AddRange(
                     new Artist
                     {
-                        ArtistId = Guid.NewGuid(), Name = "The Rockers", Mail = "rockers@music.com",
-                        Description = "A famous rock band", SpotifyLink = "spotify.com/therockers",
-                        ApiCode = "22Wzsyh7moQAwSODsMF6w2", SpotifyPhoto = "", Genre = "", EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId,
+                        ArtistId = Guid.NewGuid(),
+                        Name = "The Rolling Stones",
+                        Mail = "contact@rollingstones.com",
+                        Description = "The Rolling Stones are an English rock band formed in 1962. They are one of the most influential and popular rock bands in history.",
+                        SpotifyLink = "https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe?si=8b4cc544eb804081",  // Real Spotify Link
+                        ApiCode = "",  // The Spotify Artist ID
+                        SpotifyPhoto = "",  // You can upload and link a photo if you want
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
                     },
                     new Artist
                     {
-                        ArtistId = Guid.NewGuid(), Name = "DJ Spin", Mail = "djspin@beats.com",
-                        Description = "A well-known electronic DJ", SpotifyLink = "spotify.com/djspin",
-                        ApiCode = "22Wzsyh7moQAwSODsMF6w2", SpotifyPhoto = "", Genre = "",EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                        ArtistId = Guid.NewGuid(),
+                        Name = "Dua Lipa",
+                        Mail = "info@dualipa.com",
+                        Description = "Dua Lipa is an English singer, songwriter, and model known for her hit songs like 'New Rules' and 'Don't Start Now'.",
+                        SpotifyLink = "https://open.spotify.com/artist/6M2wZ9GZgrQXHCFfjv46we?si=97177077e8c84502",  // Real Spotify Link
+                        ApiCode = "6M2wZ9GZGrQXHCFf7R1J2E",  // The Spotify Artist ID
+                        SpotifyPhoto = "",
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
                     },
                     new Artist
                     {
-                        ArtistId = Guid.NewGuid(), Name = "PopStar", Mail = "popstar@music.com",
-                        Description = "A pop music sensation", SpotifyLink = "spotify.com/popstar", ApiCode = "",
-                        SpotifyPhoto = "", Genre = "",EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                        ArtistId = Guid.NewGuid(),
+                        Name = "Billie Eilish",
+                        Mail = "contact@billieeilish.com",
+                        Description = "Billie Eilish is an American singer and songwriter known for her unique sound and hits like 'Bad Guy' and 'Everything I Wanted'.",
+                        SpotifyLink = "https://open.spotify.com/artist/6qqNVTkY8uBg9cP3Jd7DAH?si=5d9b96b0e85143a6",  // Real Spotify Link
+                        ApiCode = "6qqNVTkY8uBg9cP3Jd7DAz",  // The Spotify Artist ID
+                        SpotifyPhoto = "",
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
                     },
                     new Artist
                     {
-                        ArtistId = Guid.NewGuid(), Name = "Jazz Quartet", Mail = "jazzquartet@jazz.com",
-                        Description = "A group of jazz musicians", SpotifyLink = "spotify.com/jazzquartet",
-                        SpotifyPhoto = "", ApiCode = "", Genre = "",EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                        ArtistId = Guid.NewGuid(),
+                        Name = "Ed Sheeran",
+                        Mail = "contact@edsheeran.com",
+                        Description = "Ed Sheeran is an English singer-songwriter and one of the best-selling music artists in the world, known for songs like 'Shape of You'.",
+                        SpotifyLink = "https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V?si=43201c9587dc461e",  // Real Spotify Link
+                        ApiCode = "7n2wHs1T2YJ3c1cRInuQu7",  // The Spotify Artist ID
+                        SpotifyPhoto = "",
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
                     },
                     new Artist
                     {
-                        ArtistId = Guid.NewGuid(), Name = "SPINALL", Mail = "test@123.com", Description = "",
-                        SpotifyLink = "https://open.spotify.com/artist/2NtQA3PY9chI8l65ejZLTP?si=61d672e3af404c55",
-                        SpotifyPhoto = "", ApiCode = "2NtQA3PY9chI8l65ejZLTP", Genre = "",EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                        ArtistId = Guid.NewGuid(),
+                        Name = "The Weeknd",
+                        Mail = "contact@theweeknd.com",
+                        Description = "The Weeknd is a Canadian singer, songwriter, and record producer, known for his hits like 'Blinding Lights' and 'Starboy'.",
+                        SpotifyLink = "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ?si=9cecf09c6a9a40c3",  // Real Spotify Link
+                        ApiCode = "",  // The Spotify Artist ID
+                        SpotifyPhoto = "",
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
                     }
                 );
+
                 context.SaveChanges();
+
             }
             // Seed Locations
 
@@ -281,7 +313,7 @@ namespace FritFest.API
                         PhotoId = Guid.NewGuid(), File = "photo1.jpg", Description = "Main Stage Crowd",
                         EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId,
                         ArticleId = context.Articles.First(a => a.Title == "Fritfest 2024 Highlights").ArticleId,
-                        StageId = context.Stages.First(s => s.Name == "Test1").StageId
+                        
                     },
                     new Photo
                     {
@@ -289,7 +321,7 @@ namespace FritFest.API
                         EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId,
                         ArticleId = context.Articles.First(a => a.Title == "Fritfest 2024 Lineup")
                             .ArticleId,
-                        StageId = context.Stages.First(s => s.Name == "Test2").StageId
+                        
                     }
                 );
                 context.SaveChanges();

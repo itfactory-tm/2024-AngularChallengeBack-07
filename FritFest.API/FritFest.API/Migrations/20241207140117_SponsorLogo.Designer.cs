@@ -4,6 +4,7 @@ using FritFest.API.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FritFest.API.Migrations
 {
     [DbContext(typeof(FestivalContext))]
-    partial class FestivalContextModelSnapshot : ModelSnapshot
+    [Migration("20241207140117_SponsorLogo")]
+    partial class SponsorLogo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,11 +309,16 @@ namespace FritFest.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("StageId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("PhotoId");
 
                     b.HasIndex("ArticleId");
 
                     b.HasIndex("EditionId");
+
+                    b.HasIndex("StageId");
 
                     b.ToTable("Photo", (string)null);
                 });
@@ -327,8 +335,9 @@ namespace FritFest.API.Migrations
                     b.Property<Guid>("EditionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<byte[]>("SponsorLogo")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("SponsorLogoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SponsorMail")
                         .IsRequired()
@@ -540,9 +549,17 @@ namespace FritFest.API.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("FritFest.API.Entities.Stage", "Stage")
+                        .WithMany("Photos")
+                        .HasForeignKey("StageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Article");
 
                     b.Navigation("Edition");
+
+                    b.Navigation("Stage");
                 });
 
             modelBuilder.Entity("FritFest.API.Entities.Sponsor", b =>
@@ -647,6 +664,8 @@ namespace FritFest.API.Migrations
 
             modelBuilder.Entity("FritFest.API.Entities.Stage", b =>
                 {
+                    b.Navigation("Photos");
+
                     b.Navigation("TimeSlots");
                 });
 #pragma warning restore 612, 618

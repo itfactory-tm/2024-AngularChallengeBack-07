@@ -12,6 +12,7 @@ using AutoMapper;
 using System.Net.Sockets;
 using Microsoft.AspNetCore.Authorization;
 using System.Text.Json;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace FritFest.API.Controllers
 {
@@ -32,6 +33,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/GekochteTickets
         [HttpGet]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<IEnumerable<BoughtTicketDto>>> GetBoughtTickets()
         {
             var boughtTickets = await _context.BoughtTickets
@@ -46,6 +48,7 @@ namespace FritFest.API.Controllers
 
         // GET: api/GekochteTickets/5
         [HttpGet("{id}")]
+        [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<BoughtTicketDto>> GetBoughtTicket(Guid id)
         {
             var boughtTicket = await _context.BoughtTickets
@@ -99,7 +102,7 @@ namespace FritFest.API.Controllers
         // POST: api/GekochteTickets
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        
+        [EnableRateLimiting("PublicLimiter")]
         public async Task<ActionResult<BoughtTicketDto>> PostBoughtTicket(BoughtTicketDto dto)
         {
             var ticket = _mapper.Map<BoughtTicket>(dto);
