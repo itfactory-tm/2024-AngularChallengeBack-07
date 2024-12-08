@@ -35,6 +35,7 @@ namespace FritFest.API.Controllers
             var timeSlots = await _context.TimeSlots
                 .Include(ts => ts.Artist)
                 .Include(ts => ts.Stage)
+                .Include(ts => ts.Day)
                 .ToListAsync();
             return Ok(_mapper.Map<IEnumerable<TimeSlotDto>>(timeSlots));
         }
@@ -47,6 +48,7 @@ namespace FritFest.API.Controllers
             var timeSlot = await _context.TimeSlots
                 .Include(ts => ts.Artist)
                 .Include(ts => ts.Stage)
+                .Include(ts => ts.Day)
                 .FirstOrDefaultAsync(ts => ts.TimeSlotId == id);
 
             if (timeSlot == null)

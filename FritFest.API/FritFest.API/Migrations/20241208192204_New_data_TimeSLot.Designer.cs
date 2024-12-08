@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FritFest.API.Migrations
 {
     [DbContext(typeof(FestivalContext))]
-    [Migration("20241208160229_Initial")]
-    partial class Initial
+    [Migration("20241208192204_New_data_TimeSLot")]
+    partial class New_data_TimeSLot
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -378,6 +378,9 @@ namespace FritFest.API.Migrations
                     b.Property<Guid>("ArtistId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("DayId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
@@ -390,6 +393,8 @@ namespace FritFest.API.Migrations
                     b.HasKey("TimeSlotId");
 
                     b.HasIndex("ArtistId");
+
+                    b.HasIndex("DayId");
 
                     b.HasIndex("StageId");
 
@@ -539,6 +544,12 @@ namespace FritFest.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FritFest.API.Entities.Day", "Day")
+                        .WithMany()
+                        .HasForeignKey("DayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FritFest.API.Entities.Stage", "Stage")
                         .WithMany("TimeSlots")
                         .HasForeignKey("StageId")
@@ -546,6 +557,8 @@ namespace FritFest.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Artist");
+
+                    b.Navigation("Day");
 
                     b.Navigation("Stage");
                 });

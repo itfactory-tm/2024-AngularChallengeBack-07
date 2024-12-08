@@ -12,5 +12,8 @@ namespace FritFest.API.Dtos
 
         public Guid StageId { get; set; }
         public string StageName { get; set; } // The name of the podium (Podium)
+        
+        public Guid DayId { get; set; }
+        public string DayName { get; set; }
     }
 }

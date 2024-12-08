@@ -375,6 +375,9 @@ namespace FritFest.API.Migrations
                     b.Property<Guid>("ArtistId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("DayId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
@@ -387,6 +390,8 @@ namespace FritFest.API.Migrations
                     b.HasKey("TimeSlotId");
 
                     b.HasIndex("ArtistId");
+
+                    b.HasIndex("DayId");
 
                     b.HasIndex("StageId");
 
@@ -536,6 +541,12 @@ namespace FritFest.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FritFest.API.Entities.Day", "Day")
+                        .WithMany()
+                        .HasForeignKey("DayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FritFest.API.Entities.Stage", "Stage")
                         .WithMany("TimeSlots")
                         .HasForeignKey("StageId")
@@ -543,6 +554,8 @@ namespace FritFest.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Artist");
+
+                    b.Navigation("Day");
 
                     b.Navigation("Stage");
                 });

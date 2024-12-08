@@ -7,10 +7,6 @@ namespace FritFest.API.Entities
         [Key]
         public Guid DayId { get; set; }
         public string Name { get; set; }
-        [Required]
-        public DateTime StartDate { get; set; }
-        [Required]
-        public DateTime EndDate { get; set; }
         public ICollection<Ticket> Tickets { get; set; }
     }
 }

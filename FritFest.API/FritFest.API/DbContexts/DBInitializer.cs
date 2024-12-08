@@ -11,7 +11,7 @@ namespace FritFest.API
         public static void Initialize(FestivalContext context)
         {
             // Ensure database is created
-            //context.Database.Migrate();
+            context.Database.Migrate();
 
             if (context.Editions.Any())
             {
@@ -47,9 +47,9 @@ namespace FritFest.API
                     new Artist
                     {
                         ArtistId = Guid.NewGuid(),
-                        Name = "The Rolling Stones",
-                        Mail = "contact@rollingstones.com",
-                        Description = "The Rolling Stones are an English rock band formed in 1962. They are one of the most influential and popular rock bands in history.",
+                        Name = "Lost Frequencies",
+                        Mail = "info@lostfrequencies.be",
+                        Description = "Known for his hit track Where Are You Now with David Kushner, Lost Frequencies has become a global EDM sensation and one of Belgium's most successful musical exports",
                         SpotifyLink = "https://open.spotify.com/artist/22bE4uQ6baNwSHPVcDxLCe?si=8b4cc544eb804081",  // Real Spotify Link
                         ApiCode = "",  // The Spotify Artist ID
                         SpotifyPhoto = "",  // You can upload and link a photo if you want
@@ -59,9 +59,9 @@ namespace FritFest.API
                     new Artist
                     {
                         ArtistId = Guid.NewGuid(),
-                        Name = "Dua Lipa",
-                        Mail = "info@dualipa.com",
-                        Description = "Dua Lipa is an English singer, songwriter, and model known for her hit songs like 'New Rules' and 'Don't Start Now'.",
+                        Name = "De Romeo's",
+                        Mail = "info@deromeos.be",
+                        Description = "De Romeo's is een Vlaamse muziekgroep, bestaande uit Chris Van Tongelen, Davy Gilles en Gunther Levi. De groep brengt een Nederlandstalige mix van eigen nummers, covers en hit-medleys.",
                         SpotifyLink = "https://open.spotify.com/artist/6M2wZ9GZgrQXHCFfjv46we?si=97177077e8c84502",  // Real Spotify Link
                         ApiCode = "6M2wZ9GZGrQXHCFf7R1J2E",  // The Spotify Artist ID
                         SpotifyPhoto = "",
@@ -71,9 +71,9 @@ namespace FritFest.API
                     new Artist
                     {
                         ArtistId = Guid.NewGuid(),
-                        Name = "Billie Eilish",
-                        Mail = "contact@billieeilish.com",
-                        Description = "Billie Eilish is an American singer and songwriter known for her unique sound and hits like 'Bad Guy' and 'Everything I Wanted'.",
+                        Name = "Regi",
+                        Mail = "info@tttartists.be",
+                        Description = "Reginald Penxten, beter bekend onder zijn artiestennaam Regi, is een Belgische dj en producer. Hij is sinds de jaren negentig zeer succesvol als producer en songwriter achter talloze dance-acts, waaronder Milk Inc. en Sylver. ",
                         SpotifyLink = "https://open.spotify.com/artist/6qqNVTkY8uBg9cP3Jd7DAH?si=5d9b96b0e85143a6",  // Real Spotify Link
                         ApiCode = "6qqNVTkY8uBg9cP3Jd7DAz",  // The Spotify Artist ID
                         SpotifyPhoto = "",
@@ -83,9 +83,9 @@ namespace FritFest.API
                     new Artist
                     {
                         ArtistId = Guid.NewGuid(),
-                        Name = "Ed Sheeran",
-                        Mail = "contact@edsheeran.com",
-                        Description = "Ed Sheeran is an English singer-songwriter and one of the best-selling music artists in the world, known for songs like 'Shape of You'.",
+                        Name = "Bart Peeters",
+                        Mail = "info@bart.be",
+                        Description = "Bart August Maria Peeters is een Vlaams zanger, drummer, gitarist, presentator en acteur. Peeters studeerde Germaanse filologie en theaterwetenschappen in Antwerpen.",
                         SpotifyLink = "https://open.spotify.com/artist/6eUKZXaKkcviH0Ku9w2n3V?si=43201c9587dc461e",  // Real Spotify Link
                         ApiCode = "7n2wHs1T2YJ3c1cRInuQu7",  // The Spotify Artist ID
                         SpotifyPhoto = "",
@@ -95,9 +95,69 @@ namespace FritFest.API
                     new Artist
                     {
                         ArtistId = Guid.NewGuid(),
-                        Name = "The Weeknd",
-                        Mail = "contact@theweeknd.com",
-                        Description = "The Weeknd is a Canadian singer, songwriter, and record producer, known for his hits like 'Blinding Lights' and 'Starboy'.",
+                        Name = "Clouseau",
+                        Mail = "management@clouseau.be",
+                        Description = "Clouseau is een Belgische popgroep rond de broers Koen Wauters en Kris Wauters. De groep werd in 1984 opgericht door Bob Savenberg en scoorde door de jaren heen hits met onder andere Daar gaat ze, Louise, Passie, Anne, Vonken & vuur, Zie me graag en Nobelprijs.",
+                        SpotifyLink = "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ?si=9cecf09c6a9a40c3",  // Real Spotify Link
+                        ApiCode = "",  // The Spotify Artist ID
+                        SpotifyPhoto = "",
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                    },
+                    new Artist
+                    {
+                        ArtistId = Guid.NewGuid(),
+                        Name = "Camille",
+                        Mail = "eva@thebookingcompany.be",
+                        Description = "Camille Dhont, vooral bekend als kortweg Camille, is een Belgische zangeres en actrice uit Wevelgem. Ze brak door dankzij haar rol in de jeugdserie #LikeMe en scoorde hits met nummers als Vergeet de tijd, Vuurwerk en Geen tranen meer over. Als Miss Poes won ze in 2022 het tweede seizoen van The Masked Singer.",
+                        SpotifyLink = "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ?si=9cecf09c6a9a40c3",  // Real Spotify Link
+                        ApiCode = "",  // The Spotify Artist ID
+                        SpotifyPhoto = "",
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                    },
+                    new Artist
+                    {
+                        ArtistId = Guid.NewGuid(),
+                        Name = "Pommelien Thijs",
+                        Mail = "eva@thebookingcompany.be",
+                        Description = "Pommelien Thijs is een Belgische actrice en zangeres. Thijs werd bekend als actrice, met hoofdrollen in de Ketnet-serie #LikeMe en de VRT-Netflixserie Knokke Off.",
+                        SpotifyLink = "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ?si=9cecf09c6a9a40c3",  // Real Spotify Link
+                        ApiCode = "",  // The Spotify Artist ID
+                        SpotifyPhoto = "",
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                    },
+                    new Artist
+                    {
+                        ArtistId = Guid.NewGuid(),
+                        Name = "Metejoor",
+                        Mail = "tim@nextar.be",
+                        Description = "Metejoor, artiestennaam van Joris Van Rossem, is een Vlaamse zanger van het Vlaamse popgenre, bekend van de hits Het beste aan mij, 1 op een miljoen, Rendez-vous, Dit is wat mijn mama zei en Wat wil je van mij.",
+                        SpotifyLink = "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ?si=9cecf09c6a9a40c3",  // Real Spotify Link
+                        ApiCode = "",  // The Spotify Artist ID
+                        SpotifyPhoto = "",
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                    },
+                    new Artist
+                    {
+                        ArtistId = Guid.NewGuid(),
+                        Name = "Average Rob",
+                        Mail = "cs@averagerob.com",
+                        Description = "Robert Van Impe, beter bekend als Average Rob, is een Belgisch comedian, youtuber, acteur en TV persoonlijkheid. Hij werkte sinds 2016 voor het Belgische magazine Humo en presenteerde het radioprogramma BOITLYFE op jongerenzender StuBru samen met Omdat Het Kan.",
+                        SpotifyLink = "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ?si=9cecf09c6a9a40c3",  // Real Spotify Link
+                        ApiCode = "",  // The Spotify Artist ID
+                        SpotifyPhoto = "",
+                        Genre = "",
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                    },
+                    new Artist
+                    {
+                        ArtistId = Guid.NewGuid(),
+                        Name = "Laura Tesoro",
+                        Mail = "info@tttartists.be",
+                        Description = "Laura Tesoro is een Belgische zangeres, presentatrice en actrice. Ze werd vooral bekend door haar deelname aan de derde editie van The Voice van Vlaanderen in 2014, waar ze de tweede plaats behaalde. In 2016 vertegenwoordigde ze België tijdens het Eurovisiesongfestival 2016, waar ze een 10de plaats behaalde.",
                         SpotifyLink = "https://open.spotify.com/artist/1Xyo4u8uXC1ZmMpatF05PJ?si=9cecf09c6a9a40c3",  // Real Spotify Link
                         ApiCode = "",  // The Spotify Artist ID
                         SpotifyPhoto = "",
@@ -140,7 +200,7 @@ namespace FritFest.API
                     },
                     new Stage
                     {
-                        StageId = Guid.NewGuid(), Name = "Jazz Stage",
+                        StageId = Guid.NewGuid(), Name = "Pop Stage",
                         LocationId = context.Locations.First(l => l.Name == "Jazz Lounge").LocationId
                     }
                 );
@@ -179,6 +239,12 @@ namespace FritFest.API
                     },
                     new FoodTruck
                     {
+                        FoodTruckId = Guid.NewGuid(), Name = "Fries Truck",
+                        LocationId = context.Locations.First(l => l.Name == "Main Stage").LocationId,
+                        EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
+                    },
+                    new FoodTruck
+                    {
                         FoodTruckId = Guid.NewGuid(), Name = "Ice Cream Truck",
                         LocationId = context.Locations.First(l => l.Name == "Beach Arena").LocationId,
                         EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId
@@ -193,33 +259,83 @@ namespace FritFest.API
                 context.MenuItems.AddRange(
                     new MenuItem
                     {
-                        MenuItemId = Guid.NewGuid(), Name = "Cheeseburger", Price = 10.00M,
+                        MenuItemId = Guid.NewGuid(), Name = "The Classic Smash", Price = 9.50M,
                         FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Burger Truck").FoodTruckId
                     },
                     new MenuItem
                     {
-                        MenuItemId = Guid.NewGuid(), Name = "Veggie Burger", Price = 12.00M,
+                        MenuItemId = Guid.NewGuid(), Name = "Spicy Blaze Burger ", Price = 10.50M,
                         FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Burger Truck").FoodTruckId
                     },
                     new MenuItem
                     {
-                        MenuItemId = Guid.NewGuid(), Name = "Margherita Pizza", Price = 8.00M,
+                        MenuItemId = Guid.NewGuid(), Name = "BBQ Bacon Stack", Price = 11.00M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Burger Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "The Veggie Supreme", Price = 9.00M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Burger Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "Hawaiian Heatwave ", Price = 10.50M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Burger Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "Classic Margherita", Price = 12.00M,
                         FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Pizza Truck").FoodTruckId
                     },
                     new MenuItem
                     {
-                        MenuItemId = Guid.NewGuid(), Name = "Pepperoni Pizza", Price = 10.00M,
+                        MenuItemId = Guid.NewGuid(), Name = "Pepperoni Inferno", Price = 13.00M,
                         FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Pizza Truck").FoodTruckId
                     },
                     new MenuItem
                     {
-                        MenuItemId = Guid.NewGuid(), Name = "Vanilla Ice Cream", Price = 3.00M,
+                        MenuItemId = Guid.NewGuid(), Name = "Veggie Medley", Price = 12.50M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Pizza Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "Classic Double Scoop Cone", Price = 5.00M,
                         FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Ice Cream Truck").FoodTruckId
                     },
                     new MenuItem
                     {
-                        MenuItemId = Guid.NewGuid(), Name = "Chocolate Ice Cream", Price = 3.50M,
+                        MenuItemId = Guid.NewGuid(), Name = "Tropical Sundae Bowl", Price = 6.50M,
                         FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Ice Cream Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "Chocolate Overload Milkshake", Price = 7.00M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Ice Cream Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "Build-Your-Own Ice Cream Sandwich", Price = 6.00M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Ice Cream Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "Classic Belgian Fries", Price = 4.00M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Fries Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "Loaded Belgian Fries", Price = 6.50M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Fries Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "Frikandel with Belgian Fries", Price = 10.00M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Fries Truck").FoodTruckId
+                    },
+                    new MenuItem
+                    {
+                        MenuItemId = Guid.NewGuid(), Name = "Belgian Cheese Sauce Fries", Price = 12.00M,
+                        FoodTruckId = context.FoodTrucks.First(ft => ft.Name == "Fries Truck").FoodTruckId
                     }
                 );
                 context.SaveChanges();
@@ -279,18 +395,15 @@ namespace FritFest.API
                 context.Days.AddRange(
                     new Day
                     {
-                        DayId = Guid.NewGuid(), Name = "Friday", StartDate = DateTime.Parse("2024-07-01 10:00:00"),
-                        EndDate = DateTime.Parse("2024-07-01 22:00:00")
+                        DayId = Guid.NewGuid(), Name = "Friday"
                     },
                     new Day
                     {
-                        DayId = Guid.NewGuid(), Name = "Saturday", StartDate = DateTime.Parse("2024-07-02 10:00:00"),
-                        EndDate = DateTime.Parse("2024-07-02 22:00:00")
+                        DayId = Guid.NewGuid(), Name = "Saturday", 
                     },
                     new Day
                     {
-                        DayId = Guid.NewGuid(), Name = "Sunday", StartDate = DateTime.Parse("2024-07-03 10:00:00"),
-                        EndDate = DateTime.Parse("2024-07-03 22:00:00")
+                        DayId = Guid.NewGuid(), Name = "Sunday", 
                     }
                 );
                 context.SaveChanges();
@@ -413,19 +526,94 @@ namespace FritFest.API
                     new TimeSlot
                     {
                         TimeSlotId = Guid.NewGuid(), 
-                        StartTime = DateTime.Parse("2024-07-01 10:00:00"),
-                        EndTime = DateTime.Parse("2024-07-01 10:30:00"),
+                        StartTime = DateTime.Parse("2025-07-18 12:00:00"),
+                        EndTime = DateTime.Parse("2025-07-18 13:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Friday").DayId,
                         StageId = context.Stages.First(s => s.Name == "Main Stage").StageId,
-                        ArtistId = context.Artists.First(a => a.Name == "Dua Lipa").ArtistId
+                        ArtistId = context.Artists.First(a => a.Name == "Lost Frequencies").ArtistId
                     },
                     new TimeSlot
                     {
                         TimeSlotId = Guid.NewGuid(),
-                        StartTime= DateTime.Parse("2024-07-01 10:00:00"),
-                        EndTime = DateTime.Parse("2024-07-01 10:30:00"),
-                        StageId = context.Stages.First(s => s.Name == "Jazz Stage").StageId,
-                        ArtistId = context.Artists.First(a => a.Name == "The Weeknd").ArtistId
+                        StartTime = DateTime.Parse("2025-07-18 14:00:00"),
+                        EndTime = DateTime.Parse("2025-07-18 15:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Friday").DayId,
+                        StageId = context.Stages.First(s => s.Name == "Dance Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "De Romeo's").ArtistId
+                    },
+                    new TimeSlot
+                    {
+                        TimeSlotId = Guid.NewGuid(),
+                        StartTime = DateTime.Parse("2025-07-18 16:00:00"),
+                        EndTime = DateTime.Parse("2025-07-18 17:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Friday").DayId,
+                        StageId = context.Stages.First(s => s.Name == "Pop Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "Regi").ArtistId
+                    },
+                    new TimeSlot
+                    {
+                        TimeSlotId = Guid.NewGuid(),
+                        StartTime = DateTime.Parse("2025-07-19 12:00:00"),
+                        EndTime = DateTime.Parse("2025-07-19 13:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Saturday").DayId,
+                        StageId = context.Stages.First(s => s.Name == "Main Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "Bart Peeters").ArtistId
+                    },
+                    new TimeSlot
+                    {
+                        TimeSlotId = Guid.NewGuid(),
+                        StartTime = DateTime.Parse("2025-07-19 14:00:00"),
+                        EndTime = DateTime.Parse("2025-07-19 15:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Saturday").DayId,
+                        StageId = context.Stages.First(s => s.Name == "Dance Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "Clouseau").ArtistId
+                    },
+                    new TimeSlot
+                    {
+                        TimeSlotId = Guid.NewGuid(),
+                        StartTime = DateTime.Parse("2025-07-19 16:00:00"),
+                        EndTime = DateTime.Parse("2025-07-19 17:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Saturday").DayId,
+                        StageId = context.Stages.First(s => s.Name == "Pop Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "Camille").ArtistId
+                    },
+                    new TimeSlot
+                    {
+                        TimeSlotId = Guid.NewGuid(),
+                        StartTime = DateTime.Parse("2025-07-20 12:00:00"),
+                        EndTime = DateTime.Parse("2025-07-20 13:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Sunday").DayId,
+                        StageId = context.Stages.First(s => s.Name == "Main Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "Pommelien Thijs").ArtistId
+                    },
+                    new TimeSlot
+                    {
+                        TimeSlotId = Guid.NewGuid(),
+                        StartTime = DateTime.Parse("2025-07-20 14:00:00"),
+                        EndTime = DateTime.Parse("2025-07-20 15:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Sunday").DayId,
+                        StageId = context.Stages.First(s => s.Name == "Dance Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "Metejoor").ArtistId
+                    },
+                    new TimeSlot
+                    {
+                        TimeSlotId = Guid.NewGuid(),
+                        StartTime = DateTime.Parse("2025-07-20 16:00:00"),
+                        EndTime = DateTime.Parse("2025-07-20 17:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Sunday").DayId,
+                        StageId = context.Stages.First(s => s.Name == "Pop Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "Laura Tesoro").ArtistId
+                    },
+                    new TimeSlot
+                    {
+                        TimeSlotId = Guid.NewGuid(),
+                        StartTime = DateTime.Parse("2025-07-20 19:00:00"),
+                        EndTime = DateTime.Parse("2025-07-20 20:30:00"),
+                        DayId = context.Days.First(d => d.Name == "Sunday").DayId,
+                        StageId = context.Stages.First(s => s.Name == "Main Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "Average Rob").ArtistId
                     }
+
                 );
                 context.SaveChanges();
             }
