@@ -22,7 +22,7 @@ namespace FritFest.API.Services
         }
 
 
-        public async Task<bool> SendMailAsync(string toName, string toEmail, string subject, string templatePath)
+        public async Task<bool> SendMailAsync(string toName, string toEmail, string subject, string templatePath, string boughtTicketId)
         {
             var placeholders = new Dictionary<string, string>
             {
@@ -37,7 +37,7 @@ namespace FritFest.API.Services
             email.To.Add(new MailboxAddress(toName, toEmail));
             email.Subject = subject;
 
-            byte[] qrCodeImage = GenerateQRCode(toEmail);
+            byte[] qrCodeImage = GenerateQRCode(boughtTicketId);
 
             var bodyBuilder = new BodyBuilder();
             bodyBuilder.HtmlBody = htmlBody; // HTML body content

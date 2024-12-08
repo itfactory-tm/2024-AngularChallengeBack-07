@@ -115,7 +115,8 @@ namespace FritFest.API.Controllers
                 NameReceiver = ticket.HolderName,
                 EmailReceiver = ticket.HolderMail,
                 Subject = "Your ticket Order",
-                Body = ""
+                Body = "",
+                BoughtTicketid = ticket.BoughtTicketId.ToString(),
             };
 
             var response = await _httpClient.PostAsJsonAsync("https://fritfestapi20241203213221.azurewebsites.net/api/Mail", emailContent);
