@@ -19,9 +19,9 @@ namespace FritFest.API.Controllers
         [HttpPost]
         public async Task<IActionResult> SendMail([FromBody] MailData emailRequest)
         {
-            string templatePath = "https://raw.githubusercontent.com/itfactory-tm/2024-AngularChallengeBack-07/refs/heads/main/FritFest.API/FritFest.API/MailTemplates/BoughtTicketsMail.html?token=GHSAT0AAAAAACX4V2HBRVTKB7PDRZSKDBDWZ2TEL4A";
+            string templatePath = "https://git.wlinator.org/assets/template";
 
-            var result = await _mailService.SendMailAsync(emailRequest.NameReceiver, emailRequest.EmailReceiver, emailRequest.Subject, templatePath);
+            var result = await _mailService.SendMailAsync(emailRequest.NameReceiver, emailRequest.EmailReceiver, emailRequest.Subject, templatePath, emailRequest.BoughtTicketId);
             if (result)
             {
                 return Ok(new { message = "Email sent successfully!" });
