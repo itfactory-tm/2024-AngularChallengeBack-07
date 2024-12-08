@@ -65,36 +65,12 @@ namespace FritFest.API.Controllers
                 return BadRequest();
             }
 
-            // Handle the SponsorLogo update if Base64 image is provided
-            if (!string.IsNullOrEmpty(sponsorDto.SponsorLogoBase64))
-            {
-                try
-                {
-                    // Extract the Base64 string (Remove the data URL prefix, if any)
-                    var base64String = sponsorDto.SponsorLogoBase64.Replace("data:image/png;base64,", "")
-                        .Replace("data:image/jpeg;base64,", "");
-                    // Convert to byte array
-                    var sponsorLogoBytes = Convert.FromBase64String(base64String);
-                    sponsorDto.SponsorLogoBase64 = null; // Ensure no leftover Base64 string in the DTO
-
-                    // Map SponsorDto to Sponsor entity
-                    var sponsor = _mapper.Map<Sponsor>(sponsorDto);
-                    sponsor.SponsorLogo = sponsorLogoBytes; // Assign the new image bytes to SponsorLogo
-
-                    _context.Entry(sponsor).State = EntityState.Modified;
-                }
-                catch (FormatException ex)
-                {
-                    // Return a BadRequest if the Base64 string is invalid
-                    return BadRequest("Invalid Base64 string for SponsorLogo: " + ex.Message);
-                }
-            }
-            else
-            {
-                // If no new image is provided, just map the SponsorDto to the Sponsor entity
+            
+            
+                
                 var sponsor = _mapper.Map<Sponsor>(sponsorDto);
                 _context.Entry(sponsor).State = EntityState.Modified;
-            }
+            
 
             try
             {
@@ -120,39 +96,7 @@ namespace FritFest.API.Controllers
         [Authorize(Policy = "GetAccess")]
         public async Task<ActionResult<SponsorDto>> PostSponsor(SponsorDto sponsorDto)
         {
-            // Check if the SponsorDto contains a Base64 image and convert it to a byte array
-            if (!string.IsNullOrEmpty(sponsorDto.SponsorLogoBase64))
-            {
-                try
-                {
-                    // Extract the Base64 string (Remove the data URL prefix, if any)
-                    var base64String = sponsorDto.SponsorLogoBase64.Replace("data:image/png;base64,", "")
-                        .Replace("data:image/jpeg;base64,", "");
-                    // Convert to byte array
-                    var sponsorLogoBytes = Convert.FromBase64String(base64String);
-                    sponsorDto.SponsorLogoBase64 = null; // Ensure no leftover Base64 string in the DTO
-
-                    // Map SponsorDto to Sponsor entity
-                    var sponsor = _mapper.Map<Sponsor>(sponsorDto);
-                    sponsor.SponsorId = Guid.NewGuid(); // Ensure a new GUID is assigned
-                    sponsor.SponsorLogo = sponsorLogoBytes; // Assign the image bytes to the SponsorLogo field
-
-                    // Add the new sponsor to the context
-                    _context.Sponsors.Add(sponsor);
-                    await _context.SaveChangesAsync();
-
-                    // Return a response with the created sponsor DTO
-                    return CreatedAtAction(nameof(GetSponsor), new { id = sponsor.SponsorId },
-                        _mapper.Map<SponsorDto>(sponsor));
-                }
-                catch (FormatException ex)
-                {
-                    // Return a BadRequest if the Base64 string is invalid
-                    return BadRequest("Invalid Base64 string for SponsorLogo: " + ex.Message);
-                }
-            }
-            else
-            {
+            
                 // Handle case when no SponsorLogoBase64 is provided
                 var sponsor = _mapper.Map<Sponsor>(sponsorDto);
                 sponsor.SponsorId = Guid.NewGuid(); // Ensure a new GUID is assigned
@@ -164,7 +108,6 @@ namespace FritFest.API.Controllers
                 // Return a response with the created sponsor DTO
                 return CreatedAtAction(nameof(GetSponsor), new { id = sponsor.SponsorId },
                     _mapper.Map<SponsorDto>(sponsor));
-            }
         }
 
         // DELETE: api/Sponsors/5

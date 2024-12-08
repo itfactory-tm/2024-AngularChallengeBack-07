@@ -130,53 +130,32 @@ namespace FritFest.API
                 context.Stages.AddRange(
                     new Stage
                     {
-                        StageId = Guid.NewGuid(), Name = "Test1",
+                        StageId = Guid.NewGuid(), Name = "Main Stage",
                         LocationId = context.Locations.First(l => l.Name == "Main Stage").LocationId
                     },
                     new Stage
                     {
-                        StageId = Guid.NewGuid(), Name = "Test2",
+                        StageId = Guid.NewGuid(), Name = "Dance Stage",
                         LocationId = context.Locations.First(l => l.Name == "Beach Arena").LocationId
                     },
                     new Stage
                     {
-                        StageId = Guid.NewGuid(), Name = "Test3",
+                        StageId = Guid.NewGuid(), Name = "Jazz Stage",
                         LocationId = context.Locations.First(l => l.Name == "Jazz Lounge").LocationId
                     }
                 );
                 context.SaveChanges();
             }
 
-            if (!context.Days.Any())
-            {
-                // Seed Days
-                context.Days.AddRange(
-                    new Day
-                    {
-                        DayId = Guid.NewGuid(), Name = "Friday", StartDate = DateTime.Parse("2024-07-01 10:00:00"),
-                        EndDate = DateTime.Parse("2024-07-01 22:00:00")
-                    },
-                    new Day
-                    {
-                        DayId = Guid.NewGuid(), Name = "Saturday", StartDate = DateTime.Parse("2024-07-02 10:00:00"),
-                        EndDate = DateTime.Parse("2024-07-02 22:00:00")
-                    },
-                    new Day
-                    {
-                        DayId = Guid.NewGuid(), Name = "Sunday", StartDate = DateTime.Parse("2024-07-03 10:00:00"),
-                        EndDate = DateTime.Parse("2024-07-03 22:00:00")
-                    }
-                );
-                context.SaveChanges();
-            }
+            
 
             if (!context.TicketTypes.Any())
             {
                 // Seed Tickets Types
                 context.TicketTypes.AddRange(
-                    new TicketType { TicketTypeId = Guid.NewGuid(), Name = "General Admission", Price = 10.00 },
-                    new TicketType { TicketTypeId = Guid.NewGuid(), Name = "Super", Price = 12.00 },
-                    new TicketType { TicketTypeId = Guid.NewGuid(), Name = "VIP", Price = 15.00 }
+                    new TicketType { TicketTypeId = Guid.NewGuid(), Name = "General Admission", Price = 29.99 },
+                    new TicketType { TicketTypeId = Guid.NewGuid(), Name = "Super", Price = 50.00 },
+                    new TicketType { TicketTypeId = Guid.NewGuid(), Name = "VIP", Price = 150.00 }
                 );
                 context.SaveChanges();
             }
@@ -253,19 +232,19 @@ namespace FritFest.API
                     new Sponsor
                     {
                         SponsorId = Guid.NewGuid(), SponsorName = "TechCo", Amount = 50000,
-                        SponsoredItem = "Stages Equipment", SponsorLogo = new byte[0],
+                        SponsoredItem = "Stages Equipment",
                         EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId, SponsorMail = ""
                     },
                     new Sponsor
                     {
                         SponsorId = Guid.NewGuid(), SponsorName = "DrinkCorp", Amount = 20000,
-                        SponsoredItem = "Refreshments", SponsorLogo = new byte[0],
+                        SponsoredItem = "Refreshments",
                         EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId, SponsorMail = ""
                     },
                     new Sponsor
                     {
                         SponsorId = Guid.NewGuid(), SponsorName = "Foodies Ltd", Amount = 30000,
-                        SponsoredItem = "Food Stalls", SponsorLogo = new byte[0],
+                        SponsoredItem = "Food Stalls",
                         EditionId = context.Editions.First(e => e.EditionName == "Fritfest").EditionId, SponsorMail = ""
                     }
                 );
@@ -436,15 +415,15 @@ namespace FritFest.API
                         TimeSlotId = Guid.NewGuid(), 
                         StartTime = DateTime.Parse("2024-07-01 10:00:00"),
                         EndTime = DateTime.Parse("2024-07-01 10:30:00"),
-                        StageId = context.Stages.First(s => s.Name == "Test1").StageId,
-                        ArtistId = context.Artists.First(a => a.Name == "The Weeknd").ArtistId
+                        StageId = context.Stages.First(s => s.Name == "Main Stage").StageId,
+                        ArtistId = context.Artists.First(a => a.Name == "Dua Lipa").ArtistId
                     },
                     new TimeSlot
                     {
                         TimeSlotId = Guid.NewGuid(),
                         StartTime= DateTime.Parse("2024-07-01 10:00:00"),
                         EndTime = DateTime.Parse("2024-07-01 10:30:00"),
-                        StageId = context.Stages.First(s => s.Name == "Test1").StageId,
+                        StageId = context.Stages.First(s => s.Name == "Jazz Stage").StageId,
                         ArtistId = context.Artists.First(a => a.Name == "The Weeknd").ArtistId
                     }
                 );
