@@ -283,9 +283,6 @@ namespace FritFest.API.Migrations
                     b.Property<Guid>("EditionId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<byte[]>("SponsorLogo")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("SponsorMail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

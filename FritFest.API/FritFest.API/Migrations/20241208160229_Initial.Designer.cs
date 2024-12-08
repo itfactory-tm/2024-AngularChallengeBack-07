@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FritFest.API.Migrations
 {
     [DbContext(typeof(FestivalContext))]
-    [Migration("20241207161356_NewINitialsState")]
-    partial class NewINitialsState
+    [Migration("20241208160229_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -285,9 +285,6 @@ namespace FritFest.API.Migrations
 
                     b.Property<Guid>("EditionId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<byte[]>("SponsorLogo")
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("SponsorMail")
                         .IsRequired()

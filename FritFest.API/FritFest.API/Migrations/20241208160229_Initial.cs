@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FritFest.API.Migrations
 {
     /// <inheritdoc />
-    public partial class NewINitialsState : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -124,7 +124,6 @@ namespace FritFest.API.Migrations
                     Amount = table.Column<int>(type: "int", nullable: false),
                     SponsoredItem = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SponsorMail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SponsorLogo = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     EditionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
