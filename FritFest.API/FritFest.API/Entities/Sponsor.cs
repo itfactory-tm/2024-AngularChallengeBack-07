@@ -12,8 +12,6 @@ namespace FritFest.API.Entities
         public string SponsoredItem { get; set; }
 
         public string SponsorMail { get; set; }
-        public byte[]? SponsorLogo { get; set; }
-        // public string SponsorLogo { get; set; }
 
         public Edition Edition { get; set; }
         [ForeignKey(nameof(Edition))]
