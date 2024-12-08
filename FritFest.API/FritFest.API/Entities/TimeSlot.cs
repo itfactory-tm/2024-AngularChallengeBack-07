@@ -18,5 +18,9 @@ namespace FritFest.API.Entities
         [ForeignKey(nameof(Stage))]
         public Guid StageId { get; set; }
         public Stage Stage { get; set; }
+        
+        [ForeignKey(nameof(Day))]
+        public Guid DayId { get; set; }
+        public Day Day { get; set; }
     }
 }

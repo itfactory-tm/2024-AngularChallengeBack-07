@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FritFest.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class New_data_TimeSLot : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -241,7 +241,8 @@ namespace FritFest.API.Migrations
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ArtistId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    StageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DayId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -251,6 +252,12 @@ namespace FritFest.API.Migrations
                         column: x => x.ArtistId,
                         principalTable: "Artist",
                         principalColumn: "ArtistId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TimeSlot_Day_DayId",
+                        column: x => x.DayId,
+                        principalTable: "Day",
+                        principalColumn: "DayId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TimeSlot_Stage_StageId",
@@ -378,6 +385,11 @@ namespace FritFest.API.Migrations
                 name: "IX_TimeSlot_ArtistId",
                 table: "TimeSlot",
                 column: "ArtistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeSlot_DayId",
+                table: "TimeSlot",
+                column: "DayId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TimeSlot_StageId",
