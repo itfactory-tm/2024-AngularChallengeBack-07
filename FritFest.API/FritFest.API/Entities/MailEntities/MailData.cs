@@ -6,5 +6,6 @@
         public string EmailReceiver { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
+        public string BoughtTicketId { get; set; }
     }
 }
